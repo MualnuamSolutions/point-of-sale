@@ -1,4 +1,4 @@
-point-of-sale
+Mualnuam Point of Sale
 =============
 
-Point of Sale software
+Online point of sale software.
