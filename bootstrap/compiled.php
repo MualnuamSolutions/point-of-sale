@@ -470,7 +470,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     }
     public static function getBootstrapFile()
     {
-        return '/Users/alanpachuau/Sites/mualnuam/mualnuampos.dev/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
+        return 'D:\\wamp\\www\\point-of-sale\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -3372,7 +3372,7 @@ class ErrorHandler
         }
         if ($this->displayErrors && error_reporting() & $level && $this->level & $level) {
             if (!class_exists('Symfony\\Component\\Debug\\Exception\\ContextErrorException')) {
-                require '/Users/alanpachuau/Sites/mualnuam/mualnuampos.dev/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/ContextErrorException.php';
+                require 'D:\\wamp\\www\\point-of-sale\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/ContextErrorException.php';
             }
             $exception = new ContextErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line, $context);
             $exceptionHandler = set_exception_handler(function () {
@@ -3382,7 +3382,7 @@ class ErrorHandler
             if (is_array($exceptionHandler) && $exceptionHandler[0] instanceof ExceptionHandler) {
                 $exceptionHandler[0]->handle($exception);
                 if (!class_exists('Symfony\\Component\\Debug\\Exception\\DummyException')) {
-                    require '/Users/alanpachuau/Sites/mualnuam/mualnuampos.dev/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/DummyException.php';
+                    require 'D:\\wamp\\www\\point-of-sale\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/DummyException.php';
                 }
                 set_exception_handler(function (\Exception $e) use($exceptionHandler) {
                     if (!$e instanceof DummyException) {
@@ -10558,7 +10558,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = '/Users/alanpachuau/Sites/mualnuam/mualnuampos.dev/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
+            $resources = 'D:\\wamp\\www\\point-of-sale\\vendor\\filp\\whoops\\src\\Whoops\\Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";
@@ -10719,12 +10719,18 @@ class Builder
     }
     public function unshift()
     {
+        if (func_num_args() === 0) {
+            throw new \InvalidArgumentException('Missing argument(s) when calling unshift');
+        }
         $spec = func_get_args();
         $this->specs->unshift($spec);
         return $this;
     }
     public function push()
     {
+        if (func_num_args() === 0) {
+            throw new \InvalidArgumentException('Missing argument(s) when calling push');
+        }
         $spec = func_get_args();
         $this->specs->push($spec);
         return $this;
