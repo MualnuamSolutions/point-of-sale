@@ -8,9 +8,12 @@ form .btn {
 }
 .top-row {
 	width: 100%;
-	background: #D89580;
+	background: #F09B81;
    border-bottom: 1px solid #BE874D;
    margin: 0 0 30px;
+}
+.user-login .navbar-header {
+	width:100%;
 }
 .user-login .top-row {
    border-bottom: none;
@@ -54,4 +57,5 @@ form .btn {
    margin: 0 0 4px;
    color: #884C30;
 }
-.top-row
+.top-row {
+}
