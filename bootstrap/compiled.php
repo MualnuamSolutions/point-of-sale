@@ -14,6 +14,7 @@ class ClassLoader
                 return true;
             }
         }
+        return false;
     }
     public static function normalizeClass($class)
     {
@@ -221,10 +222,17 @@ class Container implements ArrayAccess
     protected function getConcrete($abstract)
     {
         if (!isset($this->bindings[$abstract])) {
+            if ($this->missingLeadingSlash($abstract) && isset($this->bindings['\\' . $abstract])) {
+                $abstract = '\\' . $abstract;
+            }
             return $abstract;
         } else {
             return $this->bindings[$abstract]['concrete'];
         }
+    }
+    protected function missingLeadingSlash($abstract)
+    {
+        return is_string($abstract) && strpos($abstract, '\\') !== 0;
     }
     public function build($concrete, $parameters = array())
     {
@@ -417,7 +425,7 @@ use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Application extends Container implements HttpKernelInterface, TerminableInterface, ResponsePreparerInterface
 {
-    const VERSION = '4.1.28';
+    const VERSION = '4.1.29';
     protected $booted = false;
     protected $bootingCallbacks = array();
     protected $bootedCallbacks = array();
@@ -470,7 +478,7 @@ class Application extends Container implements HttpKernelInterface, TerminableIn
     }
     public static function getBootstrapFile()
     {
-        return 'D:\\wamp\\www\\point-of-sale\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation' . '/start.php';
+        return '/Users/alanpachuau/Sites/mualnuam/pointofsale.dev/vendor/laravel/framework/src/Illuminate/Foundation' . '/start.php';
     }
     public function startExceptionHandling()
     {
@@ -964,18 +972,18 @@ class Request extends SymfonyRequest
     }
     public function has($key)
     {
-        if (count(func_get_args()) > 1) {
-            foreach (func_get_args() as $value) {
-                if (!$this->has($value)) {
-                    return false;
-                }
+        $keys = is_array($key) ? $key : func_get_args();
+        foreach ($keys as $value) {
+            if ($this->isEmptyString($value)) {
+                return false;
             }
-            return true;
         }
-        if (is_bool($this->input($key)) || is_array($this->input($key))) {
-            return true;
-        }
-        return trim((string) $this->input($key)) !== '';
+        return true;
+    }
+    protected function isEmptyString($key)
+    {
+        $boolOrArray = is_bool($this->input($key)) || is_array($this->input($key));
+        return !$boolOrArray && trim((string) $this->input($key)) === '';
     }
     public function all()
     {
@@ -1110,7 +1118,7 @@ class Request extends SymfonyRequest
         if ($request instanceof static) {
             return $request;
         }
-        return with($self = new static())->duplicate($request->query->all(), $request->request->all(), $request->attributes->all(), $request->cookies->all(), $request->files->all(), $request->server->all());
+        return with(new static())->duplicate($request->query->all(), $request->request->all(), $request->attributes->all(), $request->cookies->all(), $request->files->all(), $request->server->all());
     }
     public function session()
     {
@@ -3147,7 +3155,7 @@ abstract class Facade
     }
     public static function __callStatic($method, $args)
     {
-        $instance = static::resolveFacadeInstance(static::getFacadeAccessor());
+        $instance = static::getFacadeRoot();
         switch (count($args)) {
             case 0:
                 return $instance->{$method}();
@@ -3372,7 +3380,13 @@ class ErrorHandler
         }
         if ($this->displayErrors && error_reporting() & $level && $this->level & $level) {
             if (!class_exists('Symfony\\Component\\Debug\\Exception\\ContextErrorException')) {
-                require 'D:\\wamp\\www\\point-of-sale\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/ContextErrorException.php';
+                require '/Users/alanpachuau/Sites/mualnuam/pointofsale.dev/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/ContextErrorException.php';
+            }
+            if (!class_exists('Symfony\\Component\\Debug\\Exception\\FlattenException')) {
+                require '/Users/alanpachuau/Sites/mualnuam/pointofsale.dev/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/FlattenException.php';
+            }
+            if (PHP_VERSION_ID < 50400 && isset($context['GLOBALS']) && is_array($context)) {
+                unset($context['GLOBALS']);
             }
             $exception = new ContextErrorException(sprintf('%s: %s in %s line %d', isset($this->levels[$level]) ? $this->levels[$level] : $level, $message, $file, $line), 0, $level, $file, $line, $context);
             $exceptionHandler = set_exception_handler(function () {
@@ -3382,7 +3396,7 @@ class ErrorHandler
             if (is_array($exceptionHandler) && $exceptionHandler[0] instanceof ExceptionHandler) {
                 $exceptionHandler[0]->handle($exception);
                 if (!class_exists('Symfony\\Component\\Debug\\Exception\\DummyException')) {
-                    require 'D:\\wamp\\www\\point-of-sale\\vendor\\symfony\\debug\\Symfony\\Component\\Debug' . '/Exception/DummyException.php';
+                    require '/Users/alanpachuau/Sites/mualnuam/pointofsale.dev/vendor/symfony/debug/Symfony/Component/Debug' . '/Exception/DummyException.php';
                 }
                 set_exception_handler(function (\Exception $e) use($exceptionHandler) {
                     if (!$e instanceof DummyException) {
@@ -4939,10 +4953,13 @@ class Route
         });
         return call_user_func_array($this->action['uses'], $parameters);
     }
-    public function matches(Request $request)
+    public function matches(Request $request, $includingMethod = true)
     {
         $this->compileRoute();
         foreach ($this->getValidators() as $validator) {
+            if (!$includingMethod && $validator instanceof MethodValidator) {
+                continue;
+            }
             if (!$validator->matches($this, $request)) {
                 return false;
             }
@@ -5241,6 +5258,7 @@ use Countable;
 use ArrayIterator;
 use IteratorAggregate;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 class RouteCollection implements Countable, IteratorAggregate
@@ -5285,26 +5303,41 @@ class RouteCollection implements Countable, IteratorAggregate
         if (!is_null($route)) {
             return $route->bind($request);
         }
-        $this->checkForAlternateVerbs($request);
+        $others = $this->checkForAlternateVerbs($request);
+        if (count($others) > 0) {
+            return $this->getOtherMethodsRoute($request, $others);
+        }
         throw new NotFoundHttpException();
     }
     protected function checkForAlternateVerbs($request)
     {
-        $others = array_diff(Router::$verbs, array($request->getMethod()));
-        foreach ($others as $other) {
-            if (!is_null($this->check($this->get($other), $request))) {
-                $this->methodNotAllowed($other);
+        $methods = array_diff(Router::$verbs, array($request->getMethod()));
+        $others = array();
+        foreach ($methods as $method) {
+            if (!is_null($this->check($this->get($method), $request, false))) {
+                $others[] = $method;
             }
         }
+        return $others;
     }
-    protected function methodNotAllowed($other)
+    protected function getOtherMethodsRoute($request, array $others)
     {
-        throw new MethodNotAllowedHttpException(array($other));
+        if ($request->method() == 'OPTIONS') {
+            return with(new Route('OPTIONS', $request->path(), function () use($others) {
+                return new Response('', 200, array('Allow' => implode(',', $others)));
+            }))->bind($request);
+        } else {
+            $this->methodNotAllowed($others);
+        }
     }
-    protected function check(array $routes, $request)
+    protected function methodNotAllowed(array $others)
     {
-        return array_first($routes, function ($key, $value) use($request) {
-            return $value->matches($request);
+        throw new MethodNotAllowedHttpException($others);
+    }
+    protected function check(array $routes, $request, $includingMethod = true)
+    {
+        return array_first($routes, function ($key, $value) use($request, $includingMethod) {
+            return $value->matches($request, $includingMethod);
         });
     }
     protected function get($method = null)
@@ -6675,10 +6708,10 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
             if (!array_key_exists($key, $attributes)) {
                 continue;
             }
-            $attributes[$key] = $this->mutateAttribute($key, $attributes[$key]);
+            $attributes[$key] = $this->mutateAttributeForArray($key, $attributes[$key]);
         }
         foreach ($this->appends as $key) {
-            $attributes[$key] = $this->mutateAttribute($key, null);
+            $attributes[$key] = $this->mutateAttributeForArray($key, null);
         }
         return $attributes;
     }
@@ -6766,6 +6799,11 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
     {
         return $this->{'get' . studly_case($key) . 'Attribute'}($value);
     }
+    protected function mutateAttributeForArray($key, $value)
+    {
+        $value = $this->mutateAttribute($key, $value);
+        return $value instanceof ArrayableInterface ? $value->toArray() : $value;
+    }
     public function setAttribute($key, $value)
     {
         if ($this->hasSetMutator($key)) {
@@ -6851,11 +6889,19 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
     {
         $dirty = array();
         foreach ($this->attributes as $key => $value) {
-            if (!array_key_exists($key, $this->original) || $value !== $this->original[$key]) {
+            if (!array_key_exists($key, $this->original)) {
+                $dirty[$key] = $value;
+            } elseif ($value !== $this->original[$key] && !$this->originalIsNumericallyEquivalent($key)) {
                 $dirty[$key] = $value;
             }
         }
         return $dirty;
+    }
+    protected function originalIsNumericallyEquivalent($key)
+    {
+        $current = $this->attributes[$key];
+        $original = $this->original[$key];
+        return is_numeric($current) && is_numeric($original) && strcmp((string) $current, (string) $original) === 0;
     }
     public function getRelations()
     {
@@ -7889,7 +7935,7 @@ class Encrypter
     protected function stripPadding($value)
     {
         $pad = ord($value[($len = strlen($value)) - 1]);
-        return $this->paddingIsValid($pad, $value) ? substr($value, 0, strlen($value) - $pad) : $value;
+        return $this->paddingIsValid($pad, $value) ? substr($value, 0, $len - $pad) : $value;
     }
     protected function paddingIsValid($pad, $value)
     {
@@ -10558,7 +10604,7 @@ class PrettyPageHandler extends Handler
             return Handler::DONE;
         }
         if (!($resources = $this->getResourcesPath())) {
-            $resources = 'D:\\wamp\\www\\point-of-sale\\vendor\\filp\\whoops\\src\\Whoops\\Handler' . '/../Resources';
+            $resources = '/Users/alanpachuau/Sites/mualnuam/pointofsale.dev/vendor/filp/whoops/src/Whoops/Handler' . '/../Resources';
         }
         $templateFile = "{$resources}/pretty-template.php";
         $cssFile = "{$resources}/pretty-page.css";

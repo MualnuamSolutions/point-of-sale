@@ -8,10 +8,7 @@
 		"cartalyst/sentry": "2.1.*"
 	},
 	"require-dev": {
-    	"way/generators": "2.*",
-        "phpunit/phpunit": "3.7.*",
-        "mockery/mockery": "0.9.*@dev",
-        "codeception/codeception": "@stable"
+    	"way/generators": "2.*"
 	},
 	"autoload": {
 		"classmap": [

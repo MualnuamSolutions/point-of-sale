@@ -11,8 +11,11 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('home');
-});
-Route::controller('auth', 'AuthController');
+Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+
+Route::get('user/logout', ['uses' => 'UserController@logout', 'as' => 'user.logout']);
+Route::get('user/login', ['uses' => 'UserController@login', 'as' => 'user.login']);
+Route::post('user/login/', ['uses' => 'UserController@doLogin', 'as' => 'user.doLogin']);
+Route::resource('user', 'UserController');
+
+Route::get('/refresh', ['uses' => 'HomeController@refresh', 'as' => 'refresh']);

@@ -1,0 +1,57 @@
+/* Application stylesheet */
+form input.form-control,
+form select.form-control,
+form textarea.form-control,
+form .input-group-addon,
+form .btn {
+	border-radius: 0 !important;
+}
+.top-row {
+	width: 100%;
+	background: #D89580;
+   border-bottom: 1px solid #BE874D;
+   margin: 0 0 30px;
+}
+.user-login .top-row {
+   border-bottom: none;
+}
+.user-login .top-row h3 {
+	font-family: Arial;
+	font-size: 20px;
+	font-weight: normal;
+	text-transform: uppercase;
+	margin: 13px 0 1px;
+	color: #69381C;
+   text-align: center;
+}
+.user-login .top-row h5 {
+	text-transform: uppercase;
+	font-size: 9px;
+	font-family: Arial;
+	margin: 0 0 4px;
+	color: #884C30;
+   text-align: center;
+}
+.user-login .login-form {
+	margin: 50px 0 0;
+}
+.user-login .login-form input {
+	color: #888888;
+}
+
+.top-row h3 {
+   font-family: Arial;
+   font-size: 20px;
+   font-weight: normal;
+   text-transform: uppercase;
+   margin: 13px 0 1px;
+   color: #69381C;
+}
+.top-row h5 {
+   text-transform: uppercase;
+   font-size: 9px;
+   font-family: Arial;
+   margin: 0 0 4px;
+   color: #884C30;
+}
+.top-row
