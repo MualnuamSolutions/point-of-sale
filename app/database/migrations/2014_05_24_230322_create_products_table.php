@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration {
 		Schema::create('products',function($table)
       {
          $table->increments('id');
-         $table->string('barcode');
+         $table->string('product_code');
          $table->string('name');
          $table->integer('type_id');
          $table->integer('unit_id');
