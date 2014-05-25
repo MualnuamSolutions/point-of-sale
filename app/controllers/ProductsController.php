@@ -75,7 +75,17 @@ public function __construct()
 	 */
 	public function show($id)
 	{
-      //
+      $product = Products::find($id);
+
+      if(Request::ajax()) {
+         $return = [
+            'product' => [
+               $product,
+               'unit' => $product->unit
+            ]
+         ];
+         return Response::json($product)->setCallback(Input::get('callback'));
+      }
 	}
 
 

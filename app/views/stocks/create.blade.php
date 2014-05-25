@@ -70,7 +70,7 @@
                      </div>
 
                      <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
+                        <div id="quantity" class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
                            {{ Form::label('quantity', 'Quantity') }}
                            <div class="input-group">
                               {{ Form::text('quantity', '', ['class' => 'form-control']) }}
@@ -101,7 +101,35 @@ $(function(){
    $('#type_id').on('change', function(){
       fetchProducts($(this).val());
    });
+
+   if($('#product_id').val() != "")
+      fetchUnit($('#product_id').val());
+
+   $('#product_id').on('change', function(){
+      fetchUnit($(this).val());
+   });
 });
+
+function fetchUnit (productId) {
+   if(productId) {
+      $.ajax({
+         url: '{{ url('products') }}/' + productId,
+         type: 'get',
+         dataType: 'jsonp',
+         beforeSend: function(){
+            $("#quantity .input-group-addon").html('<i class="fa fa-spinner fa-spin"></i>');
+         }
+      })
+      .done(function(data, xhr, textStatus){
+         if(typeof data.unit != "undefined")
+            $("#quantity .input-group-addon").html(data.unit.name);
+         else
+            $("#quantity .input-group-addon").html('-');
+      });
+   }
+   else
+      $("#quantity .input-group-addon").html('-');
+}
 
 function fetchProducts (typeId) {
 
@@ -118,9 +146,15 @@ function fetchProducts (typeId) {
       var html = '<option value="">No Products</option>';
       var options = "";
 
+      var productId = 0;
       $.each(data, function(key, name){
+         if(productId == 0)
+            productId = key;
+
          options += '<option value="' + key + '">' + name + '</option>';
       });
+
+      fetchUnit (productId);
 
       if(options != "")
          html = options;
