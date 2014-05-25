@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', ['uses' => 'HomeController@index', 'as' => 'home']);
+Route::get('/', ['before' => 'sentry', 'uses' => 'HomeController@index', 'as' => 'home']);
 
 Route::get('user/logout', ['uses' => 'UserController@logout', 'as' => 'user.logout']);
 Route::get('user/login', ['uses' => 'UserController@login', 'as' => 'user.login']);
