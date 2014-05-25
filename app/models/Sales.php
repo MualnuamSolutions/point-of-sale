@@ -1,0 +1,1 @@
+<?phpclass Sales extends Eloquent{	protected $table = "sales";}
