@@ -22,7 +22,7 @@
       <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fa fa-users"></i> Customers</a>
       <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-cube"></i> Units</a>
       <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-cubes"></i> Types</a>
-      <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-user"></i> Users</a>
+      <a href="{{ route('user.index') }}" class="list-group-item"><i class="fa fa-user"></i> Users</a>
       <a href="{{ route('user.logout') }}" class="list-group-item"><i class="fi-power"></i> Logout</a>
    </div>
 </div>
