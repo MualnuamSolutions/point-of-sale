@@ -14,17 +14,42 @@ class Products extends Eloquent
       $product->save();
    }
 
+   public static function updateStock($productId)
+   {
+      $product = Products::find($productId);
+      $stockQuantity = Stocks::whereProductId($productId)->sum('quantity');
+      $salesQuantity = SalesItems::whereProductId($productId)->sum('quantity');
+      $product->quantity =  $stockQuantity - $salesQuantity;
+      $product->save();
+   }
+
    public function type()
-      {
-         return $this->hasOne('Types', 'id', 'type_id');
-      }
+   {
+      return $this->hasOne('Types', 'id', 'type_id');
+   }
+
    public function unit()
-      {
-         return $this->hasOne('Units', 'id','unit_id');
-      }
+   {
+      return $this->hasOne('Units', 'id','unit_id');
+   }
 
    public static function dropdownList()
-      {
-         return array('' => 'Select Product') +Products::orderBy('name', 'asc')->get()->lists('name', 'id');
-      }
+   {
+      return array('' => 'Select Product') + Products::orderBy('name', 'asc')->get()->lists('name', 'id');
+   }
+
+   public static function filter($input, $limit = 24)
+   {
+      return Products::where(function($query) use ($input) {
+
+         if(array_key_exists('name', $input) && strlen($input['name']) )
+            $query->where('name', 'LIKE', "%" . $input['name'] . "%");
+
+         if(array_key_exists('type', $input) && strlen($input['type']) )
+            $query->whereTypeId($input['type']);
+
+         if(array_key_exists('unit', $input) && strlen($input['unit']) )
+            $query->whereTypeId($input['unit']);
+      })->orderBy('name', 'asc')->paginate($limit);
+   }
 }

@@ -92,7 +92,8 @@ table td.actions form {
 }
 .top-row {
 }
-.user-login .navbar-header {
+.user-login .navbar-header,
+.user-login .navbar-header .navbar-brand {
    width:100%;
 }
 .user-login .top-row {
@@ -100,6 +101,8 @@ table td.actions form {
 }
 .user-login .top-row span {
    text-align: center;
+   display: block;
+   width: 100%;
 }
 .user-login .login-form {
    margin: 50px 0 0;

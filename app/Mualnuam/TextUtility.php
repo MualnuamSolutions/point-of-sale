@@ -2,11 +2,14 @@
 
 class TextUtility
 {
-   public static function highlightString($str, $originalString)
+   public static function highlightString($string, $originalString)
    {
-      if(is_null($str))
+      if(is_null($string))
          return $originalString;
 
-      return preg_replace('/('.$str.')/i', '<span class="highlight">$1</span>', $originalString);
+      if(!is_null($string) && is_null($originalString))
+         return preg_replace('/('.$string.')/i', '<span class="highlight">$1</span>', $string)
+
+      return preg_replace('/('.$string.')/i', '<span class="highlight">$1</span>', $originalString);
    }
 }

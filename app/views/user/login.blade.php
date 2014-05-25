@@ -18,26 +18,27 @@
             <div class="row">
                <div class="col-sm-6 col-sm-offset-3 col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
                   <div class="row">
-                     <h5><i class="glyphicon glyphicon-log-in"></i> LOG IN</h5>
+                     <h4><i class="glyphicon glyphicon-log-in"></i> LOG IN</h4>
                      <hr>
                      {{ Form::open(["url" => route("user.login"), 'method' => 'post', 'class' => 'form-vertical']) }}
                         <div class="form-group">
                            <div class="input-group">
                               <span class="input-group-addon"><i class="fi-at-sign"></i></span>
-                              {{ Form::text('email', '', ['class' => 'form-control input-sm', 'placeholder' => 'Email']) }}
+                              {{ Form::text('email', '', ['class' => 'form-control', 'placeholder' => 'Email']) }}
                            </div>
                         </div>
                         <div class="form-group">
                            <div class="input-group">
                               <span class="input-group-addon"><i class="fi-key"></i></span>
-                              {{ Form::password('password', ['class' => 'form-control input-sm', 'placeholder' => 'Password']) }}
+                              {{ Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) }}
                            </div>
                         </div>
                         <div class="form-group text-right">
-                           <button class="btn btn-info" type="submit">
+                           <button class="btn btn-success" type="submit">
                               <i class="glyphicon glyphicon-log-in"></i>
                               <i class="hidden fa fa-gear fa-spin"></i>
-                              <i class="hidden fa fa-check"></i> Log In</button>
+                              <i class="hidden fa fa-check"></i> Log In
+                           </button>
                         </div>
                      {{ Form::close() }}
 

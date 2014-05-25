@@ -12,10 +12,13 @@ public function __construct()
 	 */
 	public function index()
 	{
-		$products = Products::paginate(20);
+      $input = Input::all();
+      $products = Products::filter(Input::all(), 24);
+      $types = Types::dropdownList();
+      $units = Units::dropdownList();
 
       $index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
-      return View::make('products.index', compact('products', 'index'));
+      return View::make('products.index', compact('products', 'index', 'input', 'types', 'units'));
 	}
 
 

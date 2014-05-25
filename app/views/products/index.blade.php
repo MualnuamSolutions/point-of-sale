@@ -12,6 +12,8 @@
             </div>
 
             <div class="panel-body">
+               @include('products._filter')
+
                <table class="table table-condensed">
                   <thead>
                      <tr>
@@ -27,7 +29,7 @@
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
-                           {{ $product->name }}<br />
+                           {{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, $product->name) }}<br />
                            <small>{{ $product->product_code}}</small>
                         </td>
                         <td>{{ $product->type->name}}</td>
