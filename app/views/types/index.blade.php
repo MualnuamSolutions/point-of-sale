@@ -28,7 +28,7 @@
                         <td class="actions">
                            <a href="{{ route('types.edit', $type->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('types.destroy', $type->id), 'method' => 'delete']) }}
-                              {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
+                              {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit', 'onclick' => 'return confirm("Are you sure you want to delete?")']) }}
                            {{ Form::close() }}
                         </td>
                      </tr>

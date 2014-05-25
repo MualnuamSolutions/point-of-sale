@@ -21,6 +21,10 @@ table td.actions form {
 	width: 100%;
 	background: #505050;
    margin: 0 0 30px;
+   border-radius: 0;
+   -moz-border-radius: 0;
+   -webkit-border-radius: 0;
+   border: none;
 }
 .top-row .navbar-brand {
    padding-top: 12px;
