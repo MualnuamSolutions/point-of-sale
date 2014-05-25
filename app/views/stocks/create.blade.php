@@ -34,7 +34,7 @@
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('product_id') ? 'has-error' : '' }}">
                            {{ Form::label('product_id', 'Product') }}
-                           {{ Form::select('product_id', $products, '', ['class' => 'form-control']) }}
+                           {{ Form::select('product_id', [], '', ['class' => 'form-control']) }}
                            @if($errors->has('product_id'))
                            <p class="help-block">{{ $errors->first('product_id') }}</p>
                            @endif
@@ -72,7 +72,10 @@
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
                            {{ Form::label('quantity', 'Quantity') }}
-                           {{ Form::text('quantity', '', ['class' => 'form-control']) }}
+                           <div class="input-group">
+                              {{ Form::text('quantity', '', ['class' => 'form-control']) }}
+                              <span class="input-group-addon">-</span>
+                           </div>
                            @if($errors->has('quantity'))
                            <p class="help-block">{{ $errors->first('quantity') }}</p>
                            @endif
@@ -87,4 +90,45 @@
          </div>
       </div>
    </div>
+@stop
+
+@section('script')
+<script type="text/javascript">
+$(function(){
+   if($('#type_id').val() != "")
+      fetchProducts($('#type_id').val());
+
+   $('#type_id').on('change', function(){
+      fetchProducts($(this).val());
+   });
+});
+
+function fetchProducts (typeId) {
+
+      $.ajax({
+         url: '{{ route('products.index') }}',
+         type: 'get',
+         dataType: 'jsonp',
+         data: {type: typeId},
+         beforeSend: function(){
+            $("#product_id").append('<option value="">Fetching products...</option>');
+         }
+      })
+      .done(function(data, xhr, textStatus){
+         var html = '<option value="">No Products</option>';
+         var options = "";
+
+         $.each(data, function(key, name){
+            options += '<option value="' + key + '">' + name + '</option>';
+         });
+
+         if(options != "")
+            html = options;
+
+         $("#product_id").html(html);
+
+      });
+   });
+}
+</script>
 @stop

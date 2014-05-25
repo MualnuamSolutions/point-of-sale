@@ -17,6 +17,10 @@ public function __construct()
       $types = Types::dropdownList();
       $units = Units::dropdownList();
 
+      if(Request::ajax()) {
+         return Response::json($products->lists('name','id'))->setCallback(Input::get('callback'));
+      }
+
       $index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;
       return View::make('products.index', compact('products', 'index', 'input', 'types', 'units'));
 	}
