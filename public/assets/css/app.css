@@ -1,6 +1,35 @@
 /* Application stylesheet */
 body {
    font-size: 13px;
+   padding-bottom: 20px;
+}
+@media screen and (max-width: 767px) {
+   body {
+      font-size: 11px;
+   }
+   table td.actions .btn {
+      padding: 0 4px;
+      margin: 0 0 2px;
+   }
+   .filter {
+      display: none;
+   }
+}
+.footer {
+   height: 15px;
+   position: fixed;
+   bottom: 0;
+   background: #34373A;
+   width: 100%;
+}
+.footer p {
+   text-align: center;
+   color: #949494;
+   font-size: 9px;
+   font-family: Georgia;
+   text-transform: uppercase;
+   letter-spacing: 0.06em;
+   margin: 3px 0 0;
 }
 form input.form-control,
 form select.form-control,
@@ -21,6 +50,9 @@ button.btn,
    border-bottom-right-radius: 0;
    border-bottom-left-radius: 0;
    border-bottom: 0;
+}
+.highlight {
+   background: #DEFF59;
 }
 table td.actions {
    text-align: right;

@@ -1,5 +1,4 @@
 <?php
-
 class CustomersController extends \BaseController {
     public function __construct()
       {
@@ -13,9 +12,11 @@ class CustomersController extends \BaseController {
 	 */
 	public function index()
 	{
-		$customers = Customers::paginate(20);
+      $input = Input::all();
+      $customers = Customers::filter(Input::all(), 24);
+
       $index = $customers->getPerPage() * ($customers->getCurrentPage()-1) + 1;
-      return View::make('customers.index', compact('customers', 'index'));
+      return View::make('customers.index', compact('customers', 'index', 'input'));
 	}
 
 

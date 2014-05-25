@@ -9,11 +9,13 @@
                <h3 class="panel-title"><i class="fi-page-multiple"></i> Suppliers</h3>
             </div>
             <div class="panel-body">
+               @include('suppliers._filter')
+
                <table class="table condence">
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Suuplier Name</th>
+                        <th class="col-md-3">Suplier Name</th>
                         <th class="col-md-3">Address</th>
                         <th class="col-md-3">Contact</th>
                         <th class="col-md-3"></th>

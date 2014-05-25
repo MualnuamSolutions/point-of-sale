@@ -14,4 +14,12 @@ $(document).ready(function () {
 
    $('.sidebar-offcanvas').css('min-height', ($(window).innerHeight() - 50));
 
+   $('a.filter-toggle').on('click', function (evt) {
+      evt.preventDefault(true);
+
+      if($('body .filter').is(":visible"))
+         $('.filter').css('display', 'none');
+      else
+         $('.filter').css('display', 'block');
+   })
 });

@@ -12,9 +12,11 @@ public function __construct()
 	 */
 	public function index()
 	{
-		$suppliers = Suppliers::paginate(20);
+      $input = Input::all();
+		$suppliers = Suppliers::filter(Input::all(), 24);
+
       $index = $suppliers->getPerPage() * ($suppliers->getCurrentPage()-1) + 1;
-      return View::make('suppliers.index', compact('suppliers', 'index'));
+      return View::make('suppliers.index', compact('suppliers', 'index', 'input'));
 	}
 
 
