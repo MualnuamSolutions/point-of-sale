@@ -8,7 +8,7 @@ class TextUtility
          return $originalString;
 
       if(!is_null($string) && is_null($originalString))
-         return preg_replace('/('.$string.')/i', '<span class="highlight">$1</span>', $string)
+         return preg_replace('/('.$string.')/i', '<span class="highlight">$1</span>', $string);
 
       return preg_replace('/('.$string.')/i', '<span class="highlight">$1</span>', $originalString);
    }

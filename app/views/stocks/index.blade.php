@@ -28,7 +28,7 @@
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
-                           {{ $stock->name }}<br />
+                           {{ $stock->product->name }}<br />
                            <small>{{ $stock->product->product_code}}</small>
                         </td>
                         <td>{{ $stock->supplier->name}}</td>

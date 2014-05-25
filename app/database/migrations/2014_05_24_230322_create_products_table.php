@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration {
          $table->string('name');
          $table->integer('type_id');
          $table->integer('unit_id');
+         $table->integer('quantity')->default(0);
          $table->timestamps();
       });
 	}

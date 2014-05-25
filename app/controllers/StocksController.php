@@ -28,7 +28,8 @@ public function __construct()
 	{
 		$products = Products::dropdownList();
       $suppliers = Suppliers::dropdownList();
-      return View::make('stocks.create', compact('products','suppliers'));
+      $types = Types::dropdownList();
+      return View::make('stocks.create', compact('products','suppliers','types'));
 	}
 
 
@@ -39,7 +40,25 @@ public function __construct()
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), Stocks::$rules);
+
+      if($validator->passes()) {
+         $stock = new Stocks;
+         $stock->supplier_id = Input::get('supplier_id');
+         $stock->product_id = Input::get('product_id');
+         $stock->cp = Input::get('cp');
+         $stock->sp = Input::get('sp');
+         $stock->quantity = Input::get('quantity');
+         $stock->save();
+         Products::updateStock($stock->product_id);
+         return Redirect::route('products.index')
+            ->with('success', 'Product created successfully');
+      }
+      else {
+         return Redirect::route('products.create')
+            ->withErrors($validator)
+            ->withInput(Input::all());
+      }
 	}
 
 

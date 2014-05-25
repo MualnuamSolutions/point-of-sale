@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-   <div class="col-md-6 col-md-offset-3">
+   <div class="col-md-8 col-md-offset-2">
       <div class="row">
          <div class="panel panel-default">
             <div class="panel-heading">
@@ -11,8 +11,8 @@
             <div class="panel-body">
                {{ Form::open(['url' => route('stocks.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="row">
-                     <div class="col-md-6">
-                        <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : '' }}">
                            {{ Form::label('supplier_id', 'Supplier') }}
                            {{ Form::select('supplier_id', $suppliers, '', ['class' => 'form-control']) }}
                            @if($errors->has('supplier_id'))
@@ -21,7 +21,17 @@
                         </div>
                      </div>
 
-                     <div class="col-md-6">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
+                           {{ Form::label('type_id', 'Product type') }}
+                           {{ Form::select('type_id', $types, '', ['class' => 'form-control']) }}
+                           @if($errors->has('type_id'))
+                           <p class="help-block">{{ $errors->first('type_id') }}</p>
+                           @endif
+                        </div>
+                     </div>
+
+                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('product_id') ? 'has-error' : '' }}">
                            {{ Form::label('product_id', 'Product') }}
                            {{ Form::select('product_id', $products, '', ['class' => 'form-control']) }}
