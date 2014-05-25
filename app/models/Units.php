@@ -6,4 +6,8 @@ class Units extends Eloquent
    public static $rules = [
          'name' => 'required'
    ];
+   public static function dropdownList()
+   {
+      return array('' => 'Select Unit') +Units::orderBy('name', 'asc')->get()->lists('name', 'id');
+   }
 }

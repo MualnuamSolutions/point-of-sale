@@ -22,5 +22,6 @@ Route::resource('units', 'UnitsController');
 Route::resource('products', 'ProductsController');
 Route::resource('customers', 'CustomersController');
 Route::resource('suppliers', 'SuppliersController');
+Route::resource('products', 'ProductsController');
 
 Route::get('/refresh', ['uses' => 'HomeController@refresh', 'as' => 'refresh']);
