@@ -20,4 +20,9 @@ class Suppliers extends Eloquent
             $query->where('contact', 'LIKE', "%" . $input['contact'] . "%");
       })->paginate($limit);
    }
+
+   public static function dropdownList()
+      {
+         return array('' => 'Select Supplier') +Suppliers::orderBy('name', 'asc')->get()->lists('name', 'id');
+      }
 }

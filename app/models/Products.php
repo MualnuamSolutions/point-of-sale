@@ -15,11 +15,16 @@ class Products extends Eloquent
    }
 
    public function type()
-   {
-      return $this->hasOne('Types', 'id', 'type_id');
-   }
+      {
+         return $this->hasOne('Types', 'id', 'type_id');
+      }
    public function unit()
       {
          return $this->hasOne('Units', 'id','unit_id');
+      }
+
+   public static function dropdownList()
+      {
+         return array('' => 'Select Product') +Products::orderBy('name', 'asc')->get()->lists('name', 'id');
       }
 }
