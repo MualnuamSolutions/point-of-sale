@@ -1,28 +1,28 @@
 @if(Session::has('error'))
-<div data-alert class="alert-box alert">
+<div data-alert class="alert alert-dismissable alert-danger">
    {{ Session::get('error') }}
-   <a href="#" class="close">&times;</a>
+   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 </div>
 @endif
 
 @if(Session::has('success'))
-<div data-alert class="alert-box success">
+<div data-alert class="alert alert-dismissable alert-success">
    <i class="fi-check"></i>
    {{ Session::get('success') }}
-   <a href="#" class="close">&times;</a>
+   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 </div>
 @endif
 
 @if(Session::has('warning'))
-<div data-alert class="alert-box warning">
+<div data-alert class="alert alert-dismissable alert-warning">
    {{ Session::get('warning') }}
-   <a href="#" class="close">&times;</a>
+   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 </div>
 @endif
 
 @if(Session::has('info'))
-<div data-alert class="alert-box secondary">
+<div data-alert class="alert alert-dismissable alert-info">
    {{ Session::get('info') }}
-   <a href="#" class="close">&times;</a>
+   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 </div>
 @endif

@@ -12,6 +12,8 @@
    @include('partials.topbar')
 
    <div class="container">
+      @include('partials.alert')
+
       @yield('content')
    </div>
 

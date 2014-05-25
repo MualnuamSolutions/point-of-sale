@@ -1,10 +1,17 @@
 /* Application stylesheet */
+body {
+   font-size: 13px;
+}
 form input.form-control,
 form select.form-control,
 form textarea.form-control,
 form .input-group-addon,
-form .btn {
+form .btn,
+a.btn {
 	border-radius: 0 !important;
+}
+table td.actions form {
+   display: inline;
 }
 .top-row {
 	width: 100%;
