@@ -8,11 +8,11 @@
                <h3 class="panel-title"><i class="fi-page-multiple"></i> Types</h3>
             </div>
             <div class="panel-body">
-               <table class="table">
+               <table class="table table-condensed">
                   <thead>
                      <tr>
-                        <th>#</th>
-                        <th class="col-md-9">Type Name</th>
+                        <th class="col-md-1">#</th>
+                        <th class="col-md-8">Type Name</th>
                         <th class="col-md-3"></th>
                      </tr>
                   </thead>

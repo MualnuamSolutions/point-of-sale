@@ -15,54 +15,50 @@ table td.actions form {
 }
 .top-row {
 	width: 100%;
-	background: #F09B81;
-   border-bottom: 1px solid #BE874D;
+	background: #505050;
    margin: 0 0 30px;
 }
-.user-login .navbar-header {
-	width:100%;
+.top-row .navbar-brand {
+   padding-top: 12px;
+   padding-bottom: 0;
 }
-.user-login .top-row {
-   border-bottom: none;
+.top-row span {
+   display: block;
 }
-.user-login .top-row h3 {
-	font-family: Arial;
-	font-size: 20px;
-	font-weight: normal;
-	text-transform: uppercase;
-	margin: 13px 0 1px;
-	color: #69381C;
-   text-align: center;
-}
-.user-login .top-row h5 {
-	text-transform: uppercase;
-	font-size: 9px;
-	font-family: Arial;
-	margin: 0 0 4px;
-	color: #884C30;
-   text-align: center;
-}
-.user-login .login-form {
-	margin: 50px 0 0;
-}
-.user-login .login-form input {
-	color: #888888;
-}
-
-.top-row h3 {
+.top-row span.brand {
    font-family: Arial;
    font-size: 20px;
    font-weight: normal;
    text-transform: uppercase;
-   margin: 13px 0 1px;
-   color: #69381C;
+   color: #8D9FBE;
 }
-.top-row h5 {
+.top-row span.sub-brand {
    text-transform: uppercase;
    font-size: 9px;
    font-family: Arial;
-   margin: 0 0 4px;
-   color: #884C30;
+   color: #888888;
+   line-height: 12px;
 }
 .top-row {
+}
+.user-login .navbar-header {
+   width:100%;
+}
+.user-login .top-row {
+   border-bottom: none;
+}
+.user-login .top-row span {
+   text-align: center;
+}
+.user-login .login-form {
+   margin: 50px 0 0;
+}
+.user-login .login-form input {
+   color: #888888;
+}
+.top-row .navbar-nav li a {
+   color: #8D9FBE;
+}
+.top-row .navbar-nav li a:hover {
+   color: #D8D8D8;
 }
