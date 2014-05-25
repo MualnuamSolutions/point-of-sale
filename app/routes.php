@@ -17,5 +17,8 @@ Route::get('user/logout', ['uses' => 'UserController@logout', 'as' => 'user.logo
 Route::get('user/login', ['uses' => 'UserController@login', 'as' => 'user.login']);
 Route::post('user/login/', ['uses' => 'UserController@doLogin', 'as' => 'user.doLogin']);
 Route::resource('user', 'UserController');
+Route::resource('type', 'TypeController');
+Route::resource('unit', 'UnitController');
+Route::resource('product', 'ProductController');
 
 Route::get('/refresh', ['uses' => 'HomeController@refresh', 'as' => 'refresh']);
