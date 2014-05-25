@@ -4,9 +4,13 @@
    <div class="col-md-12">
       <div class="row">
          <div class="panel panel-default">
+
             <div class="panel-heading">
+               @include('types._menu')
+
                <h3 class="panel-title"><i class="fi-page-multiple"></i> Types</h3>
             </div>
+
             <div class="panel-body">
                <table class="table table-condensed">
                   <thead>

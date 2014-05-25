@@ -82,6 +82,8 @@ Route::filter('csrf', function()
 
 Route::filter('sentry', function($route, $request)
 {
+      View::share('current_route', $route->getName());
+
    	if( ! Sentry::check() ) {
       	$public = Sentry::findGroupByName('Public');
       	$public_permissions = $public->getPermissions();
@@ -89,7 +91,7 @@ Route::filter('sentry', function($route, $request)
       	if( !array_key_exists($route->getName(), $public_permissions)
          	|| (array_key_exists($route->getName(), $public_permissions)
             && $public_permissions[$route->getName()] != 1) )
-        
+
         return Redirect::guest(route('user.login'));
    	} else {
       	$user = Sentry::getUser();

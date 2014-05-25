@@ -7,8 +7,12 @@ form select.form-control,
 form textarea.form-control,
 form .input-group-addon,
 form .btn,
-a.btn {
+a.btn,
+button.btn {
 	border-radius: 0 !important;
+}
+table td.actions {
+   text-align: right;
 }
 table td.actions form {
    display: inline;
@@ -57,7 +61,10 @@ table td.actions form {
    color: #888888;
 }
 .top-row .navbar-nav li a {
-   color: #8D9FBE;
+   color: #EB7A7A;
+   font-size: 20px;
+   padding-left: 8px;
+   padding-right: 8px;
 }
 .top-row .navbar-nav li a:hover {
    color: #D8D8D8;

@@ -1,12 +1,16 @@
 @extends('layout')
 
 @section('content')
-   <div class="col-md-4 col-md-offset-4">
+   <div class="col-md-6 col-md-offset-3">
       <div class="row">
          <div class="panel panel-default">
+
             <div class="panel-heading">
+               @include('types._menu')
+
                <h3 class="panel-title"><i class="fi-page-edit"></i> Edit Type</h3>
             </div>
+
             <div class="panel-body">
                {{ Form::open(['url' => route('types.update', $type->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
