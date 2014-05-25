@@ -16,12 +16,10 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Product</th>
+                        <th class="col-md-6">Product</th>
                         <th class="col-md-2">Type</th>
                         <th class="col-md-2">Unit</th>
-                        <th class="col-md-1">CP / SP</th>
-                        <th class="col-md-1">In Stock</th>
-                        <th class="col-md-3"></th>
+                        <th class="col-md-2"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -34,8 +32,6 @@
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>
-                        <td>{{ $product->cp }} / {{ $product->sp}}</td>
-                        <td>{{ $product->quantity }}</td>
                         <td class="actions">
                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('products.destroy', $product->id), 'method' => 'delete']) }}

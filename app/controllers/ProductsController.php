@@ -47,9 +47,6 @@ public function __construct()
          $product->product_code = 0;
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');
-         $product->cp = Input::get('cp');
-         $product->sp = Input::get('sp');
-         $product->quantity = Input::get('quantity');
          $product->save();
          $product->setProductCode($product);
          return Redirect::route('products.index')
@@ -114,9 +111,6 @@ public function __construct()
          $product->product_code = 0;
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');
-         $product->cp = Input::get('cp');
-         $product->sp = Input::get('sp');
-         $product->quantity = Input::get('quantity');
          $product->save();
          $product->setProductCode($product);
 

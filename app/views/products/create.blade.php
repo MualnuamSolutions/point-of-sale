@@ -41,47 +41,6 @@
                         </div>
                      </div>
                   </div>
-
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
-                           {{ Form::label('cp', 'Cost Price') }}
-
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('cp', '', ['class' => 'form-control']) }}
-                           </div>
-
-                           @if($errors->has('cp'))
-                           <p class="help-block">{{ $errors->first('cp') }}</p>
-                           @endif
-                        </div>
-                     </div>
-
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('sp') ? 'has-error' : '' }}">
-                           {{ Form::label('sp', 'Selling Price') }}
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('sp', '', ['class' => 'form-control']) }}
-                           </div>
-
-                           @if($errors->has('sp'))
-                           <p class="help-block">{{ $errors->first('sp') }}</p>
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
-                           {{ Form::label('quantity', 'Product Quantity') }}
-                           {{ Form::text('quantity', '', ['class' => 'form-control']) }}
-                           @if($errors->has('quantity'))
-                           <p class="help-block">{{ $errors->first('quantity') }}</p>
-                           @endif
-                        </div>
-                     </div>
-                  </div>
-
                   <div class="for-group text-right">
                      {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
                   </div>

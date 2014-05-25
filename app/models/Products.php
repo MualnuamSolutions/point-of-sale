@@ -5,10 +5,7 @@ class Products extends Eloquent
      public static $rules = [
          'name' => 'required',
          'type_id' => 'required',
-         'unit_id' => 'required',
-         'cp' => 'required',
-         'sp' => 'required',
-         'quantity' => 'required'
+         'unit_id' => 'required'
    ];
 
    public function setProductCode($product)
