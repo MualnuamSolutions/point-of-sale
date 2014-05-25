@@ -18,6 +18,7 @@ class AddFieldsToUsers extends Migration {
          $table->string('name');
          $table->string('phone')->nullable();
          $table->text('address')->nullable();
+         $table->integer('outlet_id')->default(0);
          $table->integer('store_id')->default(0);
       });
 	}

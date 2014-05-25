@@ -7,6 +7,7 @@
       <li><a class="tooltip-bottom" title="Customers" data-toggle="tooltip" href="{{ route('customers.index') }}"><i class="fa fa-users"></i></a></li>
       <li><a class="tooltip-bottom" title="Units" data-toggle="tooltip" href="{{ route('units.index') }}"><i class="fa fa-cube"></i></a></li>
       <li><a class="tooltip-bottom" title="Types" data-toggle="tooltip" href="{{ route('types.index') }}"><i class="fa fa-cubes"></i></a></li>
+      <li><a class="tooltip-bottom" title="Users" data-toggle="tooltip" href="{{ route('user.index') }}"><i class="fi-user"></i></a></li>
       <li><a class="tooltip-bottom" title="Log Out" data-toggle="tooltip" href="{{ route('user.logout') }}"><i class="fi-power"></i></a></li>
    </ul>
 </div>
@@ -18,9 +19,10 @@
       <a href="{{ route('stocks.index') }}" class="list-group-item"><i class="fi-database"></i> Stocks</a>
       <a href="{{ route('products.index') }}" class="list-group-item"><i class="fa fa-gift"></i> Products</a>
       <a href="{{ route('suppliers.index') }}" class="list-group-item"><i class="fa fa-truck"></i> Suppliers</a>
-      <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fa fa-users"></i> Units</a>
-      <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-users"></i> Units</a>
-      <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-users"></i> Types</a>
+      <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fa fa-users"></i> Customers</a>
+      <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-cube"></i> Units</a>
+      <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-cubes"></i> Types</a>
+      <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-user"></i> Users</a>
       <a href="{{ route('user.logout') }}" class="list-group-item"><i class="fi-power"></i> Logout</a>
    </div>
 </div>

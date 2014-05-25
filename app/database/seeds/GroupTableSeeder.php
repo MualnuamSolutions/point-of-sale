@@ -7,19 +7,19 @@ class GroupTableSeeder extends Seeder
 
       $admin = Sentry::createGroup(
          array(
-         'name'        => 'Admin',
-         'permissions' => []
-      ));
-
-      $staff = Sentry::createGroup(
-         array(
          'name'        => 'Manager',
          'permissions' => []
       ));
 
       $staff = Sentry::createGroup(
          array(
-         'name'        => 'Sales',
+         'name'        => 'Stock Manager',
+         'permissions' => []
+      ));
+
+      $staff = Sentry::createGroup(
+         array(
+         'name'        => 'Sales Person',
          'permissions' => []
       ));
 
