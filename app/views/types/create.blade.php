@@ -8,7 +8,7 @@
                <h3 class="panel-title"><i class="fi-page-add"></i> Create Type</h3>
             </div>
             <div class="panel-body">
-               {{ Form::open(['url' => route('type.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+               {{ Form::open(['url' => route('types.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                      {{ Form::label('name', 'Type Name') }}
                      {{ Form::text('name', '', ['class' => 'form-control']) }}

@@ -22,8 +22,8 @@
                         <td>{{ $index+$key }}</td>
                         <td>{{ $type->name }}</td>
                         <td class="actions">
-                           <a href="{{ route('type.edit', $type->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
-                           {{ Form::open(['url' => route('type.destroy', $type->id), 'method' => 'delete']) }}
+                           <a href="{{ route('types.edit', $type->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           {{ Form::open(['url' => route('types.destroy', $type->id), 'method' => 'delete']) }}
                               {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
                            {{ Form::close() }}
                         </td>

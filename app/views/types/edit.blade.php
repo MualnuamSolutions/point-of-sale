@@ -8,7 +8,7 @@
                <h3 class="panel-title"><i class="fi-page-edit"></i> Edit Type</h3>
             </div>
             <div class="panel-body">
-               {{ Form::open(['url' => route('type.update', $type->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+               {{ Form::open(['url' => route('types.update', $type->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                      {{ Form::label('name', 'Type Name') }}
                      {{ Form::text('name', $type->name, ['class' => 'form-control']) }}

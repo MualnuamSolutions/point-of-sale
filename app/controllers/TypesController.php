@@ -1,6 +1,6 @@
 <?php
 
-class TypeController extends \BaseController {
+class TypesController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
@@ -11,7 +11,7 @@ class TypeController extends \BaseController {
 	{
       $types = Types::paginate(20);
       $index = $types->getPerPage() * ($types->getCurrentPage()-1) + 1;
-		return View::make('type.index', compact('types', 'index'));
+		return View::make('types.index', compact('types', 'index'));
 	}
 
 
@@ -22,7 +22,7 @@ class TypeController extends \BaseController {
 	 */
 	public function create()
 	{
-		return View::make('type.create');
+		return View::make('types.create');
 	}
 
 
@@ -40,11 +40,11 @@ class TypeController extends \BaseController {
          $type->name = Input::get('name');
          $type->save();
 
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('success', 'Type created successfully');
       }
       else {
-         return Redirect::route('type.create')
+         return Redirect::route('types.create')
             ->withErrors($validator)
             ->withInput(Input::all());
       }
@@ -72,16 +72,16 @@ class TypeController extends \BaseController {
 	public function edit($id)
 	{
       if(!$id)
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('error', 'Please provide type id');
 
       $type = Types::find($id);
 
       if(empty($type))
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('error', 'Type not found');
 
-		return View::make('type.edit', compact('type'));
+		return View::make('types.edit', compact('type'));
 	}
 
 
@@ -100,11 +100,11 @@ class TypeController extends \BaseController {
          $type->name = Input::get('name');
          $type->save();
 
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('success', 'Type updated successfully');
       }
       else {
-         return Redirect::route('type.edit', $id)
+         return Redirect::route('types.edit', $id)
             ->withErrors($validator)
             ->withInput(Input::all());
       }
@@ -120,18 +120,18 @@ class TypeController extends \BaseController {
 	public function destroy($id)
 	{
 		if(!$id)
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('error', 'Please provide type id');
 
       $type = Types::find($id);
 
       if(empty($type))
-         return Redirect::route('type.index')
+         return Redirect::route('types.index')
             ->with('error', 'Type not found');
 
       Types::destroy($id);
 
-      return Redirect::route('type.index')
+      return Redirect::route('types.index')
          ->with('success', 'Type deleted successfully');
 	}
 
