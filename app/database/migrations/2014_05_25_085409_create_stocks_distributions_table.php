@@ -12,16 +12,16 @@ class CreateStocksDistributionsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('stocks_distributions',function($table)
-                {
-                   $table->increments('id');
-                   $table->integer('product_id');
-                   $table->integer('outlet_id');
-                   $table->float('cp');
-                   $table->float('sp');
-                   $table->integer('qnty');	
-                   $table->timestamps();
-                });
+		Schema::create('distributions',function($table)
+      {
+         $table->increments('id');
+         $table->integer('product_id');
+         $table->integer('outlet_id');
+         $table->float('cp');
+         $table->float('sp');
+         $table->integer('quantity');
+         $table->timestamps();
+      });
 	}
 
 	/**
@@ -31,7 +31,7 @@ class CreateStocksDistributionsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('stocks_distributions');
+		Schema::drop('distributions');
 	}
 
 }

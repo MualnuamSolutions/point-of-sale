@@ -13,17 +13,17 @@ class CreateProductsTable extends Migration {
 	public function up()
 	{
 		Schema::create('products',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('barcode');
-                   $table->string('name');
-                   $table->integer('type_id');
-                   $table->integer('unit_id');
-                   $table->float('cp');
-                   $table->float('sp');
-                   $table->integer('qnty');	
-                   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('barcode');
+         $table->string('name');
+         $table->integer('type_id');
+         $table->integer('unit_id');
+         $table->float('cp');
+         $table->float('sp');
+         $table->integer('quantity');
+         $table->timestamps();
+      });
 	}
 
 	/**

@@ -13,11 +13,11 @@ class CreateUnitsTable extends Migration {
 	public function up()
 	{
 		Schema::create('units',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('name');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('name');
+         $table->timestamps();
+      });
 	}
 
 	/**

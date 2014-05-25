@@ -13,11 +13,11 @@ class CreateTypesTable extends Migration {
 	public function up()
 	{
 		Schema::create('types',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('name');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('name');
+         $table->timestamps();
+      });
 	}
 
 	/**

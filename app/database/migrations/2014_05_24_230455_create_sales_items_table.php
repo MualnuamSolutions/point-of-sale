@@ -13,15 +13,15 @@ class CreateSalesItemsTable extends Migration {
 	public function up()
 	{
 		Schema::create('sales_items',function($table)
-                {
-                   $table->increments('id');
-                   $table->integer('product_id');
-                   $table->integer('stock_id');
-                   $table->float('cp');
-                   $table->float('sp');
-                   $table->integer('qnty');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->integer('product_id');
+         $table->integer('stock_id');
+         $table->float('cp');
+         $table->float('sp');
+         $table->integer('quantity');
+         $table->timestamps();
+      });
 	}
 
 	/**

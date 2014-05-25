@@ -13,13 +13,13 @@ class CreateSalesTable extends Migration {
 	public function up()
 	{
 		Schema::create('sales',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('reference_no');
-                   $table->integer('customer_id');
-                   $table->integer('outlet_id');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('reference_no');
+         $table->integer('customer_id');
+         $table->integer('outlet_id');
+         $table->timestamps();
+      });
 	}
 
 	/**

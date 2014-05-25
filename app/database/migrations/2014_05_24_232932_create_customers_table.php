@@ -13,13 +13,13 @@ class CreateCustomersTable extends Migration {
 	public function up()
 	{
 		Schema::create('customers',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('name');
-                   $table->string('address');
-                   $table->string('contact')->nullable();
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('name');
+         $table->string('address');
+         $table->string('contact')->nullable();
+         $table->timestamps();
+      });
 	}
 
 	/**

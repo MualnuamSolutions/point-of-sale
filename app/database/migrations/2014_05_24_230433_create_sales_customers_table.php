@@ -13,12 +13,12 @@ class CreateSalesCustomersTable extends Migration {
 	public function up()
 	{
 		Schema::create('sales_customers',function($table)
-                {
-                   $table->increments('id');
-                   $table->integer('sales_id');
-                   $table->integer('customer_id');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->integer('sales_id');
+         $table->integer('customer_id');
+         $table->timestamps();
+      });
 	}
 
 	/**

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStocksTable extends Migration 
+class CreateStocksTable extends Migration
 {
 
 	/**
@@ -14,15 +14,15 @@ class CreateStocksTable extends Migration
 	public function up()
 	{
 		Schema::create('stocks',function($table)
-                {
-                   $table->increments('id');
-                   $table->integer('supplier_id');
-                   $table->integer('product_id');
-                   $table->float('cp');
-                   $table->float('sp');
-                   $table->integer('qnty');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->integer('supplier_id');
+         $table->integer('product_id');
+         $table->float('cp');
+         $table->float('sp');
+         $table->integer('quantity');
+         $table->timestamps();
+      });
 	}
 
 	/**

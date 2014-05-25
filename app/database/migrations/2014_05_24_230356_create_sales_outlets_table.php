@@ -13,13 +13,13 @@ class CreateSalesOutletsTable extends Migration {
 	public function up()
 	{
 		Schema::create('sales_outlets',function($table)
-                {
-                   $table->increments('id');
-                   $table->string('name');
-                   $table->string('address');
-                   $table->string('contact');
-				   $table->timestamps();
-                });
+      {
+         $table->increments('id');
+         $table->string('name');
+         $table->string('address');
+         $table->string('contact');
+         $table->timestamps();
+      });
 	}
 
 	/**

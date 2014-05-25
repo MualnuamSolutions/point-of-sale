@@ -12,16 +12,16 @@ class CreateSalesCartsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('sales_carts',function($table)
-                {
-                   $table->increments('id');
-                   $table->integer('product_id');
-                   $table->integer('outlet_id');
-                   $table->float('cp');
-                   $table->float('sp');
-                   $table->integer('qnty');	
-                   $table->timestamps();
-                });
+		Schema::create('carts',function($table)
+      {
+         $table->increments('id');
+         $table->integer('product_id');
+         $table->integer('outlet_id');
+         $table->float('cp');
+         $table->float('sp');
+         $table->integer('quantity');
+         $table->timestamps();
+      });
 	}
 
 	/**
@@ -31,7 +31,7 @@ class CreateSalesCartsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('sales_carts');
+		Schema::drop('carts');
 	}
 
 }
