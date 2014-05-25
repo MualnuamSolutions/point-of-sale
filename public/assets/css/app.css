@@ -156,3 +156,21 @@ div.sidebar-offcanvas a i {
    text-align: center;
    color: #FF6464;
 }
+.sales-create table,
+.sales-create form {
+   font-size: 11px;
+   font-family: Arial;
+}
+.sales-create .sales-product-quantity {
+   width: 70px;
+}
+.sales-create table .form-control {
+   font-size: 11px;
+   padding: 0 2px;
+   margin: 0;
+   height: 24px;
+   width: 55px;
+}
+.sales-create table .btn{
+   padding: 2px 6px;
+}

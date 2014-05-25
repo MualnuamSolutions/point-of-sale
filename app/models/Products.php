@@ -45,11 +45,22 @@ class Products extends Eloquent
          if(array_key_exists('name', $input) && strlen($input['name']) )
             $query->where('name', 'LIKE', "%" . $input['name'] . "%");
 
+         if(array_key_exists('name_code', $input) && strlen($input['name_code']) ) {
+            $query->where(function($query) use ($input){
+               $query->where('name', 'LIKE', "%" . $input['name_code'] . "%");
+               $query->orWhere('product_code', 'LIKE', "%" . $input['name_code'] . "%");
+            });
+         }
+
          if(array_key_exists('type', $input) && strlen($input['type']) )
             $query->whereTypeId($input['type']);
 
          if(array_key_exists('unit', $input) && strlen($input['unit']) )
             $query->whereTypeId($input['unit']);
+
+         if(array_key_exists('barcode', $input) && strlen($input['barcode']) )
+            $query->where('product_code', 'LIKE', "%" . $input['barcode'] . "%");
+
       })->orderBy('name', 'asc')->paginate($limit);
    }
 }
