@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('content')
+
    <ol class="breadcrumb">
       <li><a href="#">Home</a></li>
       <li><a href="#">Library</a></li>
