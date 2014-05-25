@@ -1,10 +1,10 @@
 <?php
 
 class StocksController extends \BaseController {
-public function __construct()
-   {
-      $this->beforeFilter('sentry');
-   }
+   public function __construct()
+      {
+         $this->beforeFilter('sentry');
+      }
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -26,10 +26,9 @@ public function __construct()
 	 */
 	public function create()
 	{
-		$products = Products::dropdownList();
       $suppliers = Suppliers::dropdownList();
       $types = Types::dropdownList();
-      return View::make('stocks.create', compact('products','suppliers','types'));
+      return View::make('stocks.create', compact('suppliers','types'));
 	}
 
 
@@ -51,11 +50,11 @@ public function __construct()
          $stock->quantity = Input::get('quantity');
          $stock->save();
          Products::updateStock($stock->product_id);
-         return Redirect::route('products.index')
-            ->with('success', 'Product created successfully');
+         return Redirect::route('stocks.index')
+            ->with('success', 'Stock created successfully');
       }
       else {
-         return Redirect::route('products.create')
+         return Redirect::route('stocks.create')
             ->withErrors($validator)
             ->withInput(Input::all());
       }
@@ -82,7 +81,18 @@ public function __construct()
 	 */
 	public function edit($id)
 	{
-		//
+		if(!$id)
+         return Redirect::route('stocks.index')
+            ->with('error', 'Please Provide Stock id');
+
+      $stock = stocks::find($id);
+
+      if(empty($stock))
+         return Redirect::route('stocks.index')
+            ->with('error', 'Stock not found');
+      $suppliers = Suppliers::dropdownList();
+      $products = Products::dropdownList();
+      return View::make('stocks.edit', compact('stock','suppliers','products'));
 	}
 
 
@@ -94,7 +104,25 @@ public function __construct()
 	 */
 	public function update($id)
 	{
-		//
+		$validator = Validator::make(Input::all(), Stocks::$updaterules);
+
+      if($validator->passes()) {
+         $stock = Stocks::find($id);
+         $stock->supplier_id = Input::get('supplier_id');
+         $stock->cp = Input::get('cp');
+         $stock->sp = Input::get('sp');
+         $stock->quantity = Input::get('quantity');
+         $stock->save();
+         Products::updateStock($stock->product_id);
+
+         return Redirect::route('stocks.index')
+            ->with('success', 'Stock updated successfully');
+      }
+      else {
+         return Redirect::route('stocks.edit', $id)
+            ->withErrors($validator)
+            ->withInput(Input::all());
+      }
 	}
 
 
@@ -106,7 +134,26 @@ public function __construct()
 	 */
 	public function destroy($id)
 	{
-		//
+		if(!$id)
+         return Redirect::route('stocks.index')
+            ->with('error', 'Please provide Stock id');
+
+      $stock = Stocks::find($id);
+      $product_id=$stock->product_id;
+      if(empty($stock))
+         return Redirect::route('stocks.index')
+            ->with('error', 'Stock not found');
+
+      $sales = SalesItems::where('stock_id','=',$id)->count();
+      if($sales)
+         return Redirect::route('stocks.index')
+            ->with('error', 'Stock cannot be delete, since this stock already has sale entry');
+
+      Stocks::destroy($id);
+
+      Products::updateStock($product_id);
+      return Redirect::route('stocks.index')
+         ->with('success', 'Stock deleted successfully');
 	}
 
 
