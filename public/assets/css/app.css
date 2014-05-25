@@ -8,8 +8,19 @@ form textarea.form-control,
 form .input-group-addon,
 form .btn,
 a.btn,
-button.btn {
+button.btn,
+.list-group {
 	border-radius: 0 !important;
+}
+.list-group-item:first-child {
+   border-top-right-radius: 0;
+   border-top-left-radius: 0;
+   border-top:none;
+}
+.list-group-item:last-child {
+   border-bottom-right-radius: 0;
+   border-bottom-left-radius: 0;
+   border-bottom: 0;
 }
 table td.actions {
    text-align: right;
@@ -72,4 +83,40 @@ table td.actions form {
 }
 .top-row .navbar-nav li a:hover {
    color: #D8D8D8;
+}
+.toggle-canvas {
+   padding: 0 16px;
+   border: none;
+   font-size: 26px;
+   color: #fff;
+   background: #EB7A7A;
+   min-height: 50px;
+   line-height: 50px;
+}
+.toggle-canvas:hover,
+.toggle-canvas.active {
+   background: #5F5F63;
+   color: #ffffff;
+}
+div.sidebar-offcanvas a {
+   background: #5F5F63;
+   color: #fff;
+   font-size: 13px;
+   font-weight: normal;
+   font-family: Arial;
+   letter-spacing: 0.05em;
+   border-top: 1px solid #46464E;
+   border-bottom: 1px solid #46464E;
+   border-left: none;
+   border-right: none;
+}
+div.sidebar-offcanvas a:hover,
+div.sidebar-offcanvas a.active {
+   background: #46464E;
+}
+div.sidebar-offcanvas a i {
+   display: inline-block;
+   width: 20px;
+   text-align: center;
+   color: #FF6464;
 }

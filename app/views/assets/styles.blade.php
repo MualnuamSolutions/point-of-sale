@@ -9,6 +9,7 @@
 <![endif]-->
 <link href="{{ asset("foundation-icons/foundation-icons.css") }}"  rel="stylesheet">
 <link href="{{ asset("font-awesome-4.1.0/css/font-awesome.min.css") }}" rel="stylesheet" />
+<link href="{{ asset("bootstrap-3.1.1-dist/css/off-canvas.css") }}"  rel="stylesheet">
 <link href="{{ asset("assets/css/app.css") }}"  rel="stylesheet">
 
 @yield('style')

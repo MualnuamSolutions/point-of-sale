@@ -12,9 +12,15 @@
    @include('partials.topbar')
 
    <div class="container">
-      @include('partials.alert')
+      <div class="row row-offcanvas row-offcanvas-right">
+         <div class="col-xs-12">
+            @include('partials.alert')
 
-      @yield('content')
+            @yield('content')
+         </div>
+
+         @include('partials.menu', ['position' => 'sidebar'])
+      </div>
    </div>
 
    @include('assets.scripts')

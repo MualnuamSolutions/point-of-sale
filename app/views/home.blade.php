@@ -26,5 +26,5 @@
    </div>
 
    <h4>Tables</h4>
-</div>
+
 @stop
