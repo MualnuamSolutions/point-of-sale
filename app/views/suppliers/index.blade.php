@@ -25,9 +25,9 @@
                      @foreach($suppliers as $key => $supplier)
                      <tr>
                         <td>{{ $index+$key }}</td>
-                        <td>{{ $supplier->name }}</td>
-                        <td>{{ $supplier->address }}</td>
-                        <td>{{ $supplier->contact }}</td>
+                        <td>{{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, $supplier->name) }}</td>
+                        <td>{{ Mualnuam\TextUtility::highlightString(array_key_exists('address', $input)?$input['address']:null, $supplier->address) }}</td>
+                        <td>{{ Mualnuam\TextUtility::highlightString(array_key_exists('contact', $input)?$input['contact']:null, $supplier->contact) }}</td>
                         <td class="actions">
                            <a href="{{ route('suppliers.edit', $supplier->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('suppliers.destroy', $supplier->id), 'method' => 'delete']) }}
