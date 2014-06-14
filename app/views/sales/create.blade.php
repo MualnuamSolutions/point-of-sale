@@ -10,7 +10,7 @@
             </div>
             <div class="panel-body sales-create">
                <div class="row">
-                  <div class="col-sm-6">
+                  <div class="col-sm-5">
                      @include('sales._product_filter')
 
                      <table class="table table-condensed">
@@ -29,7 +29,7 @@
 
                   </div>
 
-                  <div class="col-md-5 col-md-offset-1 cart">
+                  <div class="col-md-6 col-md-offset-1 cart">
                      <h5>Cart</h5>
                      <hr>
                      {{ Form::open(['url' => route('sales.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}

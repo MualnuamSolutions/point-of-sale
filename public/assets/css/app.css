@@ -15,6 +15,7 @@ body {
       display: none;
    }
 }
+
 .footer {
    height: 15px;
    position: fixed;
@@ -73,7 +74,7 @@ table td.actions form {
    padding-top: 12px;
    padding-bottom: 0;
 }
-.top-row span {
+.top-row .navbar-header span {
    display: block;
 }
 .top-row span.brand {
@@ -113,14 +114,29 @@ table td.actions form {
 .top-row .navbar-nav li a {
    color: #EB7A7A;
    font-size: 12px;
-   padding-left: 1px;
-   padding-right: 1px;
-   margin-right: 15px;
+   padding-left: 10px;
+   padding-right: 10px;
+   margin-left: 1px;
 }
+.top-row .navbar-nav li.open>a,
 .top-row .navbar-nav li a:hover {
-   color: #D8D8D8;
+   background-color: #3A3939 !important;
+   color: #D8D8D8 !important;
 }
-.toggle-canvas {
+.top-row .navbar-nav>li>.dropdown-menu {
+   background-color: #3A3939;
+}
+.top-row .navbar-nav>li>.dropdown-menu li a {
+   padding: 6px 12px 6px;
+   margin: 0;
+   line-height: 100%;
+}
+.top-row .navbar-nav>li>.dropdown-menu li a:hover,
+.top-row .navbar-nav>li>.dropdown-menu li a:active {
+   background-color: #111 !important;
+}
+.toggle-canvas,
+.toggle-menu {
    padding: 0 16px;
    border: none;
    font-size: 26px;
@@ -130,7 +146,9 @@ table td.actions form {
    line-height: 50px;
 }
 .toggle-canvas:hover,
-.toggle-canvas.active {
+.toggle-canvas.active,
+.toggle-menu:hover,
+.toggle-menu.active {
    background: #5F5F63;
    color: #ffffff;
 }
