@@ -36,7 +36,7 @@
                         </td>
                         <td class="text-center">
                            <span style="display:block;height:20px;background-color: #{{ $product->color}}"></span>
-                           <small>#{{ $product->color}}</small>
+                           <small>{{ $product->color ? '#' . $product->color : ''}}</small>
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>

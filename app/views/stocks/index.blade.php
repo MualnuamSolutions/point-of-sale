@@ -28,11 +28,11 @@
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
-                           {{ $stock->product->name }}<br />
+                           <a href="{{ route('products.show', $stock->product->id) }}">{{ $stock->product->name }}</a><br />
                            <small>{{ $stock->product->product_code}}</small>
                         </td>
-                        <td>{{ $stock->supplier->name}}</td>
-                        <td>{{ $stock->cp }} / {{ $stock->sp}}</td>
+                        <td><a href="{{ route('suppliers.show', $stock->supplier->id) }}">{{ $stock->supplier->name}}</a></td>
+                        <td><i class="fa fa-rupee"></i> {{ $stock->cp }} / <i class="fa fa-rupee"></i> {{ $stock->sp}}</td>
                         <td>{{ $stock->quantity }}</td>
                         <td class="actions">
                            <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>

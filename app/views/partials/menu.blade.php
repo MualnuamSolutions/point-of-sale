@@ -7,7 +7,7 @@
       <li><a class="tooltip-bottom" title="Products" data-toggle="tooltip" href="{{ route('products.index') }}">Products</a></li>
       <li><a class="tooltip-bottom" title="Suppliers" data-toggle="tooltip" href="{{ route('suppliers.index') }}">Suppliers</a></li>
       <li><a class="tooltip-bottom" title="Customers" data-toggle="tooltip" href="{{ route('customers.index') }}">Customers</a></li>
-      <li><a class="tooltip-bottom" title="Sales Outlets" data-toggle="tooltip" href="{{ route('home') }}">Outlet</a></li>
+      <li><a class="tooltip-bottom" title="Sales Outlets" data-toggle="tooltip" href="{{ route('salesoutlets.index') }}">Outlets</a></li>
       <li><a class="tooltip-bottom" title="Outlets Distribution" data-toggle="tooltip" href="{{ route('home') }}">Distribution</a></li>
       <li><a class="tooltip-bottom" title="Product Units" data-toggle="tooltip" href="{{ route('units.index') }}">Unit</a></li>
       <li><a class="tooltip-bottom" title="Product Types" data-toggle="tooltip" href="{{ route('types.index') }}">Types</a></li>
@@ -26,7 +26,7 @@
       <a href="{{ route('products.index') }}" class="list-group-item"><i class="glyphicon glyphicon-gift"></i> Products</a>
       <a href="{{ route('suppliers.index') }}" class="list-group-item"><i class="fa fa-truck"></i> Suppliers</a>
       <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fi-torsos-all"></i> Customers</a>
-      <a href="{{ route('home') }}" class="list-group-item"><i class="fi-home"></i> Sales Outlets</a>
+      <a href="{{ route('salesoutlets.index') }}" class="list-group-item"><i class="fi-home"></i> Sales Outlets</a>
       <a href="{{ route('home') }}" class="list-group-item"><i class="fa fa-truck"></i> Outlets Distribution</a>
       <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-cube"></i> Units</a>
       <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-cubes"></i> Types</a>
