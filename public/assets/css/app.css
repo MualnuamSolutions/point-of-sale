@@ -111,7 +111,8 @@ table td.actions form {
 .user-login .login-form input {
    color: #888888;
 }
-.top-row .navbar-nav li a {
+.top-row .navbar-nav li a,
+.top-row .navbar-nav li.active li a {
    color: #EB7A7A;
    font-size: 12px;
    padding-left: 10px;
@@ -119,21 +120,27 @@ table td.actions form {
    margin-left: 1px;
 }
 .top-row .navbar-nav li.open>a,
+.top-row .navbar-nav li.active a,
 .top-row .navbar-nav li a:hover {
    background-color: #3A3939 !important;
-   color: #D8D8D8 !important;
+   color: #D8D8D8;
+}
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus {
+   color: #D8D8D8;
 }
 .top-row .navbar-nav>li>.dropdown-menu {
    background-color: #3A3939;
 }
 .top-row .navbar-nav>li>.dropdown-menu li a {
    padding: 6px 12px 6px;
-   margin: 0;
+   margin: 0 0 1px;
    line-height: 100%;
 }
 .top-row .navbar-nav>li>.dropdown-menu li a:hover,
-.top-row .navbar-nav>li>.dropdown-menu li a:active {
+.top-row .navbar-nav>li>.dropdown-menu li a:active,
+.top-row .navbar-nav>li>.dropdown-menu li.active a {
    background-color: #111 !important;
+   color: #D8D8D8;
 }
 .toggle-canvas,
 .toggle-menu {

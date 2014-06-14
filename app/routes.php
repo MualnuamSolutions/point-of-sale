@@ -13,10 +13,10 @@
 
 Route::get('/', ['before' => 'sentry', 'uses' => 'HomeController@index', 'as' => 'home']);
 
-Route::get('user/logout', ['uses' => 'UserController@logout', 'as' => 'user.logout']);
-Route::get('user/login', ['uses' => 'UserController@login', 'as' => 'user.login']);
-Route::post('user/login/', ['uses' => 'UserController@doLogin', 'as' => 'user.doLogin']);
-Route::resource('user', 'UserController');
+Route::get('users/logout', ['uses' => 'UsersController@logout', 'as' => 'users.logout']);
+Route::get('users/login', ['uses' => 'UsersController@login', 'as' => 'users.login']);
+Route::post('users/login/', ['uses' => 'UsersController@doLogin', 'as' => 'users.doLogin']);
+Route::resource('users', 'UsersController');
 Route::resource('types', 'TypesController');
 Route::resource('units', 'UnitsController');
 Route::resource('products', 'ProductsController');
