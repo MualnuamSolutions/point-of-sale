@@ -27,3 +27,4 @@ Route::resource('products', 'ProductsController');
 Route::resource('salesoutlets', 'SalesOutletsController');
 Route::resource('stocks', 'StocksController');
 Route::resource('sales', 'SalesController');
+Route::resource('colors', 'ColorsController');
