@@ -11,7 +11,7 @@ class InstallCommand extends Command {
 	 *
 	 * @var string
 	 */
-	protected $name = 'command:install';
+	protected $name = 'pos:install';
 
 	/**
 	 * The console command description.

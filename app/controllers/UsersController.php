@@ -2,6 +2,11 @@
 
 class UsersController extends \BaseController {
 
+   public function __construct()
+   {
+      $this->beforeFilter('sentry', ['except' => ['login', 'doLogin']] );
+   }
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,6 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
 	}
 
 
@@ -87,7 +91,7 @@ class UsersController extends \BaseController {
 	    if(Sentry::check())
 	    	return Redirect::route('home');
 
-		return View::make('user.login');
+		return View::make('users.login');
 	}
 
 	/**
@@ -159,7 +163,7 @@ class UsersController extends \BaseController {
          if(Request::ajax())
             return $this->loginFailed();
          else
-         	return Redirect::route('user.login')->withErrors($validator);
+         	return Redirect::route('users.login')->withErrors($validator);
    	}
 	}
 
@@ -180,12 +184,17 @@ class UsersController extends \BaseController {
          return Response::json(['status' => 'error', 'message' => $error])->setCallback(Input::get('callback'));
       }
       else
-         return Redirect::route('user.login')->with('error', $error);
+         return Redirect::route('users.login')->with('error', $error);
 	}
 
 	public function logout()
 	{
 		Sentry::logout();
-		return Redirect::route('user.login');
+		return Redirect::route('users.login');
 	}
+
+   public function revokePermission()
+   {
+
+   }
 }

@@ -20,7 +20,7 @@
                   <div class="row">
                      <h4><i class="glyphicon glyphicon-log-in"></i> LOG IN</h4>
                      <hr>
-                     {{ Form::open(["url" => route("user.login"), 'method' => 'post', 'class' => 'form-vertical']) }}
+                     {{ Form::open(["url" => route("users.login"), 'method' => 'post', 'class' => 'form-vertical']) }}
                         <div class="form-group">
                            <div class="input-group">
                               <span class="input-group-addon"><i class="fi-at-sign"></i></span>
@@ -57,7 +57,7 @@
          ev.preventDefault(true);
 
          $.ajax({
-            url: '{{ route('user.login') }}',
+            url: '{{ route('users.login') }}',
             data: $('form').serialize(),
             dataType: 'jsonp',
             type: 'post',

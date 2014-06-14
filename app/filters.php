@@ -85,19 +85,12 @@ Route::filter('sentry', function($route, $request)
       View::share('current_route', $route->getName());
 
    	if( ! Sentry::check() ) {
-      	$public = Sentry::findGroupByName('Public');
-      	$public_permissions = $public->getPermissions();
-
-      	if( !array_key_exists($route->getName(), $public_permissions)
-         	|| (array_key_exists($route->getName(), $public_permissions)
-            && $public_permissions[$route->getName()] != 1) )
-
-        return Redirect::guest(route('user.login'));
+        return Redirect::guest(route('users.login'));
    	} else {
       	$user = Sentry::getUser();
       	View::share('logged_user', $user);
 
       	if(!$user->hasAccess($route->getName()))
-        	return Response::view('error.denied', array('route_name'=>$route->getName()), 403);
+        	   return Response::view('error.denied', array('route_name'=>$route->getName()), 403);
    	}
 });

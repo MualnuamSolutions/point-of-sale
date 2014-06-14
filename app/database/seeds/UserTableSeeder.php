@@ -5,7 +5,8 @@ class UserTableSeeder extends Seeder {
    {
       // Create the super user
       $user = Sentry::createUser([
-         'email'   =>'alanpachuau@gmail.com',
+         'email' =>'alanpachuau@gmail.com',
+         'name' =>'Alan Pachuau',
          'password'  => 'pass',
          'activated' => 1,
          'permissions' => ['superuser' => 1]
@@ -13,19 +14,12 @@ class UserTableSeeder extends Seeder {
 
       // Create the super user
       $user = Sentry::createUser([
-         'email'   =>'remasailo@gmail.com',
-         'password'  => 'pass',
+         'email' => 'remasailo@gmail.com',
+         'name' => 'Rema Sailo',
+         'password' => 'pass',
          'activated' => 1,
          'permissions' => ['superuser' => 1]
       ]);
-
-      // Create the super user
-      $user = Sentry::createUser([
-        'email'   =>'manager@mail.com',
-        'password'  => 'pass',
-        'activated' => 1,
-        'permissions' => ['superuser' => 1]
-       ]);
    }
 
 }

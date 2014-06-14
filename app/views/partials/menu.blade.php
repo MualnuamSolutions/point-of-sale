@@ -15,6 +15,7 @@
             <li class="{{ Mualnuam\Menu::isCurrent('units.index') }}"><a href="{{ route('units.index') }}"><i class="fa fa-arrow-right"></i> Product Unit</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('types.index') }}"><a href="{{ route('types.index') }}"><i class="fa fa-arrow-right"></i> Product Types</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-arrow-right"></i> Users</a></li>
+            <li class="{{ Mualnuam\Menu::isCurrent('users.revokePermission') }}"><a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a></li>
             <li class="divider"></li>
             <li><a href="{{ route('users.logout') }}"><i class="fi-power"></i> Logout</a></li>
          </ul>
@@ -37,6 +38,7 @@
       <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Units</a>
       <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Types</a>
       <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Users</a>
+      <a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
       <a href="{{ route('users.logout') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Logout</a>
    </div>
 </div>

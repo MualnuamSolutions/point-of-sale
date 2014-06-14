@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-   {{ Form::open(['url' => route('user.store'), 'method' => 'post']) }}
+   {{ Form::open(['url' => route('users.store'), 'method' => 'post']) }}
    <fieldset>
       <div class="row">
          <div class="large-6 columns">

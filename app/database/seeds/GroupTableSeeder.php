@@ -13,7 +13,7 @@ class GroupTableSeeder extends Seeder
 
       $staff = Sentry::createGroup(
          array(
-         'name'        => 'Stock Manager',
+         'name'        => 'Store Manager',
          'permissions' => []
       ));
 
@@ -21,15 +21,6 @@ class GroupTableSeeder extends Seeder
          array(
          'name'        => 'Sales Person',
          'permissions' => []
-      ));
-
-      $staff = Sentry::createGroup(
-         array(
-         'name'        => 'Public',
-         'permissions' => [
-            'user.login' => 1,
-            'user.doLogin' => 1
-         ]
       ));
    }
 }
