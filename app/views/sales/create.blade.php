@@ -6,7 +6,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('sales._menu')
-               <h3 class="panel-title"><i class="fi-page-add"></i> Create Stock</h3>
+               <h3 class="panel-title"><i class="fi-page-add"></i> Create New Sale</h3>
             </div>
             <div class="panel-body sales-create">
                <div class="row">
