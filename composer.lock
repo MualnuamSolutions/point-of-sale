@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "2acb717a74a89fa73802026cf860156f",
+    "hash": "4ba3dcc6b0068681f56cfee01d5f9457",
     "packages": [
         {
             "name": "cartalyst/sentry",
@@ -1782,17 +1782,9 @@
             "time": "2014-03-13 17:48:09"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
-    "platform": [
-
-    ],
-    "platform-dev": [
-
-    ]
+    "stability-flags": [],
+    "platform": [],
+    "platform-dev": []
 }

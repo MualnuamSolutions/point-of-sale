@@ -21,7 +21,16 @@
                   </div>
 
                   <div class="row">
-                     <div class="col-md-6">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
+                           {{ Form::label('color', 'Color') }}
+                           {{ Form::text('color', '444444', ['class' => 'form-control pick-a-color']) }}
+                           @if($errors->has('color'))
+                           <p class="help-block">{{ $errors->first('color') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
                            {{ Form::label('type_id', 'Type') }}
                            {{ Form::select('type_id', $types, '', ['class' => 'form-control']) }}
@@ -31,7 +40,7 @@
                         </div>
                      </div>
 
-                     <div class="col-md-6">
+                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('unit_id') ? 'has-error' : '' }}">
                            {{ Form::label('unit_id', 'Unit') }}
                            {{ Form::select('unit_id', $units, '', ['class' => 'form-control']) }}

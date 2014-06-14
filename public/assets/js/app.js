@@ -21,5 +21,17 @@ $(document).ready(function () {
          $('.filter').css('display', 'none');
       else
          $('.filter').css('display', 'block');
-   })
+   });
+
+   $(".pick-a-color").pickAColor({
+      showSpectrum            : true,
+      showSavedColors         : true,
+      saveColorsPerElement    : true,
+      fadeMenuToggle          : true,
+      showAdvanced            : true,
+      showBasicColors         : true,
+      showHexInput            : true,
+      allowBlank              : true,
+      inlineDropdown          : true
+   });
 });

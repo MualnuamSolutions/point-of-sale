@@ -19,7 +19,8 @@
                      <tr>
                         <th>#</th>
                         <th class="col-md-3">Product</th>
-                        <th class="col-md-3">Type</th>
+                        <th class="col-md-1">Color</th>
+                        <th class="col-md-2">Type</th>
                         <th class="col-md-2">Unit</th>
                         <th class="col-md-2">In Stock</th>
                         <th class="col-md-3"></th>
@@ -32,6 +33,10 @@
                         <td>
                            {{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, $product->name) }}<br />
                            <small>{{ $product->product_code}}</small>
+                        </td>
+                        <td class="text-center">
+                           <span style="display:block;height:20px;background-color: #{{ $product->color}}"></span>
+                           <small>#{{ $product->color}}</small>
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>

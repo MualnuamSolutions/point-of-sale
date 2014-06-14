@@ -51,6 +51,7 @@ public function __construct()
       if($validator->passes()) {
          $product = new Products;
          $product->name = Input::get('name');
+         $product->color = Input::get('color');
          $product->product_code = 0;
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');
@@ -125,6 +126,7 @@ public function __construct()
       if($validator->passes()) {
          $product = Products::find($id);
          $product->name = Input::get('name');
+         $product->color = Input::get('color');
          $product->product_code = 0;
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');

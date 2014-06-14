@@ -21,7 +21,17 @@
                   </div>
 
                   <div class="row">
-                     <div class="col-md-6">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
+                           {{ Form::label('color', 'Color') }}
+                           {{ Form::text('color', $product->color, ['class' => 'form-control pick-a-color']) }}
+                           @if($errors->has('color'))
+                           <p class="help-block">{{ $errors->first('color') }}</p>
+                           @endif
+                        </div>
+                     </div>
+
+                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
                            {{ Form::label('type_id', 'Type') }}
                            {{ Form::select('type_id', $types, $product->type_id, ['class' => 'form-control']) }}
@@ -31,52 +41,12 @@
                         </div>
                      </div>
 
-                     <div class="col-md-6">
+                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('unit_id') ? 'has-error' : '' }}">
                            {{ Form::label('unit_id', 'Unit') }}
                            {{ Form::select('unit_id', $units, $product->unit_id, ['class' => 'form-control']) }}
                            @if($errors->has('unit_id'))
                            <p class="help-block">{{ $errors->first('unit_id') }}</p>
-                           @endif
-                        </div>
-                     </div>
-                  </div>
-
-                  <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
-                           {{ Form::label('cp', 'Cost Price') }}
-
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('cp', $product->cp , ['class' => 'form-control']) }}
-                           </div>
-
-                           @if($errors->has('cp'))
-                           <p class="help-block">{{ $errors->first('cp') }}</p>
-                           @endif
-                        </div>
-                     </div>
-
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('sp') ? 'has-error' : '' }}">
-                           {{ Form::label('sp', 'Selling Price') }}
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('sp', $product->sp , ['class' => 'form-control']) }}
-                           </div>
-
-                           @if($errors->has('sp'))
-                           <p class="help-block">{{ $errors->first('sp') }}</p>
-                           @endif
-                        </div>
-                     </div>
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
-                           {{ Form::label('quantity', 'Product Quantity') }}
-                           {{ Form::text('quantity', $product->quantity , ['class' => 'form-control']) }}
-                           @if($errors->has('quantity'))
-                           <p class="help-block">{{ $errors->first('quantity') }}</p>
                            @endif
                         </div>
                      </div>
