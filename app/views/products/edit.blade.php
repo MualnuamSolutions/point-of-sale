@@ -12,7 +12,7 @@
                {{ Form::open(['url' => route('products.update',$product->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                      {{ Form::label('name', 'Product Name') }}
-                     {{ Form::text('name', $product->name, ['class' => 'form-control']) }}
+                     {{ Form::text('name', stripslashes($product->name), ['class' => 'form-control']) }}
                      <p class="help-block">Enter Product name here</p>
 
                      @if($errors->has('name'))
@@ -24,7 +24,7 @@
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
                            {{ Form::label('color', 'Color') }}
-                           {{ Form::text('color', $product->color, ['class' => 'form-control pick-a-color']) }}
+                           {{ Form::select('color', Colors::dropdownList(), $product->color_id, ['class' => 'form-control']) }}
                            @if($errors->has('color'))
                            <p class="help-block">{{ $errors->first('color') }}</p>
                            @endif

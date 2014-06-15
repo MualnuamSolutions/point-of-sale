@@ -6,7 +6,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('colors._menu')
-               <h3 class="panel-title"><i class="fi-page-add"></i> Edit Colour</h3>
+               <h3 class="panel-title"><i class="fi-page-add"></i> Edit Color</h3>
             </div>
             <div class="panel-body">
                {{ Form::open(['url' => route('colors.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}

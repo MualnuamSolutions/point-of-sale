@@ -34,4 +34,5 @@ $(document).ready(function () {
       allowBlank              : true,
       inlineDropdown          : true
    });
+
 });

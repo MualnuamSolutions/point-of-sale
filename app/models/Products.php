@@ -33,6 +33,16 @@ class Products extends Eloquent
       return $this->hasOne('Units', 'id','unit_id');
    }
 
+   public function stocks()
+   {
+      return $this->hasMany('Stocks', 'product_id');
+   }
+
+   public function color()
+   {
+      return $this->hasOne('Colors', 'id','color_id');
+   }
+
    public static function dropdownList()
    {
       return array('' => 'Select Product') + Products::orderBy('name', 'asc')->get()->lists('name', 'id');
@@ -63,4 +73,5 @@ class Products extends Eloquent
 
       })->orderBy('name', 'asc')->paginate($limit);
    }
+
 }

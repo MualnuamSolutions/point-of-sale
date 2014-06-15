@@ -14,7 +14,7 @@
             <li class="{{ Mualnuam\Menu::isCurrent('customers.index') }}"><a href="{{ route('customers.index') }}"><i class="fa fa-arrow-right"></i> Customers</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('units.index') }}"><a href="{{ route('units.index') }}"><i class="fa fa-arrow-right"></i> Product Unit</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('types.index') }}"><a href="{{ route('types.index') }}"><i class="fa fa-arrow-right"></i> Product Types</a></li>
-            <li class="{{ Mualnuam\Menu::isCurrent('colors.index') }}"><a href="{{ route('colors.index') }}"><i class="fa fa-arrow-right"></i> Colour</a></li>
+            <li class="{{ Mualnuam\Menu::isCurrent('colors.index') }}"><a href="{{ route('colors.index') }}"><i class="fa fa-arrow-right"></i> Colors</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-arrow-right"></i> Users</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('users.revokePermission') }}"><a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a></li>
             <li class="divider"></li>

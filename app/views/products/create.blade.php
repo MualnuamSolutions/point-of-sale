@@ -24,7 +24,8 @@
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
                            {{ Form::label('color', 'Color') }}
-                           {{ Form::text('color', '444444', ['class' => 'form-control pick-a-color']) }}
+                           {{ Form::select('color', Colors::dropdownList(), null, ['class' => 'form-control']) }}
+
                            @if($errors->has('color'))
                            <p class="help-block">{{ $errors->first('color') }}</p>
                            @endif

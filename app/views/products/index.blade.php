@@ -31,12 +31,14 @@
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
-                           {{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, $product->name) }}<br />
+                           {{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, stripslashes($product->name)) }}<br />
                            <small>{{ $product->product_code}}</small>
                         </td>
-                        <td class="text-center">
-                           <span style="display:block;height:20px;background-color: #{{ $product->color}}"></span>
-                           <small>{{ $product->color ? '#' . $product->color : ''}}</small>
+                        <td>
+                           @if ($product->color)
+                           <span class="label" style="background-color: #{{ $product->color->code }}"><i class="fa fa-ellipsis-h"></i></span>
+                           <small>{{ $product->color->name }}</small>
+                           @endif
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>

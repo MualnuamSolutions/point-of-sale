@@ -1,1 +1,10 @@
-<?phpclass Sales extends Eloquent{	protected $table = "sales";}
+<?php
+class Sales extends Eloquent
+{
+	protected $table = "sales";
+
+   public function saveCart()
+   {
+
+   }
+}

@@ -16,7 +16,7 @@ class CreateSalesTable extends Migration {
       {
          $table->increments('id');
          $table->string('reference_no');
-         $table->integer('customer_id');
+         $table->integer('customer_id')->nullable()->default(0);
          $table->integer('outlet_id');
          $table->timestamps();
       });

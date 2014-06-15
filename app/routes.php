@@ -20,9 +20,9 @@ Route::get('users/revoke-permission', ['uses' => 'UsersController@revokePermissi
 Route::resource('users', 'UsersController');
 Route::resource('types', 'TypesController');
 Route::resource('units', 'UnitsController');
-Route::resource('products', 'ProductsController');
 Route::resource('customers', 'CustomersController');
 Route::resource('suppliers', 'SuppliersController');
+Route::get('products/search', ['uses' => 'ProductsController@search', 'as' => 'products.search', 'before' => 'sentry']);
 Route::resource('products', 'ProductsController');
 Route::resource('salesoutlets', 'SalesOutletsController');
 Route::resource('stocks', 'StocksController');

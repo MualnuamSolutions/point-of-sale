@@ -48,6 +48,7 @@ class StocksController extends \BaseController {
          $stock->cp = Input::get('cp');
          $stock->sp = Input::get('sp');
          $stock->quantity = Input::get('quantity');
+         $stock->in_stock = Input::get('quantity');
          $stock->save();
          Products::updateStock($stock->product_id);
          return Redirect::route('stocks.index')
@@ -112,6 +113,7 @@ class StocksController extends \BaseController {
          $stock->cp = Input::get('cp');
          $stock->sp = Input::get('sp');
          $stock->quantity = Input::get('quantity');
+         $stock->in_stock = Input::get('quantity');
          $stock->save();
          Products::updateStock($stock->product_id);
 
