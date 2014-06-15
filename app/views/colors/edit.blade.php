@@ -9,21 +9,21 @@
                <h3 class="panel-title"><i class="fi-page-add"></i> Edit Color</h3>
             </div>
             <div class="panel-body">
-               {{ Form::open(['url' => route('colors.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+               {{ Form::open(['url' => route('colors.update',$color->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                      {{ Form::label('name', 'Colour Name') }}
                      {{ Form::text('name', $color->name, ['class' => 'form-control']) }}
                      <p class="help-block">Enter Color name here</p>
 
-                     @if($errors->has('code'))
+                     @if($errors->has('name'))
                      <p class="help-block">{{ $errors->first('name') }}</p>
                      @endif
                   </div>
                   <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
                            {{ Form::label('color', 'Color') }}
-                           {{ Form::text('color', $color->code, ['class' => 'form-control pick-a-color']) }}
-                           @if($errors->has('color'))
-                           <p class="help-block">{{ $errors->first('color') }}</p>
+                           {{ Form::text('code', $color->code, ['class' => 'form-control pick-a-color']) }}
+                           @if($errors->has('code'))
+                           <p class="help-block">{{ $errors->first('code') }}</p>
                            @endif
                         </div>
 
