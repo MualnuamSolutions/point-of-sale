@@ -25,7 +25,8 @@ public function __construct()
     */
    public function create()
    {
-      return View::make('colors.create');   }
+      return View::make('colors.create');
+   }
 
 
    /**
@@ -84,7 +85,8 @@ public function __construct()
          return Redirect::route('colors.index')
             ->with('error', 'Colour not found');
 
-      return View::make('colors.edit', compact('color'));   }
+      return View::make('colors.edit', compact('color'));
+   }
 
 
    /**

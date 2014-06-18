@@ -28,3 +28,6 @@ Route::resource('salesoutlets', 'SalesOutletsController');
 Route::resource('stocks', 'StocksController');
 Route::resource('sales', 'SalesController');
 Route::resource('colors', 'ColorsController');
+Route::get('outletdeposits/{id}/approve', ['uses' => 'OutletDepositsController@approve', 'as' => 'outletdeposits.approve']);
+Route::get('outletdeposits/{id}/not_approve', ['uses' => 'OutletDepositsController@not_approve', 'as' => 'outletdeposits.not_approve']);
+Route::resource('outletdeposits', 'OutletDepositsController');

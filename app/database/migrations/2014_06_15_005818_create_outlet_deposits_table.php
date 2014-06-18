@@ -17,8 +17,8 @@ class CreateOutletDepositsTable extends Migration {
          $table->increments('id');
          $table->integer('outlet_id');
          $table->float('deposit_amt');
-         $table->float('refference_no');
-         $table->integer('status');// approval for manager (approved/not approved)
+         $table->float('refference_no')->nullable();
+         $table->enum('status', array('Pending', 'Approved','Reject'))->default('Pending');// approval for manager (approved/not approved)
          $table->timestamps();
       });
 	}

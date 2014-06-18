@@ -5,7 +5,7 @@ class Colors extends Eloquent
 
    public static $rules = [
          'name' => 'required',
-         'code' => 'required',
+         'color' => 'required',
    ];
 
    public static function dropdownList()
