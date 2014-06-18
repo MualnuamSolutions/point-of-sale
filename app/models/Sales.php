@@ -5,4 +5,14 @@ class Sales extends Eloquent
 
    public static $rules = [
    ];
+
+   public function items()
+   {
+      return $this->hasMany('SalesItems', 'sales_id');
+   }
+
+   public function customer()
+   {
+      return $this->belongsTo('Customers', 'customer_id');
+   }
 }

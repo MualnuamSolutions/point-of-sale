@@ -118,6 +118,7 @@ table td.actions form {
    padding-left: 10px;
    padding-right: 10px;
    margin-left: 1px;
+   font-weight: bold;
 }
 .top-row .navbar-nav li.open>a,
 .top-row .navbar-nav li.active a,

@@ -15,7 +15,11 @@ class SalesController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+      $input = Input::all();
+		$sales = Sales::with('items', 'customer')->paginate(20);
+      $outlets = SalesOutlets::dropdownList();
+
+      return View::make('sales.index', compact('sales', 'index', 'input', 'outlets'));
 	}
 
 
@@ -77,6 +81,11 @@ class SalesController extends \BaseController {
                $salesItem->quantity = $item['quantity'];
                $salesItem->total = $item['quantity'] * $item['sp'];
                $salesItem->save();
+
+               // Update stock
+               $stock = Stocks::find($stockId);
+               $stock->in_stock = $stock->in_stock - $salesItem->quantity;
+               $stock->save();
             }
          }
 

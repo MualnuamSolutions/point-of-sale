@@ -9,7 +9,7 @@
                <h3 class="panel-title"><i class="fi-page-multiple"></i> Sales Outlets</h3>
             </div>
             <div class="panel-body">
-               <table class="table condence">
+               <table class="table table-condensed">
                   <thead>
                      <tr>
                         <th>#</th>

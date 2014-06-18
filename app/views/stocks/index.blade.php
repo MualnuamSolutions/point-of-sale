@@ -19,7 +19,8 @@
                         <th class="col-md-4">Product</th>
                         <th class="col-md-2">Supplier</th>
                         <th class="col-md-2">CP/SP</th>
-                        <th class="col-md-2">Quantity</th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-1">In Stock</th>
                         <th class="col-md-2"></th>
                      </tr>
                   </thead>
@@ -28,12 +29,13 @@
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
-                           <a href="{{ route('products.show', $stock->product->id) }}">{{ $stock->product->name }}</a><br />
+                           <a href="{{ route('products.show', $stock->product->id) }}">{{ stripslashes($stock->product->name) }}</a><br />
                            <small>{{ $stock->product->product_code}}</small>
                         </td>
                         <td><a href="{{ route('suppliers.show', $stock->supplier->id) }}">{{ $stock->supplier->name}}</a></td>
                         <td><i class="fa fa-rupee"></i> {{ $stock->cp }} / <i class="fa fa-rupee"></i> {{ $stock->sp}}</td>
                         <td>{{ $stock->quantity }}</td>
+                        <td>{{ $stock->in_stock }}</td>
                         <td class="actions">
                            <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('stocks.destroy', $stock->id), 'method' => 'delete']) }}

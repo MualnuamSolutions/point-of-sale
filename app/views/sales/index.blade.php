@@ -6,104 +6,45 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('sales._menu')
-               <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> New Sale</h3>
+               <h3 class="panel-title"><i class="fi-page-multiple"></i> Sales</h3>
             </div>
-            <div class="panel-body sales-create">
-               <div class="row">
-                  <div class="col-sm-12 cart">
+            <div class="panel-body sales-list">
+               @include('sales._filter')
 
-                     @include('sales._search')
+               <table class="table table-condensed">
+                  <thead>
+                     <tr>
+                        <th>#</th>
+                        <th class="col-md-4">Reference No</th>
+                        <th class="col-md-1">Total</th>
+                        <th class="col-md-1">Discount</th>
+                        <th class="col-md-1">Paid</th>
+                        <th class="col-md-1">Items</th>
+                        <th class="col-md-4"></th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     @foreach($sales as $key => $sale)
+                     <tr>
+                        <td>{{ $sales->getFrom() + $key }}</td>
+                        <td>{{ $sale->reference_no }}</td>
+                        <td><i class="fa fa-rupee"></i> {{ $sale->total }}</td>
+                        <td><i class="fa fa-rupee"></i> {{ $sale->discount }}</td>
+                        <td><i class="fa fa-rupee"></i> {{ $sale->paid }}</td>
+                        <td>{{ $sale->items->count() }}</td>
+                        <td class="actions">
+                           <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           {{ Form::open(['url' => route('sales.destroy', $sale->id), 'method' => 'delete']) }}
+                              {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
+                           {{ Form::close() }}
+                        </td>
+                     </tr>
+                     @endforeach
+                  </tbody>
+               </table>
 
-                     <h6 class="text-success"><i class="fa fa-cubes"></i> CART ITEMS</h6>
-                     <hr>
+               {{ $sales->links() }}
 
-
-                     {{ Form::open(['url' => route('sales.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
-
-                        <div class="well">
-                           <table class="table cart-table">
-                           <thead>
-                              <tr>
-                                 <th>#</th>
-                                 <th class="col-xs-4">Name</th>
-                                 <th class="col-xs-2">Code</th>
-                                 <th class="col-xs-2">Rate</th>
-                                 <th class="col-xs-1">Quantity</th>
-                                 <th class="col-xs-2">Sub Total</th>
-                                 <th></th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr class="cart-empty">
-                                 <td colspan="7" class="text-center"><span class="text-danger">Add Items</span></td>
-                              </tr>
-                           </tbody>
-                           <tfoot>
-                              <tr>
-                                 <th colspan="5" class="text-right">Total</th>
-                                 <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-total-display">0</span>
-                                    <input name="total" type="hidden" class="cart-total form-control input-sm" value="" />
-                                 </th>
-                              </tr>
-                              <tr>
-                                 <th colspan="5" class="text-right">Discount</th>
-                                 <th colspan="2">
-                                    <div class="input-group">
-                                       <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                                       <input onblur="calculate()" onchange="calculate()" name="discount" min="0" type="number" class="cart-discount form-control input-sm" value="0" />
-                                    </div>
-                                 </th>
-                              </tr>
-                              <tr>
-                                 <th colspan="3">
-                                    <textarea class="form-control input-sm" name="note" placeholder="Note"></textarea>
-                                 </th>
-                                 <th colspan="2" class="text-right">Grand Total</th>
-                                 <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-grandtotal-display">0</span>
-                                    <input name="grandtotal" type="hidden" class="cart-grandtotal form-control input-sm" value="" />
-                                 </th>
-                              </tr>
-                           </tfoot>
-                        </table>
-                        </div>
-
-                        <h6 class="text-success"><i class="fa fa-user"></i> CUSTOMER</h6>
-                        <hr>
-
-                        <div class="row">
-                           <div class="col-sm-4">
-                              <div class="form-group">
-                                 {{ Form::label('name', 'Name') }}
-                                 {{ Form::text('name', '', ['class' => 'form-control input-sm']) }}
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="form-group">
-                                 {{ Form::label('address', 'Address') }}
-                                 {{ Form::text('address', '', ['class' => 'form-control input-sm']) }}
-                              </div>
-                           </div>
-                           <div class="col-sm-4">
-                              <div class="form-group">
-                                 {{ Form::label('contact', 'Contact') }}
-                                 {{ Form::text('contact', '', ['class' => 'form-control input-sm']) }}
-                              </div>
-                           </div>
-                        </div>
-
-                        <div class="form-group text-right">
-                           <div class="pull-left">
-                              <h5 class="text-success">Saved</h5>
-                           </div>
-                           {{ Form::button('<i class="fa fa-check-square"></i> Submit', ['class' => 'btn btn-md btn-primary', 'type' => 'submit']) }}
-                           <!-- {{ Form::button('<i class="fa fa-check-square"></i> Save', ['class' => 'btn btn-md btn-success']) }} -->
-                        </div>
-
-                     {{ Form::close() }}
-                  </div>
-               </div>
             </div>
          </div>
       </div>

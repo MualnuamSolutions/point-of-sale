@@ -83,6 +83,10 @@ Route::filter('csrf', function()
 Route::filter('sentry', function($route, $request)
 {
       View::share('current_route', $route->getName());
+      View::share('Manager', Sentry::findGroupByName('Manager'));
+      View::share('StoreManager', Sentry::findGroupByName('Store Manager'));
+      View::share('SalesPerson', Sentry::findGroupByName('Sales Person'));
+
 
    	if( ! Sentry::check() ) {
         return Redirect::guest(route('users.login'));
