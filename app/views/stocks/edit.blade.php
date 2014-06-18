@@ -46,7 +46,7 @@
                            {{ Form::label('cp', 'Cost Price') }}
                            <div class="input-group">
                               <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('cp', $stock->sp, ['class' => 'form-control']) }}
+                              {{ Form::text('cp', $stock->cp, ['class' => 'form-control']) }}
                            </div>
                            @if($errors->has('cp'))
                            <p class="help-block">{{ $errors->first('cp') }}</p>
