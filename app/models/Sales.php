@@ -3,8 +3,6 @@ class Sales extends Eloquent
 {
 	protected $table = "sales";
 
-   public function saveCart()
-   {
-
-   }
+   public static $rules = [
+   ];
 }
