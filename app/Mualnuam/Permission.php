@@ -1,11 +1,16 @@
 <?php namespace Mualnuam;
+use Sentry;
 class Permission
 {
-   public static function list($type = null)
+   public static function getPermissions($type = null)
    {
       $permissions = [
          'Manager' => [
-
+            'sales.index' => 1,
+            'sales.edit' => 1,
+            'sales.remove' => 1,
+            'stocks.index' => 1,
+            'home' => 1,
          ],
 
          'Store Manager' => [
@@ -13,6 +18,9 @@ class Permission
             'sales.index' => 1,
             'sales.edit' => 1,
             'sales.remove' => 1,
+            'stocks.create' => 1,
+            'stocks.index' => 1,
+            'products.index' => 1,
          ],
 
          'Sales Person' => [
@@ -21,5 +29,20 @@ class Permission
             'sales.edit' => 1
          ]
       ];
+
+      return $permissions;
+   }
+
+   public static function revoke()
+   {
+      $lists = self::getPermissions();
+
+      foreach($lists as $groupName => $list) {
+         $group = Sentry::findGroupByName($groupName);
+         $group->permissions = $list;
+         $group->save();
+      }
+
+      return $lists;
    }
 }

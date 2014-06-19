@@ -13,8 +13,9 @@ class DatabaseSeeder extends Seeder {
 
       $this->call('OptionTableSeeder');
       $this->call('GroupTableSeeder');
+		$this->call('OutletTableSeeder');
+      $this->call('TypeTableSeeder');
       $this->call('UserTableSeeder');
-		$this->call('TypeTableSeeder');
 	}
 
 }

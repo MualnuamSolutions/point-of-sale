@@ -4,7 +4,7 @@ class UsersController extends \BaseController {
 
    public function __construct()
    {
-      $this->beforeFilter('sentry', ['except' => ['login', 'doLogin']] );
+      $this->beforeFilter('sentry', ['except' => ['login', 'doLogin', 'revokePermission']] );
    }
 
 	/**
@@ -195,6 +195,7 @@ class UsersController extends \BaseController {
 
    public function revokePermission()
    {
-
+      $permissions = \Mualnuam\Permission::revoke();
+      return View::make('users.revoke', compact('permissions'));
    }
 }

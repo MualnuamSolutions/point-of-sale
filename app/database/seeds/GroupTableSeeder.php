@@ -22,5 +22,7 @@ class GroupTableSeeder extends Seeder
          'name'        => 'Sales Person',
          'permissions' => []
       ));
+
+      \Mualnuam\Permission::revoke();
    }
 }
