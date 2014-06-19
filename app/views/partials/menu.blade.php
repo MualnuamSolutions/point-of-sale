@@ -33,13 +33,14 @@
       <a href="{{ route('stocks.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Stocks</a>
       <a href="{{ route('products.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Products</a>
       <a href="{{ route('suppliers.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Suppliers</a>
-      <a href="{{ route('salesoutlets.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Sales Outlets</a>
-      <a href="{{ route('home') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlets Distribution</a>
+      <a href="{{ route('salesoutlets.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlets</a>
+      <a href="{{ route('distributions.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Distribution</a>
       <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Customers</a>
-      <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Units</a>
-      <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Types</a>
+      <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Product Units</a>
+      <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Product Types</a>
+      <a href="{{ route('colors.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Colors</a>
       <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Users</a>
-      <a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
+      <a href="{{ route('users.revokePermission') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
       <a href="{{ route('users.logout') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Logout</a>
    </div>
 </div>
