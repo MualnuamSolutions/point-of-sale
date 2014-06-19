@@ -6,4 +6,18 @@ class Distributions extends Eloquent
    public static $rules = [
    ];
 
+   public function outlet()
+   {
+      return $this->belongsTo('SalesOutlets', 'outlet_id');
+   }
+
+   public function stock()
+   {
+      return $this->belongsTo('Stocks', 'stock_id');
+   }
+
+   public function product()
+   {
+      return $this->belongsTo('Products', 'product_id');
+   }
 }
