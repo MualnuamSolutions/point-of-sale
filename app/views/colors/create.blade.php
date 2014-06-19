@@ -19,11 +19,11 @@
                      <p class="help-block">{{ $errors->first('name') }}</p>
                      @endif
                   </div>
-                  <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
-                           {{ Form::label('color', 'Color') }}
-                           {{ Form::text('color', '444444', ['class' => 'form-control pick-a-color']) }}
-                           @if($errors->has('color'))
-                           <p class="help-block">{{ $errors->first('color') }}</p>
+                  <div class="form-group {{ $errors->has('code') ? 'has-error' : '' }}">
+                           {{ Form::label('code', 'Color') }}
+                           {{ Form::text('code', '444444', ['class' => 'form-control pick-a-color']) }}
+                           @if($errors->has('code'))
+                           <p class="help-block">{{ $errors->first('code') }}</p>
                            @endif
                         </div>
 

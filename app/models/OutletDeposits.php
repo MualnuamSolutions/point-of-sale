@@ -13,4 +13,8 @@ class OutletDeposits extends Eloquent
       {
          return array('' => 'Select Sales Outlet') +SalesOutlets::orderBy('name', 'asc')->get()->lists('name', 'id');
       }
+    public function outlet()
+   {
+      return $this->hasOne('salesoutlets', 'id','outlet_id');
+   }
 }

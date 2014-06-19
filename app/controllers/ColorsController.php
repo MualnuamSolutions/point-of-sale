@@ -41,7 +41,7 @@ public function __construct()
       if($validator->passes()) {
          $color = new Colors;
          $color->name = Input::get('name');
-         $color->code = Input::get('color');
+         $color->code = Input::get('code');
          $color->save();
 
          return Redirect::route('colors.index')

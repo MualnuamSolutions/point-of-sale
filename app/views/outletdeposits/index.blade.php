@@ -17,10 +17,11 @@
                   <thead>
                      <tr>
                         <th>#</th>
+                        <th class="col-md-2">Outlet</th>
                         <th class="col-md-1">Deposit Amount</th>
-                        <th class="col-md-2">Balanced Amount</th>
+                        <th class="col-md-1">Balanced Amount</th>
                         <th class="col-md-2">Refference No</th>
-                        <th class="col-md-2">Date</th>
+                        <th class="col-md-1">Date</th>
                         <th class="col-md-1">Status</th>
                         <th class="col-md-6"></th>
                      </tr>
@@ -29,8 +30,9 @@
                      @foreach($outletdeposits as $key => $deposit)
                      <tr>
                         <td>{{ $index+$key }}</td>
+                        <td>{{ $deposit->outlet->name }}</td>
                         <td>{{ $deposit->deposit_amt }}</td>
-                        <td>{{ 'to be calculate from sales...' }}</td>
+                        <td>{{ '---' }}</td>
                         <td>{{ $deposit->refference_no }}</td>
                         <td>{{ $deposit->updated_at }}</td>
                         <td>
