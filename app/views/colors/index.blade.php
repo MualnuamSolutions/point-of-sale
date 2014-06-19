@@ -6,7 +6,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('colors._menu')
-               <h3 class="panel-title"><i class="fi-page-multiple"></i> Create New Colour</h3>
+               <h3 class="panel-title"><i class="fi-page-multiple"></i> Create New Color</h3>
             </div>
             <div class="panel-body">
                <table class="table condence">

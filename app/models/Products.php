@@ -18,8 +18,9 @@ class Products extends Eloquent
    {
       $product = Products::find($productId);
       $stockQuantity = Stocks::whereProductId($productId)->sum('quantity');
+      $in_stockQuantity = Stocks::whereProductId($productId)->sum('in_stock');
       $salesQuantity = SalesItems::whereProductId($productId)->sum('quantity');
-      $product->quantity =  $stockQuantity - $salesQuantity;
+      $product->quantity =  $in_stockQuantity;
       $product->save();
    }
 

@@ -46,6 +46,8 @@ class OutletDepositsController extends \BaseController {
          $outletdeposits->refference_no = Input::get('refference');
          $outletdeposits->save();
 
+
+
          return Redirect::route('outletdeposits.index')
             ->with('success', 'Amount Deposited');
       }
@@ -87,7 +89,8 @@ class OutletDepositsController extends \BaseController {
          return Redirect::route('outletdeposits.index')
             ->with('error', 'Deposit not found');
 
-      return View::make('outletdeposits.edit', compact('deposit'));
+      $outlets = OutletDeposits::dropdownList();
+      return View::make('outletdeposits.edit', compact('deposit','outlets'));
 	}
 
 
@@ -99,7 +102,23 @@ class OutletDepositsController extends \BaseController {
 	 */
 	public function update($id)
    {
-      //
+      $validator = Validator::make(Input::all(), OutletDeposits::$rules);
+
+      if($validator->passes()) {
+         $deposit = OutletDeposits::find($id);
+         $deposit->outlet_id = Input::get('outlet_id');
+         $deposit->deposit_amt = Input::get('deposit');
+         $deposit->refference_no = Input::get('refference');
+         $deposit->save();
+
+         return Redirect::route('outletdeposits.index')
+            ->with('success', 'Outlet Deposit updated successfully');
+      }
+      else {
+         return Redirect::route('outletdeposits.edit', $id)
+            ->withErrors($validator)
+            ->withInput(Input::all());
+      }
    }
 
    public function approve($id)
@@ -108,25 +127,25 @@ class OutletDepositsController extends \BaseController {
       $deposit->status = 'Approved';
       $deposit->save();
 
+      $salesoutlet = SalesOutlets::find($deposit->outlet_id);
+      $salesoutlet->deposit = $salesoutlet->deposit + $deposit->deposit_amt;
+      $salesoutlet->save();
+
       return Redirect::route('outletdeposits.index')
          ->with('success', 'Deposit Amount Approved');
    }
 
-   public function pending($id)
-   {
-      $deposit = OutletDeposits::find($id);
-      $deposit->status = 'Pending';
-      $deposit->save();
 
-      return Redirect::route('outletdeposits.index')
-         ->with('success', 'Deposit Amount Pending');
-   }
 
-   public function not_approve($id)
+   public function reject($id)
 	{
 		$deposit = OutletDeposits::find($id);
       $deposit->status = 'Reject';
       $deposit->save();
+
+      $salesoutlet = SalesOutlets::find($deposit->outlet_id);
+      $salesoutlet->deposit = $salesoutlet->deposit - $deposit->deposit_amt;
+      $salesoutlet->save();
 
       return Redirect::route('outletdeposits.index')
          ->with('success', 'Deposit Amount Rejected');

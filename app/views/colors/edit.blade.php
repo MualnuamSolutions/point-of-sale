@@ -11,7 +11,7 @@
             <div class="panel-body">
                {{ Form::open(['url' => route('colors.update',$color->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                     {{ Form::label('name', 'Colour Name') }}
+                     {{ Form::label('name', 'Color Name') }}
                      {{ Form::text('name', $color->name, ['class' => 'form-control']) }}
                      <p class="help-block">Enter Color name here</p>
 

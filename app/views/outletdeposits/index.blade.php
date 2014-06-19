@@ -17,12 +17,12 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-2">Deposit Amount</th>
+                        <th class="col-md-1">Deposit Amount</th>
                         <th class="col-md-2">Balanced Amount</th>
-                        <th class="col-md-2">Bank Refference No</th>
+                        <th class="col-md-2">Refference No</th>
                         <th class="col-md-2">Date</th>
-                        <th class="col-md-2">Status</th>
-                        <th class="col-md-4"></th>
+                        <th class="col-md-1">Status</th>
+                        <th class="col-md-6"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -35,23 +35,42 @@
                         <td>{{ $deposit->updated_at }}</td>
                         <td>
                            <?php
-                           if($deposit->status==0)
+                           if($deposit->status=='Pending')
                            {
-                           ?>
-                           <a href="{{ route('outletdeposits.approve', $deposit->id ) }}" class="btn btn-sm btn-warning"><i class="fi-pencil"></i>Pending</a>
-                           <?php
+                              echo "<span  class=\"btn btn-sm btn-warning\">Pending</span>";
                            }
-                           else
+                           else if($deposit->status=='Approved')
                            {
-                           ?>
-                           <a href="{{ route('outletdeposits.not_approve', $deposit->id ) }}" class="btn btn-sm btn-success"><i class="fi-pencil"></i>Approved</a>
-                           <?php
+                              echo "<span  class=\"btn btn-sm btn-success\">Approved</span>";
+                           }
+                           else if($deposit->status=='Reject')
+                           {
+                              echo "<span  class=\"btn btn-sm btn-danger\">Rejected</span>";
                            }
                            ?>
                         </td>
                         <td class="actions">
 
+                           <?php
+                           if($deposit->status == 'Pending' || $deposit->status=='Reject')
+                           {
+                           ?>
+                           <a href="{{ route('outletdeposits.approve', $deposit->id ) }}" class="btn btn-sm btn-success"><i class="fi-pencil"></i> Approved</a>
+                           <?php
+                           }
+                           if($deposit->status == 'Pending' || $deposit->status=='Approved')
+                           {
+                           ?>
+                           <a href="{{ route('outletdeposits.reject', $deposit->id ) }}" class="btn btn-sm btn-warning"><i class="fi-pencil"></i> Reject</a>
+                           <?php
+                           }
+                           if($deposit->status == 'Pending')
+                           {
+                           ?>
                            <a href="{{ route('outletdeposits.edit', $deposit->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           <?php
+                           }
+                           ?>
 
                            {{ Form::open(['url' => route('outletdeposits.destroy', $deposit->id), 'method' => 'delete']) }}
                               {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit', 'onclick' => 'return confirm("Are you sure you want to delete?")']) }}

@@ -9,23 +9,35 @@
                <h3 class="panel-title"><i class="fi-page-add"></i> Edit Outlet Deposit</h3>
             </div>
             <div class="panel-body">
-               {{ Form::open(['url' => route('colors.update',$color->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
-                  <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                     {{ Form::label('name', 'Colour Name') }}
-                     {{ Form::text('name', $color->name, ['class' => 'form-control']) }}
-                     <p class="help-block">Enter Color name here</p>
-
-                     @if($errors->has('name'))
-                     <p class="help-block">{{ $errors->first('name') }}</p>
+               {{ Form::open(['url' => route('outletdeposits.update',$deposit->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+                  <div class="form-group {{ $errors->has('outlet_id') ? 'has-error' : '' }}">
+                     {{ Form::label('outlet_id', 'Sale Outlet') }}
+                     {{ Form::select('outlet_id', $outlets, $deposit->outlet_id, ['class' => 'form-control']) }}
+                     @if($errors->has('outlet_id'))
+                     <p class="help-block">{{ $errors->first('outlet_id') }}</p>
                      @endif
                   </div>
-                  <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
-                           {{ Form::label('color', 'Color') }}
-                           {{ Form::text('code', $color->code, ['class' => 'form-control pick-a-color']) }}
-                           @if($errors->has('code'))
-                           <p class="help-block">{{ $errors->first('code') }}</p>
-                           @endif
-                        </div>
+
+                  <div class="form-group {{ $errors->has('deposit') ? 'has-error' : '' }}">
+                     {{ Form::label('deposit', 'Deposit Amount') }}
+                     <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
+                        {{ Form::text('deposit',  $deposit->deposit_amt, ['class' => 'form-control']) }}
+                     </div>
+                     @if($errors->has('deposit'))
+                     <p class="help-block">{{ $errors->first('deposit') }}</p>
+                     @endif
+                  </div>
+
+                  <div class="form-group {{ $errors->has('refference') ? 'has-error' : '' }}">
+                     {{ Form::label('refference', 'Refference No') }}
+                     {{ Form::text('refference',  $deposit->refference_no, ['class' => 'form-control']) }}
+
+                     @if($errors->has('refference'))
+                     <p class="help-block">{{ $errors->first('refference') }}</p>
+                     @endif
+                  </div>
+
 
                   <div class="for-group text-right">
                      {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
