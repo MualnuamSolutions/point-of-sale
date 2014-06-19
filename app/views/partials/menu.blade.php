@@ -7,7 +7,7 @@
       <li class="{{ Mualnuam\Menu::isCurrent('products.index') }}"><a href="{{ route('products.index') }}">Products</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('suppliers.index') }}"><a href="{{ route('suppliers.index') }}">Suppliers</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('salesoutlets.index') }}"><a href="{{ route('salesoutlets.index') }}">Outlets</a></li>
-      <li><a href="{{ route('home') }}">Distribution</a></li>
+      <li class="{{ Mualnuam\Menu::isCurrent('distributions.index') }}"><a href="{{ route('distributions.index') }}">Distribution</a></li>
       <li class="dropdown {{ Mualnuam\Menu::isCurrent(['customers.index', 'units.index', 'types.index', 'users.index']) }}">
          <a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
          <ul class="dropdown-menu">

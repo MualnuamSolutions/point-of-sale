@@ -31,3 +31,4 @@ Route::resource('colors', 'ColorsController');
 Route::get('outletdeposits/{id}/approve', ['uses' => 'OutletDepositsController@approve', 'as' => 'outletdeposits.approve']);
 Route::get('outletdeposits/{id}/reject', ['uses' => 'OutletDepositsController@reject', 'as' => 'outletdeposits.reject']);
 Route::resource('outletdeposits', 'OutletDepositsController');
+Route::resource('distributions', 'DistributionsController');
