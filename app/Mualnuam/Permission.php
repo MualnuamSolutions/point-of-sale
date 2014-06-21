@@ -10,6 +10,7 @@ class Permission
             'sales.edit' => 1,
             'sales.remove' => 1,
             'stocks.index' => 1,
+            'products.index' => 1,
             'home' => 1,
          ],
 

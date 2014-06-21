@@ -15,7 +15,10 @@ class DistributionsController extends \BaseController {
 	public function index()
 	{
       $input = Input::all();
-      $distributions = Distributions::with('outlet')->paginate(20);
+      $distributions = Distributions::with('outlet')->where(function($query) use ($input){
+         if(isset($input['outlet']) && $input['outlet'])
+            $query->where('outlet_id', '=', $input['outlet']);
+      })->paginate(20);
       $outlets = SalesOutlets::dropdownList();
 
       return View::make('distributions.index', compact('distributions', 'index', 'input', 'outlets'));

@@ -1,5 +1,5 @@
 <div class="filter">
-   {{ Form::open(['url' => route('sales.index'), 'method' => 'get', 'class' => 'form-inline', 'autocomplete' => 'off']) }}
+   {{ Form::open(['url' => route('distributions.index'), 'method' => 'get', 'class' => 'form-inline', 'autocomplete' => 'off']) }}
 
       @if ($logged_user->isSuperUser() || ($logged_user && $logged_user->inGroup($Manager)) )
       <div class="form-group">
