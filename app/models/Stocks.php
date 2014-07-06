@@ -6,8 +6,6 @@ class Stocks extends Eloquent
    public static $rules = [
          'supplier_id' => 'required',
          'product_id' => 'required',
-         'cp' => 'required',
-         'sp' => 'required',
          'quantity' => 'required',
    ];
    public static $updaterules = [

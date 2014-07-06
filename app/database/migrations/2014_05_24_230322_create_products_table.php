@@ -17,6 +17,7 @@ class CreateProductsTable extends Migration {
          $table->increments('id');
          $table->string('product_code');
          $table->string('name');
+         $table->integer('color_id')->nullable();
          $table->float('cp');
          $table->float('sp');
          $table->integer('type_id');
@@ -24,7 +25,8 @@ class CreateProductsTable extends Migration {
          $table->integer('quantity')->default(0);
          $table->timestamps();
       });
-	}
+   }
+
 
 	/**
 	 * Reverse the migrations.

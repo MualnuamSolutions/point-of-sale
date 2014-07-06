@@ -16,10 +16,12 @@ class CreateColorsTable extends Migration {
       {
          $table->increments('id');
          $table->string('name')->nullable();
+         $table->string('color')->nullable();
          $table->string('code')->nullable();
          $table->timestamps();
       });
-	}
+   }
+
 
 	/**
 	 * Reverse the migrations.

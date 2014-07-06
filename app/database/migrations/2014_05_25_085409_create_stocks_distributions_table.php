@@ -15,11 +15,11 @@ class CreateStocksDistributionsTable extends Migration {
 		Schema::create('distributions',function($table)
       {
          $table->increments('id');
+         $table->integer('stock_id');
          $table->integer('product_id');
          $table->integer('outlet_id');
-         $table->float('cp');
-         $table->float('sp');
          $table->integer('quantity');
+         $table->integer('in_stock')->default(0);
          $table->timestamps();
       });
 	}

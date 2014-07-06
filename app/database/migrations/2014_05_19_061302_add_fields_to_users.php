@@ -19,7 +19,6 @@ class AddFieldsToUsers extends Migration {
          $table->string('phone')->nullable();
          $table->text('address')->nullable();
          $table->integer('outlet_id')->default(0);
-         $table->integer('store_id')->default(0);
       });
 	}
 
@@ -34,7 +33,7 @@ class AddFieldsToUsers extends Migration {
          $table->dropColumn('name');
          $table->dropColumn('phone');
          $table->dropColumn('address');
-         $table->dropColumn('store_id');
+         $table->dropColumn('outlet_id');
          $table->string('first_name')->nullable();
          $table->string('last_name')->nullable();
       });

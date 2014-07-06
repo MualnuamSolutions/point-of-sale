@@ -19,7 +19,7 @@ class ProductsController extends \BaseController {
       $units = Units::dropdownList();
 
       if(Request::ajax()) {
-         return Response::json($products->lists('name','id'))->setCallback(Input::get('callback'));
+         return Response::json($products->lists('nameprice','id'))->setCallback(Input::get('callback'));
       }
 
       $index = $products->getPerPage() * ($products->getCurrentPage()-1) + 1;

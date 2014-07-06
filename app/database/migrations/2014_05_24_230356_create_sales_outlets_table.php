@@ -18,9 +18,14 @@ class CreateSalesOutletsTable extends Migration {
          $table->string('name');
          $table->string('address');
          $table->string('contact');
+         $table->float('stock_cp')->default(0);
+         $table->float('stock_sp')->default(0);
+         $table->float('sales')->default(0);
+         $table->float('deposit')->default(0);
          $table->timestamps();
       });
-	}
+   }
+
 
 	/**
 	 * Reverse the migrations.

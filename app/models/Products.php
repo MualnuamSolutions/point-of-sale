@@ -80,7 +80,9 @@ class Products extends Eloquent
          if(array_key_exists('barcode', $input) && strlen($input['barcode']) )
             $query->where('product_code', 'LIKE', "%" . $input['barcode'] . "%");
 
-      })->orderBy('name', 'asc')->paginate($limit);
+      })
+      ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp) as nameprice'))
+      ->orderBy('name', 'asc')->paginate($limit);
    }
 
 }

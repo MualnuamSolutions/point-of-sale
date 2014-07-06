@@ -18,9 +18,15 @@ class CreateSalesTable extends Migration {
          $table->string('reference_no');
          $table->integer('customer_id')->nullable()->default(0);
          $table->integer('outlet_id');
+         $table->string('status')->default('pending'); // pending, completed
+         $table->float('total');
+         $table->float('paid');
+         $table->float('discount')->default(0);
+         $table->text('notes')->nullable();
          $table->timestamps();
       });
-	}
+   }
+
 
 	/**
 	 * Reverse the migrations.
