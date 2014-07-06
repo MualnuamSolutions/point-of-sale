@@ -16,8 +16,8 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-4">Product</th>
-                        <th class="col-md-2">Supplier</th>
+                        <th class="col-md-3">Product</th>
+                        <th class="col-md-3">Supplier</th>
                         <th class="col-md-2">CP/SP</th>
                         <th class="col-md-1">Quantity</th>
                         <th class="col-md-1">In Stock</th>
@@ -33,14 +33,11 @@
                            <small>{{ $stock->product->product_code}}</small>
                         </td>
                         <td><a href="{{ route('suppliers.show', $stock->supplier->id) }}">{{ $stock->supplier->name}}</a></td>
-                        <td><i class="fa fa-rupee"></i> {{ $stock->cp }} / <i class="fa fa-rupee"></i> {{ $stock->sp}}</td>
-                        <td>{{ $stock->quantity }}</td>
+                        <td><i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}</td>
+                        <td>{{ $stock->product->quantity }}</td>
                         <td>{{ $stock->in_stock }}</td>
                         <td class="actions">
-                           <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
-                           {{ Form::open(['url' => route('stocks.destroy', $stock->id), 'method' => 'delete']) }}
-                              {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit', 'onclick' => 'return confirm("Are you sure you want to delete?")']) }}
-                           {{ Form::close() }}
+                           <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Stock Update</a>
                         </td>
                      </tr>
                      @endforeach

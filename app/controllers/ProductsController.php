@@ -36,7 +36,8 @@ class ProductsController extends \BaseController {
 	{
       $types = Types::dropdownList();
 		$units = Units::dropdownList();
-      return View::make('products.create', compact('types','units'));
+      $suppliers = Suppliers::dropdownList();
+      return View::make('products.create', compact('types','units','suppliers'));
 	}
 
 
@@ -54,10 +55,20 @@ class ProductsController extends \BaseController {
          $product->name = addslashes(Input::get('name'));
          $product->color_id = Input::get('color');
          $product->product_code = 0;
+         $product->sp = Input::get('sp');
+         $product->cp = Input::get('cp');
+         $product->quantity = Input::get('quantity');
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');
          $product->save();
          $product->setProductCode($product);
+         $stock = new Stocks();
+         $stock->supplier_id = Input::get('supplier_id');
+         $stock->product_id = $product->id;
+         $stock->quantity = Input::get('quantity');
+         $stock->in_stock = Input::get('quantity');
+         $stock->save();
+
          return Redirect::route('products.index')
             ->with('success', 'Product created successfully');
       }
@@ -122,7 +133,7 @@ class ProductsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$validator = Validator::make(Input::all(), Products::$rules);
+		$validator = Validator::make(Input::all(), Products::$rules2);
 
       if($validator->passes()) {
          $product = Products::find($id);

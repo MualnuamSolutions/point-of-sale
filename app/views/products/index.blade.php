@@ -18,12 +18,13 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Product</th>
-                        <th class="col-md-1">Color</th>
-                        <th class="col-md-2">Type</th>
+                        <th class="col-md-2">Product</th>
+                        <th class="col-md-1">Main Color</th>
+                        <th class="col-md-1">Type</th>
                         <th class="col-md-2">Unit</th>
+                        <th class="col-md-2">Quantity</th>
                         <th class="col-md-2">In Stock</th>
-                        <th class="col-md-3"></th>
+                        <th class="col-md-2"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -32,7 +33,8 @@
                         <td>{{ $index+$key }}</td>
                         <td>
                            {{ Mualnuam\TextUtility::highlightString(array_key_exists('name', $input)?$input['name']:null, stripslashes($product->name)) }}<br />
-                           <small>{{ $product->product_code}}</small>
+                           <small>{{ $product->product_code}}</small> <br />
+                           <small>CP:{{ $product->cp}} / SP:{{ $product->sp}}</small>
                         </td>
                         <td>
                            @if ($product->color)
@@ -42,7 +44,8 @@
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>
-                        <td>{{ $product->quantity }}</td>
+                        <td>{{ $product->stocks->sum('quantity') }}</td>
+                        <td>{{ $product->stocks->sum('in_stock') }}</td>
                         <td class="actions">
                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('products.destroy', $product->id), 'method' => 'delete']) }}

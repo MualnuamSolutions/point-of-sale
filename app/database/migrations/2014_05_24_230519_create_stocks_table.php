@@ -18,8 +18,6 @@ class CreateStocksTable extends Migration
          $table->increments('id');
          $table->integer('supplier_id');
          $table->integer('product_id');
-         $table->float('cp');
-         $table->float('sp');
          $table->integer('quantity');
          $table->timestamps();
       });

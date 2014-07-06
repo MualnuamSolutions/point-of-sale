@@ -6,7 +6,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('stocks._menu')
-               <h3 class="panel-title"><i class="fi-page-add"></i> Create Stock</h3>
+               <h3 class="panel-title"><i class="fi-page-add"></i> Update Stock Quantity</h3>
             </div>
             <div class="panel-body">
                {{ Form::open(['url' => route('stocks.update',$stock->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
