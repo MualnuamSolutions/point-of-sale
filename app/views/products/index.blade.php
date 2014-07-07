@@ -44,7 +44,7 @@
                         </td>
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>
-                        <td>{{ $product->stocks->sum('quantity') }}</td>
+                        <td>{{ $product->quantity }}</td>
                         <td>{{ $product->stocks->sum('in_stock') }}</td>
                         <td class="actions">
                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>

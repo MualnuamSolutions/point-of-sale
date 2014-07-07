@@ -17,11 +17,11 @@
                      <tr>
                         <th>#</th>
                         <th class="col-md-3">Product</th>
-                        <th class="col-md-3">Supplier</th>
+                        <th class="col-md-2">Supplier</th>
                         <th class="col-md-2">CP/SP</th>
-                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-2">Quantity</th>
                         <th class="col-md-1">In Stock</th>
-                        <th class="col-md-2"></th>
+                        <th class="col-md-2">Date</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -36,9 +36,7 @@
                         <td><i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}</td>
                         <td>{{ $stock->product->quantity }}</td>
                         <td>{{ $stock->in_stock }}</td>
-                        <td class="actions">
-                           <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Stock Update</a>
-                        </td>
+                        <td>{{ $stock->updated_at }}</td>
                      </tr>
                      @endforeach
                   </tbody>

@@ -25,9 +25,7 @@ class Products extends Eloquent
    public static function updateStock($productId)
    {
       $product = Products::find($productId);
-      $stockQuantity = Stocks::whereProductId($productId)->sum('quantity');
       $in_stockQuantity = Stocks::whereProductId($productId)->sum('in_stock');
-      $salesQuantity = SalesItems::whereProductId($productId)->sum('quantity');
       $product->quantity =  $in_stockQuantity;
       $product->save();
    }

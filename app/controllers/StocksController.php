@@ -45,12 +45,12 @@ class StocksController extends \BaseController {
          $stock = new Stocks;
          $stock->supplier_id = Input::get('supplier_id');
          $stock->product_id = Input::get('product_id');
-         $stock->cp = Input::get('cp');
-         $stock->sp = Input::get('sp');
-         $stock->quantity = Input::get('quantity');
          $stock->in_stock = Input::get('quantity');
          $stock->save();
-         Products::updateStock($stock->product_id);
+         $product = Products::find(Input::get('product_id'));
+         $product->quantity = $product->quantity + Input::get('quantity');
+         $product->save();
+         //Products::updateStock($stock->product_id);
          return Redirect::route('stocks.index')
             ->with('success', 'Stock created successfully');
       }

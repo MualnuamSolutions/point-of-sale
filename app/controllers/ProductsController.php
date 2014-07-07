@@ -65,7 +65,6 @@ class ProductsController extends \BaseController {
          $stock = new Stocks();
          $stock->supplier_id = Input::get('supplier_id');
          $stock->product_id = $product->id;
-         $stock->quantity = Input::get('quantity');
          $stock->in_stock = Input::get('quantity');
          $stock->save();
 
