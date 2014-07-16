@@ -4,7 +4,7 @@
    @endif
 
    @if( in_array($current_route, ['distributions.index', 'distributions.edit']) )
-   <a href="{{ route('distributions.create') }}" class="btn btn-xs btn-success"><i class="fi-page-add"></i> New Sale</a>
+   <a href="{{ route('distributions.create') }}" class="btn btn-xs btn-success"><i class="fi-page-add"></i> New Distribution</a>
    @endif
 
    @if( in_array($current_route, ['distributions.index']) )

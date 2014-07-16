@@ -4,6 +4,7 @@
       <li class="{{ Mualnuam\Menu::isCurrent('sales.create') }}"><a href="{{ route('sales.create') }}">New Sale</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('sales.index') }}"><a href="{{ route('sales.index') }}">Sales</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('stocks.index') }}"><a href="{{ route('stocks.index') }}">Stocks</a></li>
+      <li class="{{ Mualnuam\Menu::isCurrent('stockreturns.index') }}"><a href="{{ route('stockreturns.index') }}">Stock Return</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('products.index') }}"><a href="{{ route('products.index') }}">Products</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('suppliers.index') }}"><a href="{{ route('suppliers.index') }}">Suppliers</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('salesoutlets.index') }}"><a href="{{ route('salesoutlets.index') }}">Outlets</a></li>
@@ -17,6 +18,7 @@
             <li class="{{ Mualnuam\Menu::isCurrent('types.index') }}"><a href="{{ route('types.index') }}"><i class="fa fa-arrow-right"></i> Product Types</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('colors.index') }}"><a href="{{ route('colors.index') }}"><i class="fa fa-arrow-right"></i> Colors</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-arrow-right"></i> Users</a></li>
+            <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('vats.index') }}"><i class="fa fa-arrow-right"></i> Vat</a></li>
             <li class="{{ Mualnuam\Menu::isCurrent('users.revokePermission') }}"><a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a></li>
             <li class="divider"></li>
             <li><a href="{{ route('users.logout') }}"><i class="fi-power"></i> Logout</a></li>
@@ -42,6 +44,7 @@
       <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Product Types</a>
       <a href="{{ route('colors.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Colors</a>
       <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Users</a>
+      <a href="{{ route('vats.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Vat</a>
       <a href="{{ route('users.revokePermission') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
       <a href="{{ route('users.logout') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Logout</a>
    </div>
