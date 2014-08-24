@@ -15,4 +15,9 @@ class BaseController extends Controller {
 		}
 	}
 
+    protected function loggedUser()
+    {
+        return Sentry::getUser();
+    }
+
 }

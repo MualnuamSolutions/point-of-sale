@@ -8,10 +8,10 @@ class HomeController extends BaseController
 	}
 
 	public function refresh()
-   	{
-      	$permission = new Permission;
-      	$permission->revoke();
+   {
+      $permission = new Permission;
+      $permission->revoke();
 
-      	return View::make('refresh');
-   	}
+      return View::make('refresh');
+   }
 }

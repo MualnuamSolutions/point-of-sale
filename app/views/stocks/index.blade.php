@@ -26,7 +26,7 @@
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach($outletsstocks as $key => $stock)
+                     @foreach($stocks as $key => $stock)
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
@@ -44,7 +44,7 @@
                   </tbody>
                </table>
 
-               {{ $outletsstocks->links() }}
+               {{ $stocks->links() }}
             </div>
          </div>
       </div>
