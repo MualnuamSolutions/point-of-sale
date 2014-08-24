@@ -12,7 +12,8 @@ public function __construct()
 	 */
 	public function index()
 	{
-		//
+		$stocks = Stocks::all();
+      return View::make('stockreturns.index', compact('stocks'));
 	}
 
 

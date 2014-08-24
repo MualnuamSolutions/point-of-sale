@@ -20,7 +20,6 @@ class DistributionsController extends \BaseController {
             $query->where('outlet_id', '=', $input['outlet']);
       })->paginate(20);
       $outlets = SalesOutlets::dropdownList();
-
       return View::make('distributions.index', compact('distributions', 'index', 'input', 'outlets'));
 	}
 

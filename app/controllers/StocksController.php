@@ -12,10 +12,10 @@ class StocksController extends \BaseController {
 	 */
 	public function index()
 	{
-		$stocks = Stocks::paginate(20);
+		$outletsstocks = OutletsStocks::paginate(20);
 
-      $index = $stocks->getPerPage() * ($stocks->getCurrentPage()-1) + 1;
-      return View::make('stocks.index', compact('stocks', 'index'));
+      $index = $outletsstocks->getPerPage() * ($outletsstocks->getCurrentPage()-1) + 1;
+      return View::make('stocks.index', compact('outletsstocks', 'index'));
 	}
 
 

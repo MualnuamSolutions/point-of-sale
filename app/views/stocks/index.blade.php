@@ -16,16 +16,17 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Product</th>
+                        <th class="col-md-2">Product</th>
                         <th class="col-md-2">Supplier</th>
                         <th class="col-md-2">CP/SP</th>
-                        <th class="col-md-2">Quantity</th>
+                        <th class="col-md-1">Quantity</th>
                         <th class="col-md-1">In Stock</th>
                         <th class="col-md-2">Date</th>
+                        <th class="col-md-2"></th>
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach($stocks as $key => $stock)
+                     @foreach($outletsstocks as $key => $stock)
                      <tr>
                         <td>{{ $index+$key }}</td>
                         <td>
@@ -37,12 +38,13 @@
                         <td>{{ $stock->product->quantity }}</td>
                         <td>{{ $stock->in_stock }}</td>
                         <td>{{ $stock->updated_at }}</td>
+                        <td><a href="{{ route('stockreturns.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a></td>
                      </tr>
                      @endforeach
                   </tbody>
                </table>
 
-               {{ $stocks->links() }}
+               {{ $outletsstocks->links() }}
             </div>
          </div>
       </div>

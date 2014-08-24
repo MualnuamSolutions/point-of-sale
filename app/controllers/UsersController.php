@@ -89,8 +89,9 @@ class UsersController extends \BaseController {
 	public function login()
 	{
 	    if(Sentry::check())
-	    	return Redirect::route('home');
-
+       {
+         return Redirect::route('home');
+       }
 		return View::make('users.login');
 	}
 
