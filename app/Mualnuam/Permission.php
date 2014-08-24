@@ -22,6 +22,7 @@ class Permission
             'stocks.create' => 1,
             'stocks.index' => 1,
             'products.index' => 1,
+            'stockreturns.edit' => 1,
          ],
 
          'Sales Person' => [

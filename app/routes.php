@@ -12,6 +12,7 @@
 */
 
 Route::get('/', ['before' => 'sentry', 'uses' => 'HomeController@index', 'as' => 'home']);
+Route::get('/refresh', array('uses' => 'HomeController@refresh', 'as' => 'refresh'));
 
 Route::get('users/logout', ['uses' => 'UsersController@logout', 'as' => 'users.logout']);
 Route::get('users/login', ['uses' => 'UsersController@login', 'as' => 'users.login']);

@@ -1,5 +1,5 @@
 @extends('layout')
 
 @section('content')
-   <p>Refreshed</p>
+   <p>Permission List Refreshed</p>
 @stop

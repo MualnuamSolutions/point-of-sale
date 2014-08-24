@@ -1,4 +1,5 @@
 <?php
+use \Mualnuam\Permission;
 
 class HomeController extends BaseController
 {
