@@ -14,6 +14,8 @@ class Stocks extends Eloquent
          'sp' => 'required'
    ];
 
+   
+
    public function supplier()
    {
       return $this->hasOne('Suppliers', 'id', 'supplier_id');

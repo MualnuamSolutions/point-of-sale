@@ -58,6 +58,26 @@ class DistributionsController extends \BaseController {
             $distribution->quantity = $item['quantity'];
             $distribution->in_stock = $item['quantity'];
             $distribution->save();
+
+            $stock = Stocks::find($stockId);
+            $stock->in_stock = $stock->in_stock - $item['quantity'];
+            $stock->save();
+
+            $outletsstocks = OutletsStocks::where('product_id','=',$item['product_id'])->where('outlet_id','=',Input::get('outlet_id'))->first();
+            if($outletsstocks)
+            {
+            	$outletsstocks->quantity = $outletsstocks->quantity + $item['quantity'];
+            	$outletsstocks->save();
+            }
+            else
+            {
+            	$outletsstocks = new OutletsStocks;
+            	$outletsstocks->product_id = $item['product_id'];
+            	$outletsstocks->quantity = $item['quantity'];
+            	$outletsstocks->outlet_id = Input::get('outlet_id');
+            	$outletsstocks->save();	
+            }
+
          }
 
          return Redirect::route('distributions.create')

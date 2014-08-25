@@ -54,9 +54,49 @@ class UserTableSeeder extends Seeder {
 
       $user = Sentry::createUser([
          'email' => 'salesperson@gmail.com',
-         'name' => 'Sales Manager',
+         'name' => 'Sales Person',
          'password' => 'pass',
          'outlet_id' => 1,
+         'activated' => 1,
+         'permissions' => []
+      ]);
+      $user->addGroup($salesPerson);
+
+      $user = Sentry::createUser([
+         'email' => 'salesperson2@gmail.com',
+         'name' => 'Sales Person2',
+         'password' => 'pass',
+         'outlet_id' => 2,
+         'activated' => 1,
+         'permissions' => []
+      ]);
+      $user->addGroup($salesPerson);
+
+      $user = Sentry::createUser([
+         'email' => 'salesperson3@gmail.com',
+         'name' => 'Sales Person3',
+         'password' => 'pass',
+         'outlet_id' => 3,
+         'activated' => 1,
+         'permissions' => []
+      ]);
+      $user->addGroup($salesPerson);
+
+      $user = Sentry::createUser([
+         'email' => 'salesperson4@gmail.com',
+         'name' => 'Sales Person4',
+         'password' => 'pass',
+         'outlet_id' => 4,
+         'activated' => 1,
+         'permissions' => []
+      ]);
+      $user->addGroup($salesPerson);
+
+      $user = Sentry::createUser([
+         'email' => 'salesperson5@gmail.com',
+         'name' => 'Sales Person5',
+         'password' => 'pass',
+         'outlet_id' => 5,
          'activated' => 1,
          'permissions' => []
       ]);

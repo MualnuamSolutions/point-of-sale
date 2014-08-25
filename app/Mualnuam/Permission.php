@@ -23,12 +23,20 @@ class Permission
             'stocks.index' => 1,
             'products.index' => 1,
             'stockreturns.edit' => 1,
+            'home' => 1,
+            
          ],
 
          'Sales Person' => [
             'sales.create' => 1,
             'sales.index' => 1,
-            'sales.edit' => 1
+            'sales.edit' => 1,
+            'stockreturns.index' => 1,
+            'stockreturns.edit' => 1,
+            'stockreturns.return' => 1,
+            'stockreturns.store' => 1,
+            'stocks.index' => 1,
+            'home' => 1,
          ]
       ];
 

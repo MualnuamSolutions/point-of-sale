@@ -16,29 +16,37 @@
                   <thead>
                      <tr>
                         <th>#</th>
+                        <th class="col-md-2">Return From</th>
                         <th class="col-md-2">Product</th>
-                        <th class="col-md-2">Supplier</th>
-                        <th class="col-md-2">CP/SP</th>
                         <th class="col-md-2">Quantity</th>
-                        <th class="col-md-1">In Stock</th>
+                        <th class="col-md-1">Comment</th>
+                        <th class="col-md-1">Status</th>
                         <th class="col-md-2"></th>
                         <th class="col-md-2"></th>
                      </tr>
                   </thead>
                   <tbody>
-                     @foreach($stocks as $stock)
+                     @foreach($returnsStocks as $returnstock)
                      <tr>
-                        <td>{{ $stock->id }}</td>
+                        <td>{{ $returnstock->id }}</td>
+                        <td><a href="{{ route('stockreturns.show', $returnstock->id) }}">{{ stripslashes($returnstock->outlet->name) }}</a></td>
                         <td>
-                           <a href="{{ route('stockreturns.show', $stock->id) }}">{{ stripslashes($stock->product->name) }}</a><br />
-                           <small>{{ $stock->product->product_code}}</small>
+                           <a href="{{ route('stockreturns.show', $returnstock->product->id) }}">{{ stripslashes($returnstock->product->name) }}</a><br />
+                           <small>{{ $returnstock->product->product_code}}</small>
                         </td>
-                        <td><a href="{{ route('suppliers.show', $stock->supplier->id) }}">{{ $stock->supplier->name}}</a></td>
-                        <td><i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}</td>
-                        <td>{{ $stock->product->quantity }}</td>
-                        <td>{{ $stock->in_stock }}</td>
-                        <td><a href="{{ route('stockreturns.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Approve Return</a></td>
-                        <td><a href="{{ route('stockreturns.edit', $stock->id) }}" class="btn btn-sm btn-danger"><i class="fi-pencil"></i> Not Approve </a></td>
+                        <td>{{ $returnstock->quantity }}</td>
+                        <td>{{ $returnstock->comment }}</td>
+                        <td>{{ $returnstock->status }}</td>
+                        <td>
+                           @if($logged_user->outlet_id == 0 && ($returnstock->status == "Pending..." || $returnstock->status == "Rejected"))
+                           <a href="{{ route('stockreturns.approve', $returnstock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Approve Return</a>
+                           @endif
+                        </td>
+                        <td>
+                           @if($logged_user->outlet_id == 0 && ($returnstock->status == "Pending..." || $returnstock->status == "Approved"))
+                           <a href="{{ route('stockreturns.reject', $returnstock->id) }}" class="btn btn-sm btn-danger"><i class="fi-pencil"></i> Reject Return </a>
+                           @endif
+                        </td>
                      </tr>
                      @endforeach
                   </tbody>

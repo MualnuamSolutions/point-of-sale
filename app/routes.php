@@ -34,4 +34,7 @@ Route::get('outletdeposits/{id}/reject', ['uses' => 'OutletDepositsController@re
 Route::resource('outletdeposits', 'OutletDepositsController');
 Route::resource('distributions', 'DistributionsController');
 Route::resource('vats', 'VatsController');
+Route::get('stockreturns/{id}/approve', ['uses' => 'StockReturnsController@approve', 'as' => 'stockreturns.approve']);
+Route::get('stockreturns/{id}/reject', ['uses' => 'StockReturnsController@reject', 'as' => 'stockreturns.reject']);
+Route::get('stockreturns/{id}/return', ['uses'=>'StockReturnsController@returnStock','as' => 'stockreturns.return']);
 Route::resource('stockreturns', 'StockReturnsController');

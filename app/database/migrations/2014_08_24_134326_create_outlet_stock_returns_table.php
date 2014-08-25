@@ -18,8 +18,9 @@ class CreateOutletStockReturnsTable extends Migration {
          $table->integer('product_id');
          $table->integer('outlet_id');
          $table->integer('quantity');
-         $table->enum('status', array('Approved', 'Not Approved'));
+         $table->enum('status', array('Pending...','Approved', 'Rejected'));
          $table->string('comment');
+         $table->timestamps();
       });
 	}
 

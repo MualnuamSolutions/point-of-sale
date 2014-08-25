@@ -18,7 +18,7 @@ class CreateStocksTable extends Migration
          $table->increments('id');
          $table->integer('supplier_id');
          $table->integer('product_id');
-         $table->integer('in_stock')->default(0);
+         $table->integer('quantity')->default(0);
          $table->timestamps();
       });
    }

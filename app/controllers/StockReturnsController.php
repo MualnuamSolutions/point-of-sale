@@ -12,8 +12,9 @@ public function __construct()
 	 */
 	public function index()
 	{
-		$stocks = Stocks::all();
-      return View::make('stockreturns.index', compact('stocks'));
+	  $returnsStocks = OutletsStocksReturns::where('id','>=',1)->orderBy('created_at','desc')->get();
+	  //var_dump($returnsStocks);exit();
+      return View::make('stockreturns.index', compact('returnsStocks'));
 	}
 
 
@@ -24,10 +25,76 @@ public function __construct()
 	 */
 	public function create()
 	{
-		//
+		
 	}
 
+	//Stock Return 
+	public function returnStock($id)
+	{
+		$outletsstocks = OutletsStocks::find($id);
+		return View::make('stocks.createreturn', compact('outletsstocks'));
+	}
 
+	public function approve($id)
+	{
+		$outletsStocksReturns = OutletsStocksReturns::find($id);
+		 if($outletsStocksReturns)
+		 {
+		 	$stock = Stocks::where('product_id','=', $outletsStocksReturns->product_id)->first();
+		 	$stock->quantity = $stock->quantity + $outletsStocksReturns->quantity;
+		 	$stock->save();
+
+		 	$outletsStocks = OutletsStocks::where('product_id','=',$outletsStocksReturns->product_id)->where('outlet_id','=',$outletsStocksReturns->outlet_id)->first();
+		 	$outletsStocks->quantity = $outletsStocks->quantity - $outletsStocksReturns->quantity;
+		 	$outletsStocks->save();
+
+		 	$outletsStocksReturns->status = "Approved";
+		 	$outletsStocksReturns->save();
+
+		 	return Redirect::route('stockreturns.index')
+	            ->with('success', 'Stock Return Completed');
+		 }
+		 else
+		 {
+		 	return Redirect::route('stockreturns.index')
+            ->with('error', 'Product not found in Outlets Stocks Returns Table');
+		 }
+	}
+
+	public function reject($id)
+	{
+		$outletsStocksReturns = OutletsStocksReturns::find($id);
+		 if(!$outletsStocksReturns)
+		 {
+		 	return Redirect::route('stockreturns.index')
+            ->with('error', 'Product not found in Outlets Stocks Returns Table');
+		 	
+		 }
+		 else if($outletsStocksReturns->status == "Pending...")
+		 {
+		 	$outletsStocksReturns->status = "Rejected";
+		 	$outletsStocksReturns->save();
+
+		 	return Redirect::route('stockreturns.index')
+	            ->with('success', 'Stock Return Rejected');
+		 }
+		 else
+		 {
+		 	$stock = Stocks::where('product_id','=', $outletsStocksReturns->product_id)->first();
+		 	$stock->quantity = $stock->quantity - $outletsStocksReturns->quantity;
+		 	$stock->save();
+
+		 	$outletsStocks = OutletsStocks::where('product_id','=',$outletsStocksReturns->product_id)->where('outlet_id','=',$outletsStocksReturns->outlet_id)->first();
+		 	$outletsStocks->quantity = $outletsStocks->quantity + $outletsStocksReturns->quantity;
+		 	$outletsStocks->save();
+
+		 	$outletsStocksReturns->status = "Rejected";
+		 	$outletsStocksReturns->save();
+
+		 	return Redirect::route('stockreturns.index')
+	            ->with('success', 'Stock Return Rejected');
+		 }
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -35,7 +102,25 @@ public function __construct()
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), OutletsStocksReturns::$returnrules);
+
+	      if($validator->passes()) {
+	         $stockreturn = new OutletsStocksReturns;
+	         $stockreturn->product_id = Input::get('product_id');
+	         $stockreturn->outlet_id = Input::get('outlet_id');
+	         $stockreturn->quantity = Input::get('quantity');
+	         $stockreturn->status = "Pending...";
+	         $stockreturn->comment = Input::get('comments');
+	         $stockreturn->save();
+	         
+	         return Redirect::route('stocks.index')
+	            ->with('success', 'Stock Return created successfully');
+	      }
+	      else {
+	         return Redirect::route('stocks.createreturn')
+	            ->withErrors($validator)
+	            ->withInput(Input::all());
+	      }
 	}
 
 

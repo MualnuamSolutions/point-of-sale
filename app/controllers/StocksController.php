@@ -14,7 +14,7 @@ class StocksController extends \BaseController {
 	{
       $stocks = null;
       if($this->loggedUser()->outlet_id)
-         $stocks = OutletsStocks::paginate(20);
+         $stocks = OutletsStocks::where('outlet_id','=',$this->loggedUser()->outlet_id)->paginate(20);
       else
          $stocks = Stocks::paginate(20);
 
