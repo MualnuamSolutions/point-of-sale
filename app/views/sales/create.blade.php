@@ -56,13 +56,28 @@
                                  </th>
                               </tr>
                               <tr>
-                                 <th colspan="3">
-                                    <textarea class="form-control input-sm" name="note" placeholder="Note"></textarea>
-                                 </th>
-                                 <th colspan="2" class="text-right">Grand Total</th>
+                                 <th colspan="5" class="text-right">Grand Total</th>
                                  <th colspan="2">
                                     <i class="fa fa-rupee"></i> <span class="cart-grandtotal-display">0</span>
                                     <input name="grandtotal" type="hidden" class="cart-grandtotal form-control input-sm" value="" />
+                                 </th>
+                              </tr>
+                              <tr class="cart-balance-row">
+                                 <th colspan="5" class="text-right">Balance</th>
+                                 <th colspan="2">
+                                    <i class="fa fa-rupee"></i> <span class="cart-balance-display">0</span>
+                                 </th>
+                              </tr>
+                              <tr>
+                                 <th colspan="3">
+                                    <textarea class="form-control input-sm" name="note" placeholder="Note"></textarea>
+                                 </th>
+                                 <th colspan="2" class="text-right">Paid</th>
+                                 <th colspan="2">
+                                    <div class="input-group">
+                                       <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
+                                       <input name="paid" min="0" type="number" class="cart-paid form-control input-sm" value="0" />
+                                    </div>
                                  </th>
                               </tr>
                            </tfoot>
@@ -85,7 +100,7 @@
                                  {{ Form::text('address', '', ['class' => 'form-control input-sm']) }}
                               </div>
                            </div>
-                           <div class="col-sm-4">
+                           <div class="col-sm-4">hid
                               <div class="form-group">
                                  {{ Form::label('contact', 'Contact') }}
                                  {{ Form::text('contact', '', ['class' => 'form-control input-sm']) }}
@@ -97,8 +112,8 @@
                            <div class="pull-left">
                               <h5 class="text-success">Saved</h5>
                            </div>
-                           {{ Form::button('<i class="fa fa-check-square"></i> Submit', ['class' => 'btn btn-md btn-primary', 'type' => 'submit']) }}
-                           <!-- {{ Form::button('<i class="fa fa-check-square"></i> Save', ['class' => 'btn btn-md btn-success']) }} -->
+                           {{ Form::button('<i class="fa fa-check-square"></i> Submit', ['class' => 'btn btn-md btn-primary cart-submit-button', 'type' => 'submit']) }}
+                           {{ Form::button('<i class="fa fa-check-square"></i> Credit', ['class' => 'btn btn-md btn-danger hidden credit-button', 'type' => 'submit']) }}
                         </div>
 
                      {{ Form::close() }}
@@ -165,6 +180,10 @@ jQuery(function(){
    };
    a = $('#query-stocks').autocomplete(options);
 
+   $('.cart-paid').on('change', function(){
+      checkCredit();
+   });
+
 });
 
 function addToCart (data) {
@@ -225,6 +244,10 @@ function calculate()
    var grandtotal = total - parseFloat($('.cart-discount').val());
    $('.cart-grandtotal-display').text(grandtotal);
    $('.cart-grandtotal').val(grandtotal);
+   $('.cart-paid').val(grandtotal).attr('max', grandtotal);
+
+   checkCredit();
+
    return true;
 }
 
@@ -239,6 +262,26 @@ function calculateRows()
    });
 
    return total;
+}
+
+function checkCredit()
+{
+   var total = parseFloat($('.cart-grandtotal').val());
+   var paid = parseFloat($('.cart-paid').val());
+   var discount = parseFloat($('.cart-discount').val());
+
+   if(paid < total) {
+      $('.cart-submit-button').addClass('hidden');
+      $('.credit-button').removeClass('hidden');
+      $('.cart-balance-display').text(total - paid);
+      $('.cart-balance-row').addClass('text-danger');
+   }
+   else {
+      $('.cart-submit-button').removeClass('hidden');
+      $('.credit-button').addClass('hidden');
+      $('.cart-balance-display').text(0);
+      $('.cart-balance-row').removeClass('text-danger');
+   }
 }
 
 /*function updateCart (productId, type) {

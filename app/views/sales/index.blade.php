@@ -15,11 +15,13 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-4">Reference No</th>
+                        <th class="col-md-3">Reference No</th>
                         <th class="col-md-1">Total</th>
                         <th class="col-md-1">Discount</th>
                         <th class="col-md-1">Paid</th>
+                        <th class="col-md-1">Balance</th>
                         <th class="col-md-1">Items</th>
+                        <th class="col-md-1">Status</th>
                         <th class="col-md-4"></th>
                      </tr>
                   </thead>
@@ -31,7 +33,17 @@
                         <td><i class="fa fa-rupee"></i> {{ $sale->total }}</td>
                         <td><i class="fa fa-rupee"></i> {{ $sale->discount }}</td>
                         <td><i class="fa fa-rupee"></i> {{ $sale->paid }}</td>
+                        <td><i class="fa fa-rupee"></i> {{ $sale->total - $sale->paid }}</td>
                         <td>{{ $sale->items->count() }}</td>
+                        <td>
+                           @if($sale->status == 'completed')
+                           <span class="label label-success">
+                           @elseif($sale->status == 'credit')
+                           <span class="label label-danger">
+                           @endif
+                           {{ strtoupper($sale->status) }}
+                           </span>
+                        </td>
                         <td class="actions">
                            <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('sales.destroy', $sale->id), 'method' => 'delete']) }}

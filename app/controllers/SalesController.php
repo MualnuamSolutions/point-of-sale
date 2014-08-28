@@ -15,9 +15,19 @@ class SalesController extends \BaseController {
 	 */
 	public function index()
 	{
-      $input = Input::all();
-		$sales = Sales::with('items', 'customer')->paginate(20);
-      $outlets = SalesOutlets::dropdownList();
+      	$input = Input::all();
+      	$outlets = SalesOutlets::dropdownList();
+
+		$sales = Sales::with('items', 'customer')
+			->where(function($query) use ($input) {
+				if( array_key_exists('outlet', $input) && $input['outlet'] != '') {
+					$query->where('outlet_id', '=', $input['outlet']);
+				}
+
+				if( array_key_exists('status', $input) && $input['status'] != '')
+					$query->where('status', '=', $input['status']);
+			})
+			->paginate(20);
 
       return View::make('sales.index', compact('sales', 'index', 'input', 'outlets'));
 	}
@@ -63,9 +73,9 @@ class SalesController extends \BaseController {
          $sale->customer_id = $customer->id ? $customer->id : 0;
          $sale->outlet_id = $this->user->outlet_id;
          $sale->discount = Input::get('discount');
-         $sale->paid = Input::get('grandtotal');
+         $sale->paid = Input::get('paid');
          $sale->total = Input::get('total');
-         $sale->status = 'completed';
+         $sale->status = Input::get('paid') < Input::get('total') ? 'credit' : 'completed';
 
          if($sale->save()) {
             $sale->reference_no = 'SALE-' . date('Ymd') . '-' . str_pad($sale->id, 3, 0, STR_PAD_LEFT);

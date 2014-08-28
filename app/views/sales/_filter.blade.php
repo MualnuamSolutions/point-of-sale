@@ -3,9 +3,13 @@
 
       @if ($logged_user->isSuperUser() || ($logged_user && $logged_user->inGroup($Manager)) )
       <div class="form-group">
-         {{ Form::select('outlet', $outlets, array_key_exists('outlet', $input) ? $input['outlet']:'', ['class' => 'form-control input-sm']) }}
+         {{ Form::select('outlet', $outlets, Input::get('outlet', null), ['class' => 'form-control input-sm']) }}
       </div>
       @endif
+
+      <div class="form-group">
+         {{ Form::select('status', ['' => 'All', 'completed' => 'Completed', 'credit' => 'Credit'], Input::get('status', null), ['class' => 'form-control input-sm']) }}
+      </div>
 
       <div class="form-group">
          {{ Form::button('Search', ['class' => 'btn btn-sm btn-info', 'type' => 'submit']) }}
