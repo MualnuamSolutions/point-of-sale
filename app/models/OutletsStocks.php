@@ -17,4 +17,6 @@ class OutletsStocks extends Eloquent
    {
       return $this->hasOne('Products', 'id','product_id');
    }
+
+   
 }

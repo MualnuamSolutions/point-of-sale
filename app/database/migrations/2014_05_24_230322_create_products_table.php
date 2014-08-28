@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration {
          $table->integer('type_id');
          $table->integer('unit_id');
          $table->integer('quantity')->default(0);
+         $table->integer('discount')->default(0);
          $table->timestamps();
       });
    }

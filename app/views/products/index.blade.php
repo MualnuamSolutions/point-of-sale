@@ -22,8 +22,9 @@
                         <th class="col-md-1">Main Color</th>
                         <th class="col-md-1">Type</th>
                         <th class="col-md-2">Unit</th>
-                        <th class="col-md-2">Quantity</th>
-                        <th class="col-md-2">In Stock</th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-1">In Stock</th>
+                        <th class="col-md-2">Discount</th>
                         <th class="col-md-2"></th>
                      </tr>
                   </thead>
@@ -45,7 +46,8 @@
                         <td>{{ $product->type->name}}</td>
                         <td>{{ $product->unit->name }}</td>
                         <td>{{ $product->quantity }}</td>
-                        <td>{{ $product->stocks->sum('in_stock') }}</td>
+                        <td>{{ $product->stocks->sum('quantity') }}</td>
+                        <td>{{ $product->discount }} %</td>
                         <td class="actions">
                            <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
                            {{ Form::open(['url' => route('products.destroy', $product->id), 'method' => 'delete']) }}

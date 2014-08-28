@@ -16,13 +16,14 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Product</th>
+                        <th class="col-md-2">Product</th>
                         @if($logged_user->outlet_id == 0)
-                           <th class="col-md-3">Supplier</th>
+                           <th class="col-md-2">Supplier</th>
                         @endif
                         <th class="col-md-2">CP/SP</th>
-                        <th class="col-md-2">Quantity</th>
-                        <th class="col-md-2"></th>
+                        <th class="col-md-1">Quantity</th>
+                        <th class="col-md-1">Discount</th>
+                        <th class="col-md-4"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -39,9 +40,11 @@
                         @endif
                         <td><i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}</td>
                         <td>{{ $stock->quantity }}</td>
+                        <td>{{ $stock->product->discount }} % </td>
                         <td>
-                           @if($logged_user->hasAccess('stockreturns.edit'))   
+                           @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0)   
                            <a href="{{ route('stockreturns.return', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a>
+                           <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Item discount/Edit</a>
                            @endif   
                         </td>
                      

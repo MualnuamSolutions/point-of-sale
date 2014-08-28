@@ -58,6 +58,7 @@ class ProductsController extends \BaseController {
          $product->sp = Input::get('sp');
          $product->cp = Input::get('cp');
          $product->quantity = Input::get('quantity');
+         $product->discount = 0;
          $product->type_id = Input::get('type_id');
          $product->unit_id = Input::get('unit_id');
          $product->save();
@@ -100,6 +101,20 @@ class ProductsController extends \BaseController {
       }
 	}
 
+   //code for dsicount
+   public function discount($id)
+   {
+      if(!$id)
+         return Redirect::route('products.index')
+            ->with('error', 'Please Provide product id');
+
+      $product = Products::find($id);
+
+      if(empty($product))
+         return Redirect::route('products.index')
+            ->with('error', 'Product not found');
+      return View::make('products.discount', compact('product'));
+   }
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -132,26 +147,49 @@ class ProductsController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		$validator = Validator::make(Input::all(), Products::$rules2);
+      if(Input::get('check_update') == 1)
+      {
+         $validator = Validator::make(Input::all(), Products::$rules2);
 
-      if($validator->passes()) {
-         $product = Products::find($id);
-         $product->name = addslashes(Input::get('name'));
-         $product->color_id = Input::get('color');
-         $product->product_code = 0;
-         $product->type_id = Input::get('type_id');
-         $product->unit_id = Input::get('unit_id');
-         $product->save();
-         $product->setProductCode($product);
+         if($validator->passes()) {
+            $product = Products::find($id);
+            $product->name = addslashes(Input::get('name'));
+            $product->color_id = Input::get('color');
+            $product->product_code = 0;
+            $product->type_id = Input::get('type_id');
+            $product->unit_id = Input::get('unit_id');
+            $product->save();
+            $product->setProductCode($product);
 
-         return Redirect::route('products.index')
-            ->with('success', 'Product updated successfully');
+            return Redirect::route('products.index')
+               ->with('success', 'Product updated successfully');
+         }
+         else {
+            return Redirect::route('products.edit', $id)
+               ->withErrors($validator)
+               ->withInput(Input::all());
+         }
+
       }
-      else {
-         return Redirect::route('products.edit', $id)
-            ->withErrors($validator)
-            ->withInput(Input::all());
+      else
+      {
+         $validator = Validator::make(Input::all(), Products::$rules3);
+
+         if($validator->passes()) {
+            $product = Products::find($id);
+            $product->discount = Input::get('discount');
+            $product->save();
+            
+            return Redirect::route('products.index')
+               ->with('success', 'Product discount updated successfully');
+         }
+         else {
+            return Redirect::route('products.discount', $id)
+               ->withErrors($validator)
+               ->withInput(Input::all());
+         }
       }
+		
 	}
 
 

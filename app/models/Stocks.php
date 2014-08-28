@@ -26,6 +26,7 @@ class Stocks extends Eloquent
       return $this->hasOne('Products', 'id','product_id');
    }
 
+   
    public static function searchProductStock($query = null)
    {
       if( $query == null )

@@ -10,16 +10,31 @@
             </div>
             <div class="panel-body">
                {{ Form::open(['url' => route('products.update',$product->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
-                  <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                     {{ Form::label('name', 'Product Name') }}
-                     {{ Form::text('name', stripslashes($product->name), ['class' => 'form-control']) }}
-                     <p class="help-block">Enter Product name here</p>
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                           {{ Form::label('name', 'Product Name') }}
+                           {{ Form::text('name', stripslashes($product->name), ['class' => 'form-control']) }}
+                           <p class="help-block">Enter Product name here</p>
 
-                     @if($errors->has('name'))
-                     <p class="help-block">{{ $errors->first('name') }}</p>
-                     @endif
-                  </div>
-
+                           @if($errors->has('name'))
+                           <p class="help-block">{{ $errors->first('name') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
+                           {{ Form::label('cp', 'Cost Price') }}
+                           {{ Form::label('cp', stripslashes("Rs. ".$product->cp), ['class' => 'form-control']) }}
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                           {{ Form::label('sp', 'Selling Price') }}
+                           {{ Form::text('sp', stripslashes("Rs. ".$product->sp), ['class' => 'form-control']) }}
+                        </div>
+                     </div>
+                  </div>      
                   <div class="row">
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
@@ -53,6 +68,7 @@
                   </div>
 
                   <div class="for-group text-right">
+                     {{ Form::hidden('check_update', 1, ['class' => 'form-control']) }}
                      {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
                   </div>
                {{ Form::close() }}

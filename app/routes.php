@@ -24,6 +24,7 @@ Route::resource('units', 'UnitsController');
 Route::resource('customers', 'CustomersController');
 Route::resource('suppliers', 'SuppliersController');
 Route::get('products/search', ['uses' => 'ProductsController@search', 'as' => 'products.search', 'before' => 'sentry']);
+Route::get('products/{id}/discount', ['uses' => 'ProductsController@discount', 'as' => 'products.discount', 'before' => 'sentry']);
 Route::resource('products', 'ProductsController');
 Route::resource('salesoutlets', 'SalesOutletsController');
 Route::resource('stocks', 'StocksController');

@@ -14,6 +14,10 @@ class Products extends Eloquent
          'name' => 'required',
          'type_id' => 'required',
          'unit_id' => 'required'
+   ]; 
+
+   public static $rules3 = [
+         'discount' => 'required'
    ];
 
    public function setProductCode($product)
