@@ -238,17 +238,17 @@ div.sidebar-offcanvas a i {
     background: #FACECE;
 }
 .dashboard .dashboard-item.bg4 {
-    background: #CEF5FA;
+    background: #FAE5CE;
 }
 .dashboard .dashboard-item p {
-    padding: 20px;
+    padding: 20px 0;
     text-align: center;
 }
 .dashboard .dashboard-item p i {
     font-size: 50px;
 }
 .dashboard .dashboard-item p span {
-    font-size: 30px;
+    font-size: 24px;
     display: block;
     margin-top: 10px;
 }

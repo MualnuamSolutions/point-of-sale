@@ -33,8 +33,8 @@
                 <div class="col-md-3">
                     <div class="dashboard-item bg4">
                         <p>
-                            <i class="fa fa-truck"></i><br>
-                            <span>{{ Suppliers::count() }} Suppliers</span>
+                            <i class="fa fa-clock-o"></i><br>
+                            <span>{{ OutletsStocksReturns::whereStatus('Pending...')->count() }} Pending Return</span>
                         </p>
                     </div>
                 </div>
