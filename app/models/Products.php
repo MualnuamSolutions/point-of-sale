@@ -57,7 +57,8 @@ class Products extends Eloquent
 
     public static function dropdownList($exludeDiscounted = false)
     {
-        if($exludeDiscounted)
+        $discountedProducts = Discounts::select('product_id')->get()->lists('product_id');
+        if($exludeDiscounted && $discountedProducts)
             $products = Products::whereNotIn('id', Discounts::select('product_id')->get()->lists('product_id'))
                 ->orderBy('name', 'asc')->get();
         else
