@@ -46,6 +46,7 @@
                         </td>
                         <td class="actions">
                            <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           
                            {{ Form::open(['url' => route('sales.destroy', $sale->id), 'method' => 'delete']) }}
                               {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
                            {{ Form::close() }}

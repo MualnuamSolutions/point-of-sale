@@ -1,74 +1,116 @@
 @extends('layout')
 
-@section('alert')
-   @include('partials.alert')
-@stop
-
-@section('title')
-   <h4><i class="fi-page-add"></i> Create User</h4>
-@stop
-
 @section('content')
-   {{ Form::open(['url' => route('users.store'), 'method' => 'post']) }}
-   <fieldset>
+   <div class="col-md-6 col-md-offset-3">
       <div class="row">
-         <div class="large-6 columns">
-            {{ Form::label('name', 'Full Name', ['class' => $errors->has('name')?'error':'']) }}
-            {{ Form::text('name', '', ['placeholder' => 'You must enter full name', 'class' => $errors->has('name')?'error':'']) }}
-            @if($errors->has('name'))
-            <small class="error">{{ $errors->first('name') }}</small>
-            @endif
+         <div class="panel panel-default">
+            <div class="panel-heading">
+               @include('products._menu')
+               <h3 class="panel-title"><i class="fi-page-add"></i> Create User</h3>
+            </div>
+            <div class="panel-body">
+               {{ Form::open(['url' => route('products.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+                  <div class="row">
+                     <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+                           {{ Form::label('name', 'Product Name') }}
+                           {{ Form::text('name', '', ['class' => 'form-control']) }}
+                           <p class="help-block">Enter Product name here</p>
 
-            {{ Form::label('email', 'Email Address', ['class' => $errors->has('email')?'error':'']) }}
-            {{ Form::text('email', '', ['placeholder' => 'You must enter email address', 'class' => $errors->has('email')?'error':'']) }}
-            @if($errors->has('email'))
-            <small class="error">{{ $errors->first('email') }}</small>
-            @endif
+                           @if($errors->has('name'))
+                           <p class="help-block">{{ $errors->first('name') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-6">
+                        <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : '' }}">
+                           {{ Form::label('supplier_id', 'Supplier') }}
+                           {{ Form::select('supplier_id', $suppliers, '', ['class' => 'form-control']) }}
+                           @if($errors->has('supplier_id'))
+                           <p class="help-block">{{ $errors->first('supplier_id') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                  </div>
 
-            {{ Form::label('password', 'Password', ['class' => $errors->has('password')?'error':'']) }}
-            {{ Form::password('password', ['placeholder' => 'Password for login', 'class' => $errors->has('password')?'error':'']) }}
-            @if($errors->has('password'))
-            <small class="error">{{ $errors->first('password') }}</small>
-            @endif
+                   <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
+                           {{ Form::label('cp', 'Cost Price') }}
+                           <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
+                              {{ Form::text('cp', '', ['class' => 'form-control']) }}
+                           </div>
+                           @if($errors->has('cp'))
+                           <p class="help-block">{{ $errors->first('cp') }}</p>
+                           @endif
+                        </div>
+                     </div>
 
-            {{ Form::label('password_confirmation', 'Confirm Password', ['class' => $errors->has('password_confirmation')?'error':'']) }}
-            {{ Form::password('password_confirmation', ['placeholder' => 'Confirm password for login', 'class' => $errors->has('password_confirmation')?'error':'']) }}
-            @if($errors->has('password_confirmation'))
-            <small class="error">{{ $errors->first('password_confirmation') }}</small>
-            @endif
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('sp') ? 'has-error' : '' }}">
+                           {{ Form::label('sp', 'Selling Price') }}
+                           <div class="input-group">
+                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
+                              {{ Form::text('sp', '', ['class' => 'form-control']) }}
+                           </div>
+                           @if($errors->has('sp'))
+                           <p class="help-block">{{ $errors->first('sp') }}</p>
+                           @endif
+                        </div>
+                     </div>
 
-         </div>
-         <div class="large-6 columns">
-            {{ Form::label('address', 'Address', ['class' => $errors->has('address')?'error':'']) }}
-            {{ Form::textarea('address', '', ['rows' => '', 'placeholder' => 'Address is optional']) }}
-            @if($errors->has('address'))
-            <small class="error">{{ $errors->first('address') }}</small>
-            @endif
+                     <div class="col-md-4">
+                        <div id="quantity" class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
+                           {{ Form::label('quantity', 'Quantity') }}
+                           <div class="input-group">
+                              {{ Form::text('quantity', '', ['class' => 'form-control']) }}
+                              <span class="input-group-addon">-</span>
+                           </div>
+                           @if($errors->has('quantity'))
+                           <p class="help-block">{{ $errors->first('quantity') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                  </div>
 
-            {{ Form::label('phone', 'Contact Number', ['class' => $errors->has('phone')?'error':'']) }}
-            {{ Form::text('phone', '', ['placeholder' => 'Contact number is optional']) }}
-            @if($errors->has('phone'))
-            <small class="error">{{ $errors->first('phone') }}</small>
-            @endif
+                  <div class="row">
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('color') ? 'has-error' : '' }}">
+                           {{ Form::label('color', 'Color') }}
+                           {{ Form::select('color', Colors::dropdownList(), null, ['class' => 'form-control']) }}
 
-            {{ Form::label('role', 'Role', ['class' => $errors->has('role')?'error':'']) }}
-            {{ Form::select('role', User::$roles) }}
-            @if($errors->has('role'))
-            <small class="error">{{ $errors->first('role') }}</small>
-            @endif
+                           @if($errors->has('color'))
+                           <p class="help-block">{{ $errors->first('color') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
+                           {{ Form::label('type_id', 'Type') }}
+                           {{ Form::select('type_id', $types, '', ['class' => 'form-control']) }}
+                           @if($errors->has('type_id'))
+                           <p class="help-block">{{ $errors->first('type_id') }}</p>
+                           @endif
+                        </div>
+                     </div>
 
-            {{ Form::radio('activated', 1, true, ['id' => 'activated']) }}
-            {{ Form::label('activated', 'Activated') }}
-
-            {{ Form::radio('activated', 0, false, ['id' => 'deactivated']) }}
-            {{ Form::label('deactivated', 'Deactivated') }}
+                     <div class="col-md-4">
+                        <div class="form-group {{ $errors->has('unit_id') ? 'has-error' : '' }}">
+                           {{ Form::label('unit_id', 'Unit') }}
+                           {{ Form::select('unit_id', $units, '', ['class' => 'form-control']) }}
+                           @if($errors->has('unit_id'))
+                           <p class="help-block">{{ $errors->first('unit_id') }}</p>
+                           @endif
+                        </div>
+                     </div>
+                  </div>
+                  <div class="for-group text-right">
+                     {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}
+                  </div>
+               {{ Form::close() }}
+            </div>
          </div>
       </div>
-      <div class="row">
-         <div class="large-12 columns text-right">
-            {{ Form::button('Submit', ['class' => 'small', 'type' => 'submit']) }}
-         </div>
-      </div>
-   </fieldset>
-   {{ Form::close() }}
+   </div>
 @stop

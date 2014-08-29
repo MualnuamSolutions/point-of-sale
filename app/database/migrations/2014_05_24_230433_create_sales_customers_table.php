@@ -1,5 +1,5 @@
 <?php
-
+// HEI HI A PAIH THEIH IN KA HRIA. HE TABLE HI KAN MAMAWH LO IN A LANG
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 

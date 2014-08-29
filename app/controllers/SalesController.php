@@ -57,7 +57,8 @@ class SalesController extends \BaseController {
 	{
 		$validator = Validator::make(Input::all(), Sales::$rules);
 
-      if($validator->passes()) {
+      	if($validator->passes()) {
+         
          // Create customer if required
          $customer = new Customers;
          if(Input::get('name')) {
@@ -75,6 +76,7 @@ class SalesController extends \BaseController {
          $sale->discount = Input::get('discount');
          $sale->paid = Input::get('paid');
          $sale->total = Input::get('grandtotal');
+         $sale->notes = Input::get('notes');
          $sale->status = Input::get('paid') == Input::get('grandtotal') ? 'completed' : 'credit';
 
          if($sale->save()) {
@@ -140,7 +142,9 @@ class SalesController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$sale = Sales::with('customer', 'items')->find($id);
+
+		return View::make('sales.edit', compact('sale'));
 	}
 
 
@@ -152,7 +156,39 @@ class SalesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $validator = Validator::make(Input::all(), Sales::$rules);
+
+        if($validator->passes()) {
+            $customerId = Input::get('customer_id', null);
+            // Create customer if required
+            $customer = new Customers;
+            if($customerId)
+                $customer = Customers::find($id);
+
+            if(Input::get('name')) {
+                $customer->name = Input::get('name');
+                $customer->address = Input::get('address');
+                $customer->contact = Input::get('contact');
+                $customer->save();
+            }
+
+
+            $sale = Sales::find($id);
+            $sale->customer_id = $customer->id ? $customer->id : 0;
+            $sale->outlet_id = $this->user->outlet_id;
+            $sale->paid = Input::get('paid');
+            $sale->notes = Input::get('notes');
+            $sale->status = Input::get('paid') == Input::get('grandtotal') ? 'completed' : 'credit';
+            $sale->save();
+
+            return Redirect::route('sales.edit', $id)
+                ->with('success', 'Sale updated successfully');
+        }
+        else {
+            return Redirect::route('sales.edit', $id)
+                ->withErrors($validator)
+                ->withInput(Input::all());
+        }
 	}
 
 

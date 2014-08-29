@@ -6,19 +6,15 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('sales._menu')
-               <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> New Sale</h3>
+               <h3 class="panel-title"><i class="fa fa-cash"></i> Update Sale - Reference No: {{ $sale->reference_no }}</h3>
             </div>
             <div class="panel-body sales-create">
                <div class="row">
                   <div class="col-sm-12 cart">
-
-                     @include('sales._search')
-
                      <h6 class="text-success"><i class="fa fa-cubes"></i> CART ITEMS</h6>
                      <hr>
 
-
-                     {{ Form::open(['url' => route('sales.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+                     {{ Form::model($sale, ['url' => route('sales.update', $sale->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
 
                         <div class="well">
                            <table class="table cart-table">
@@ -34,48 +30,68 @@
                                  <th></th>
                               </tr>
                            </thead>
+
                            <tbody>
-                              <tr class="cart-empty">
-                                 <td colspan="8" class="text-center"><span class="text-danger">Add Items</span></td>
+
+                           @foreach($sale->items as $index => $item)
+                              <tr id="cart-row-{{ $item->product_id }}">
+                                 <td>{{ ++$index }}</td>
+                                 <td>{{ $item->product->name }}</td>
+                                 <td>{{ $item->product->product_code }}</td>
+                                 <td><i class="fa fa-rupee"></i> {{ $item->sp }}</td>
+                                 <td>{{ $item->discount_type == 'percentage' ? $item->discount_amount . '%' : '<i class="fa fa-rupee"></i> ' .$item->discount_amount }}</td>
+                                 <td>
+                                    {{ $item->quantity }}
+                                    <input name="cart[{id}][quantity]" onblur="calculate()" onchange="calculate()" type="hidden" class="cart-row-quantity form-control input-sm" value="{{ $item->quantity }}"  />
+                                    <input name="cart[{id}][cp]" type="hidden" class="cart-row-cp" value="{{ $item->cp }}"  />
+                                    <input name="cart[{id}][sp]" type="hidden" class="cart-row-sp" value="{{ $item->sp }}"  />
+                                    <input name="cart[{id}][discount_type]" type="hidden" class="cart-row-discount-type" value="{{ $item->discount_type }}"  />
+                                    <input name="cart[{id}][discount_amount]" type="hidden" class="cart-row-discount-amount" value="{{ $item->discount_amount }}"  />
+                                 </td>
+                                 <td><i class="fa fa-rupee"></i> <span class="subtotal">{{ $item->total }}</span></td>
+                                 <td>&nbsp;</td>
                               </tr>
+                           @endforeach
+
                            </tbody>
+                           
                            <tfoot>
                               <tr>
                                  <th colspan="6" class="text-right">Total</th>
                                  <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-total-display">0</span>
-                                    <input name="total" type="hidden" class="cart-total form-control input-sm" value="" />
+                                    <i class="fa fa-rupee"></i> <span class="cart-total-display">{{ $sale->total + $sale->discount }}</span>
+                                    <input name="total" type="hidden" class="cart-total form-control input-sm" value="{{ $sale->total + $sale->discount }}" />
                                  </th>
                               </tr>
                               <tr>
                                  <th colspan="6" class="text-right">Discount Total</th>
                                  <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-discount-total-display">0</span>
-                                    <input onblur="calculate()" onchange="calculate()" name="discount" type="hidden" class="cart-discount form-control input-sm" value="0" />
+                                    <i class="fa fa-rupee"></i> <span class="cart-discount-total-display">{{ $sale->discount }}</span>
+                                    <input onblur="calculate()" onchange="calculate()" name="discount" type="hidden" class="cart-discount form-control input-sm" value="{{ $sale->discount }}" />
                                  </th>
                               </tr>
                               <tr>
                                  <th colspan="6" class="text-right">Grand Total</th>
                                  <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-grandtotal-display">0</span>
-                                    <input name="grandtotal" type="hidden" class="cart-grandtotal form-control input-sm" value="" />
+                                    <i class="fa fa-rupee"></i> <span class="cart-grandtotal-display">{{ $sale->total }}</span>
+                                    <input name="grandtotal" type="hidden" class="cart-grandtotal form-control input-sm" value="{{ $sale->total }}" />
                                  </th>
                               </tr>
                               <tr class="cart-balance-row">
                                  <th colspan="6" class="text-right">Balance</th>
                                  <th colspan="2">
-                                    <i class="fa fa-rupee"></i> <span class="cart-balance-display">0</span>
+                                    <i class="fa fa-rupee"></i> <span class="cart-balance-display">{{ $sale->total - $sale->paid }}</span>
                                  </th>
                               </tr>
                               <tr>
                                  <th colspan="3">
-                                    <textarea class="form-control input-sm" name="notes" placeholder="Note"></textarea>
+                                    <textarea class="form-control input-sm" name="notes" placeholder="Note">{{ $sale->notes }}</textarea>
                                  </th>
                                  <th colspan="3" class="text-right">Paid</th>
                                  <th colspan="2">
                                     <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                                       <input name="paid" min="0" type="number" class="cart-paid form-control input-sm" value="0" />
+                                       <input name="paid" min="0" type="number" class="cart-paid form-control input-sm" value="{{ $sale->paid }}" />
                                     </div>
                                  </th>
                               </tr>
@@ -86,23 +102,27 @@
                         <h6 class="text-success"><i class="fa fa-user"></i> CUSTOMER</h6>
                         <hr>
 
+                        @if($sale->customer)
+                        {{ Form::hidden('customer_id', $sale->customer->id, ['class' => 'form-control input-sm']) }}
+                        @endif
+
                         <div class="row">
                            <div class="col-sm-4">
                               <div class="form-group">
                                  {{ Form::label('name', 'Name') }}
-                                 {{ Form::text('name', '', ['class' => 'form-control input-sm']) }}
+                                 {{ Form::text('name', ($sale->customer? $sale->customer->name:null), ['class' => 'form-control input-sm']) }}
                               </div>
                            </div>
                            <div class="col-sm-4">
                               <div class="form-group">
                                  {{ Form::label('address', 'Address') }}
-                                 {{ Form::text('address', '', ['class' => 'form-control input-sm']) }}
+                                 {{ Form::text('address', ($sale->customer? $sale->customer->address:null), ['class' => 'form-control input-sm']) }}
                               </div>
                            </div>
                            <div class="col-sm-4">
                               <div class="form-group">
                                  {{ Form::label('contact', 'Contact') }}
-                                 {{ Form::text('contact', '', ['class' => 'form-control input-sm']) }}
+                                 {{ Form::text('contact', ($sale->customer? $sale->customer->contact:null), ['class' => 'form-control input-sm']) }}
                               </div>
                            </div>
                         </div>
@@ -111,8 +131,14 @@
                            <!-- <div class="pull-left">
                               <h5 class="text-success">Saved</h5>
                            </div> -->
+                           
+                           @if($sale->status == 'completed')
                            {{ Form::button('<i class="fa fa-check-square"></i> Submit', ['class' => 'btn btn-md btn-primary cart-submit-button', 'type' => 'submit']) }}
                            {{ Form::button('<i class="fa fa-check-square"></i> Credit', ['class' => 'btn btn-md btn-danger hidden credit-button', 'type' => 'submit']) }}
+                           @elseif($sale->status == 'credit')
+                           {{ Form::button('<i class="fa fa-check-square"></i> Submit', ['class' => 'btn btn-md btn-primary hidden cart-submit-button', 'type' => 'submit']) }}
+                           {{ Form::button('<i class="fa fa-check-square"></i> Credit', ['class' => 'btn btn-md btn-danger credit-button', 'type' => 'submit']) }}
+                           @endif
                         </div>
 
                      {{ Form::close() }}
