@@ -222,3 +222,36 @@ div.sidebar-offcanvas a i {
     line-height: 29px;
 }
 .filter .select2-container .select2-choice .select2-arrow b {}
+.dashboard {
+    margin-top: 30px;
+}
+.dashboard .dashboard-item {
+    width: 100%;
+}
+.dashboard .dashboard-item.bg1 {
+    background: #E2FACE;
+}
+.dashboard .dashboard-item.bg2 {
+    background: #E1CEFA;
+}
+.dashboard .dashboard-item.bg3 {
+    background: #FACECE;
+}
+.dashboard .dashboard-item.bg4 {
+    background: #CEF5FA;
+}
+.dashboard .dashboard-item p {
+    padding: 20px;
+    text-align: center;
+}
+.dashboard .dashboard-item p i {
+    font-size: 50px;
+}
+.dashboard .dashboard-item p span {
+    font-size: 30px;
+    display: block;
+    margin-top: 10px;
+}
+.dashboard .dashboard-row {
+    margin-top: 20px;
+}
