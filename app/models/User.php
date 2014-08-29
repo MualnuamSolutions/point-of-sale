@@ -80,4 +80,24 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+    public static $rules = [
+        'email' => 'required|unique:users',
+        'password' => 'required|alpha_num|between:4,8',
+        'name' => 'required',
+        'phone' => 'numeric',
+        'outlet_id' => 'required',
+        'permissions' => [],
+    ];
+
+    public static $roles = [1 => 'Manager', 2 => 'Store Manager', 3 => 'Sales Person'];
+
+    public function groups()
+    {
+        return $this->belongsToMany('Group', 'users_groups', 'user_id', 'group_id')->orderBy('name', 'asc');
+    }
+
+    public function outlet()
+    {
+        return $this->belongsTo('SalesOutlets', 'outlet_id');
+    }
 }

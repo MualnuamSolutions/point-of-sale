@@ -14,6 +14,11 @@ class UsersController extends \BaseController {
 	 */
 	public function index()
 	{
+        $users = User::with('groups')
+            ->where('permissions', 'NOT LIKE', '%superuser%')
+            ->orderBy('email', 'asc')->paginate();
+        $index = $users->getPerPage() * ($users->getCurrentPage() - 1) + 1;
+        return View::make('users.index', compact('users', 'index'));
 	}
 
 
@@ -24,7 +29,11 @@ class UsersController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+        $groups = Sentry::getGroups();
+        $outlets = SalesOutlets::dropdownList();
+        $roles = ['' => 'Select Role'] + User::$roles;
+
+		return View::make('users.create', compact('groups', 'outlets', 'roles'));
 	}
 
 
@@ -35,7 +44,35 @@ class UsersController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+        $validator = Validator::make(Input::all(), User::$rules);
+
+        if ($validator->passes()) {
+            $group = Sentry::findGroupById(Input::get('role'));
+
+            // Create the user
+            $user = Sentry::createUser(array(
+                'email' => Input::get('email'),
+                'password' => Input::get('password'),
+                'name' => Input::get('name'),
+                'phone' => Input::get('phone'),
+                'address' => Input::get('address'),
+                'outlet_id' => Input::get('outlet_id'),
+
+                'activated' => Input::get('activated'),
+                'permissions' => []
+            ));
+
+            // Assign the group to the user
+            $user->addGroup($group);
+
+            return Redirect::route('users.create')
+                ->with('success', 'User created successfully');
+
+        } else {
+            return Redirect::route('users.create')
+                ->withErrors($validator)
+                ->withInput(Input::all());
+        }
 	}
 
 
@@ -83,7 +120,11 @@ class UsersController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $user = Sentry::findUserById($id);
+        $user->delete();
+
+        return Redirect::route('users.index')
+            ->with('success', 'User deleted succesfully');
 	}
 
 	public function login()
