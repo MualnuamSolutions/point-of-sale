@@ -25,9 +25,10 @@
                            <thead>
                               <tr>
                                  <th>#</th>
-                                 <th class="col-xs-4">Name</th>
+                                 <th class="col-xs-3">Name</th>
                                  <th class="col-xs-2">Code</th>
                                  <th class="col-xs-2">Rate</th>
+                                 <th class="col-xs-1">Discount</th>
                                  <th class="col-xs-1">Quantity</th>
                                  <th class="col-xs-2">Sub Total</th>
                                  <th></th>
@@ -35,35 +36,33 @@
                            </thead>
                            <tbody>
                               <tr class="cart-empty">
-                                 <td colspan="7" class="text-center"><span class="text-danger">Add Items</span></td>
+                                 <td colspan="8" class="text-center"><span class="text-danger">Add Items</span></td>
                               </tr>
                            </tbody>
                            <tfoot>
                               <tr>
-                                 <th colspan="5" class="text-right">Total</th>
+                                 <th colspan="6" class="text-right">Total</th>
                                  <th colspan="2">
                                     <i class="fa fa-rupee"></i> <span class="cart-total-display">0</span>
                                     <input name="total" type="hidden" class="cart-total form-control input-sm" value="" />
                                  </th>
                               </tr>
                               <tr>
-                                 <th colspan="5" class="text-right">Discount</th>
+                                 <th colspan="6" class="text-right">Discount Total</th>
                                  <th colspan="2">
-                                    <div class="input-group">
-                                       <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                                       <input onblur="calculate()" onchange="calculate()" name="discount" min="0" type="number" class="cart-discount form-control input-sm" value="0" />
-                                    </div>
+                                    <i class="fa fa-rupee"></i> <span class="cart-discount-total-display">0</span>
+                                    <input onblur="calculate()" onchange="calculate()" name="discount" type="hidden" class="cart-discount form-control input-sm" value="0" />
                                  </th>
                               </tr>
                               <tr>
-                                 <th colspan="5" class="text-right">Grand Total</th>
+                                 <th colspan="6" class="text-right">Grand Total</th>
                                  <th colspan="2">
                                     <i class="fa fa-rupee"></i> <span class="cart-grandtotal-display">0</span>
                                     <input name="grandtotal" type="hidden" class="cart-grandtotal form-control input-sm" value="" />
                                  </th>
                               </tr>
                               <tr class="cart-balance-row">
-                                 <th colspan="5" class="text-right">Balance</th>
+                                 <th colspan="6" class="text-right">Balance</th>
                                  <th colspan="2">
                                     <i class="fa fa-rupee"></i> <span class="cart-balance-display">0</span>
                                  </th>
@@ -72,7 +71,7 @@
                                  <th colspan="3">
                                     <textarea class="form-control input-sm" name="note" placeholder="Note"></textarea>
                                  </th>
-                                 <th colspan="2" class="text-right">Paid</th>
+                                 <th colspan="3" class="text-right">Paid</th>
                                  <th colspan="2">
                                     <div class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
@@ -128,20 +127,22 @@
 @section('script')
 <script type="text/javascript" src="{{ asset('jquery/jquery.autocomplete.js') }}"></script>
 <script type="text/template" id="cart-row">
-<tr id="cart-row-{stockId}">
+<tr id="cart-row-{id}">
    <td></td>
    <td>{productName}</td>
    <td>{productCode}</td>
    <td><i class="fa fa-rupee"></i> {rate}</td>
+   <td>{discount}</td>
    <td>
-      <input name="cart[{stockId}][quantity]" onblur="calculate()" onchange="calculate()" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
-      <input name="cart[{stockId}][product_id]" type="hidden" class="cart-row-product-id" value="{productId}"  />
-      <input name="cart[{stockId}][cp]" type="hidden" class="cart-row-cp" value="{cp}"  />
-      <input name="cart[{stockId}][sp]" type="hidden" class="cart-row-sp" value="{rate}"  />
+      <input name="cart[{id}][quantity]" onblur="calculate()" onchange="calculate()" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
+      <input name="cart[{id}][cp]" type="hidden" class="cart-row-cp" value="{cp}"  />
+      <input name="cart[{id}][sp]" type="hidden" class="cart-row-sp" value="{rate}"  />
+      <input name="cart[{id}][discount_type]" type="hidden" class="cart-row-discount-type" value="{discountType}"  />
+      <input name="cart[{id}][discount_amount]" type="hidden" class="cart-row-discount-amount" value="{discountAmount}"  />
    </td>
    <td><i class="fa fa-rupee"></i> <span class="subtotal">{subTotal}</span></td>
    <td>
-      <button onclick="return removeCartItem({stockId})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+      <button onclick="return removeCartItem({id})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
    </td>
 </tr>
 </script>
@@ -156,6 +157,9 @@ jQuery(function(){
       minChars: 2,
       onSelect: function(suggestion){
          var data = $.parseJSON(suggestion.data);
+         if(data == null)
+            var data = $.parseJSON(suggestion.nodiscount);
+
          addToCart(data);
       },
       autoSelectFirst: true,
@@ -163,6 +167,9 @@ jQuery(function(){
          $('.autocomplete-spinner').hide();
          if(suggestions.length == 1) {
             var data = $.parseJSON(suggestions[0].data);
+            if(data == null)
+               var data = $.parseJSON(suggestions[0].nodiscount);
+
             if (data.product_code == query) {
                addToCart(data);
             }
@@ -200,16 +207,32 @@ function addToCart (data) {
       // console.log('Update');
    }
    else if(data.in_stock > 0) {
+      var discount = '';
+      var subTotal = data.sp;
+
+      if(data.discount_type == 'percentage') {
+         discount = data.discount + '%';
+         // var unitDiscount = (data.discount / 100) * subTotal;
+         // subTotal = parseFloat(subTotal) - parseFloat(unitDiscount);
+      }
+      else if(data.discount_type == 'fixed') {
+         discount = '<i class="fa fa-rupee"></i> ' + data.discount;
+         // subTotal = parseFloat(subTotal) - parseFloat(data.discount);
+      }
+
       var newRow = $("#cart-row").html();
-      newRow = newRow.replace(/\{stockId\}/gi, data.id);
-      newRow = newRow.replace(/\{productId\}/gi, data.product_id);
+
+      newRow = newRow.replace(/\{id\}/gi, data.id);
       newRow = newRow.replace(/\{productName\}/gi, data.name);
       newRow = newRow.replace(/\{productCode\}/gi, data.product_code);
       newRow = newRow.replace(/\{rate\}/gi, data.sp);
       newRow = newRow.replace(/\{cp\}/gi, data.cp);
       newRow = newRow.replace(/\{quantity\}/gi, 1);
       newRow = newRow.replace(/\{inStock\}/gi, data.in_stock);
-      newRow = newRow.replace(/\{subTotal\}/gi, data.sp);
+      newRow = newRow.replace(/\{subTotal\}/gi, subTotal);
+      newRow = newRow.replace(/\{discount\}/gi, discount);
+      newRow = newRow.replace(/\{discountType\}/gi, data.discount_type);
+      newRow = newRow.replace(/\{discountAmount\}/gi, data.discount);
 
       $(".cart-table tbody").append(newRow);
    }
@@ -240,7 +263,7 @@ function calculate()
    var total = calculateRows();
    $('.cart-total').val(total);
    $('.cart-total-display').text(total);
-
+   
    var grandtotal = total - parseFloat($('.cart-discount').val());
    $('.cart-grandtotal-display').text(grandtotal);
    $('.cart-grandtotal').val(grandtotal);
@@ -254,14 +277,32 @@ function calculate()
 function calculateRows()
 {
    var total = 0;
+   var discount = 0;
+   var totalDiscount = 0;
+
    $("table.cart-table tbody tr").not(".cart-empty").each(function(key, val){
       var qty = parseFloat($(this).find('.cart-row-quantity').val());
       var rate = parseFloat($(this).find('.cart-row-sp').val());
+      var discount_type = $(this).find('.cart-row-discount-type').val();
+      var discount_amount = parseFloat($(this).find('.cart-row-discount-amount').val());
+      
       total += subtotal = (qty * rate);
+
+      if(discount_type == 'percentage') {
+         totalDiscount += discount = ((discount_amount / 100) * subtotal);
+      }
+      else if(discount_type == 'fixed') {
+         totalDiscount += discount = parseFloat(discount_amount) * qty;
+      }
+      subtotal = parseFloat(subtotal) - discount;
+      
       $(this).find('.subtotal').text(subtotal);
    });
 
-   return total;
+   $('.cart-discount').val(totalDiscount);
+   $('.cart-discount-total-display').text(totalDiscount);
+
+   return total;// - parseFloat(totalDiscount);
 }
 
 function checkCredit()

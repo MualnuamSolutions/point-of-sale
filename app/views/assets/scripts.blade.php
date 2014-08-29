@@ -4,6 +4,10 @@
 <script src="{{ asset("bootstrap-3.1.1-dist/js/respond-1.4.2.min.js") }}"></script>
 <script type="text/javascript" src="{{ asset('pick-a-color/tinycolor-0.9.15.min.js')}}"></script>
 <script type="text/javascript" src="{{ asset('pick-a-color/pick-a-color-1.2.3.min.js')}}"></script>
+<script src="{{ asset("jquery/select2/select2.min.js") }}"></script>
+<script src="{{ asset("jquery/pickadate/picker.js") }}"></script>
+<script src="{{ asset("jquery/pickadate/picker.date.js") }}"></script>
+<script src="{{ asset("jquery/pickadate/picker.time.js") }}"></script>
 
 @yield('script')
 

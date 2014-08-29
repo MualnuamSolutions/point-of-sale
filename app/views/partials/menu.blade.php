@@ -6,6 +6,7 @@
       <li class="{{ Mualnuam\Menu::isCurrent('stocks.index') }}"><a href="{{ route('stocks.index') }}">Stocks</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('stockreturns.index') }}"><a href="{{ route('stockreturns.index') }}">Stock Return</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('products.index') }}"><a href="{{ route('products.index') }}">Products</a></li>
+      <li class="{{ Mualnuam\Menu::isCurrent('discounts.index') }}"><a href="{{ route('discounts.index') }}">Discounts</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('suppliers.index') }}"><a href="{{ route('suppliers.index') }}">Suppliers</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('salesoutlets.index') }}"><a href="{{ route('salesoutlets.index') }}">Outlets</a></li>
       <li class="{{ Mualnuam\Menu::isCurrent('outletdeposits.index') }}"><a href="{{ route('outletdeposits.index') }}">Outlet Deposit</a></li>
@@ -35,6 +36,7 @@
       <a href="{{ route('sales.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Sales</a>
       <a href="{{ route('stocks.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Stocks</a>
       <a href="{{ route('products.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Products</a>
+      <a href="{{ route('discounts.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Discounts</a>
       <a href="{{ route('suppliers.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Suppliers</a>
       <a href="{{ route('salesoutlets.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlets</a>
       <a href="{{ route('outletdeposits.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlet Deposit</a>

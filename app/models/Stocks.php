@@ -49,7 +49,7 @@ class Stocks extends Eloquent
 
       $products = self::searchProductStock($query)
                ->select(
-                  DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', in_stock, ')') as value"),
+                  DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', quantity, ')') as value"),
                   DB::raw("CONCAT(
                         '{\"id\":\"', {$stockTable}.id, '\"',
                         ',\"product_code\":\"', {$productTable}.product_code, '\"',
@@ -57,7 +57,7 @@ class Stocks extends Eloquent
                         ',\"name\":\"', name, '\"',
                         ',\"sp\":\"', sp, '\"',
                         ',\"cp\":\"', cp, '\"',
-                        ',\"in_stock\":\"', in_stock, '\"}'
+                        ',\"in_stock\":\"', quantity, '\"}'
                      ) as data")
                   )
                ->get();

@@ -74,28 +74,38 @@ class SalesController extends \BaseController {
          $sale->outlet_id = $this->user->outlet_id;
          $sale->discount = Input::get('discount');
          $sale->paid = Input::get('paid');
-         $sale->total = Input::get('total');
-         $sale->status = Input::get('paid') < Input::get('total') ? 'credit' : 'completed';
+         $sale->total = Input::get('grandtotal');
+         $sale->status = Input::get('paid') == Input::get('grandtotal') ? 'completed' : 'credit';
 
          if($sale->save()) {
             $sale->reference_no = 'SALE-' . date('Ymd') . '-' . str_pad($sale->id, 3, 0, STR_PAD_LEFT);
             $sale->save();
 
-            foreach(Input::get('cart') as $stockId => $item) {
-               $salesItem = new SalesItems;
-               $salesItem->sales_id = $sale->id;
-               $salesItem->product_id = $item['product_id'];
-               $salesItem->stock_id = $stockId;
-               $salesItem->cp = $item['cp'];
-               $salesItem->sp = $item['sp'];
-               $salesItem->quantity = $item['quantity'];
-               $salesItem->total = $item['quantity'] * $item['sp'];
-               $salesItem->save();
+            foreach(Input::get('cart') as $productId => $item) {
 
-               // Update stock
-               $stock = Stocks::find($stockId);
-               $stock->in_stock = $stock->in_stock - $salesItem->quantity;
-               $stock->save();
+            	$itemDiscount = 0;
+            	if($item['discount_type'] == 'fixed')
+            		$itemDiscount = $item['discount_amount'] * $item['quantity'];
+            	elseif($item['discount_type'] == 'percentage')
+            		$itemDiscount = (($item['discount_amount']/100) * $item['sp']) * $item['quantity'];
+
+				
+				$salesItem = new SalesItems;
+				$salesItem->sales_id = $sale->id;
+				$salesItem->product_id = $productId;
+				$salesItem->cp = $item['cp'];
+				$salesItem->sp = $item['sp'];
+				$salesItem->quantity = $item['quantity'];
+				$salesItem->total = ($item['quantity'] * $item['sp']) - $itemDiscount;
+				$salesItem->discount_type = $item['discount_type'];
+				$salesItem->discount_amount = $item['discount_amount'];
+				$salesItem->discount_total = $itemDiscount;
+				$salesItem->save();
+
+				// Update product stock
+				$product = Products::find($productId);
+				$product->quantity = $product->quantity - $salesItem->quantity;
+				$product->save();
             }
          }
 

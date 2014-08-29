@@ -206,3 +206,19 @@ div.sidebar-offcanvas a i {
 .autocomplete-suggestion.autocomplete-selected i.fa-shopping-cart {display: block !important;}
 
 /*input { font-size: 28px; padding: 10px; border: 1px solid #CCC; display: block; margin: 20px 0; }*/
+.select2-wrapper .select2-container {width: 100%}
+.select2-wrapper .select2-container .select2-choice {
+    height: 33px;
+    line-height: 33px;
+}
+.select2-wrapper .select2-container .select2-choice .select2-arrow b {
+    background-position: 0 3px;
+}
+.filter .select2-container {
+    padding: 0px;
+}
+.filter .select2-container .select2-choice {
+    height: 30px;
+    line-height: 29px;
+}
+.filter .select2-container .select2-choice .select2-arrow b {}
