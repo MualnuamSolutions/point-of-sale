@@ -34,11 +34,37 @@
                                     <th></th>
                                  </tr>
                               </thead>
+
                               <tbody>
+                              @if(empty(Input::old('cart')))
                                  <tr class="cart-empty">
                                     <td colspan="8" class="text-center"><span class="text-danger">Add Items</span></td>
                                  </tr>
+                              @else
+                                 @foreach(Input::old('cart') as $productId => $cartItem)
+                                    <tr id="cart-row-{{$productId}}">
+                                       <td></td>
+                                       <td>{{$cartItem['name']}}</td>
+                                       <td>{{ $cartItem['code'] }}</td>
+                                       <td><i class="fa fa-rupee"></i> {{ $cartItem['cp'] }}</td>
+                                       <td><i class="fa fa-rupee"></i> {{ $cartItem['sp'] }}</td>
+                                       <td>
+                                          <input name="cart[{{$productId}}][quantity]" onblur="calculate()" onchange="calculate()" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{{$cartItem['quantity']}}"  />
+                                          <input name="cart[{{$productId}}][product_id]" type="hidden" class="cart-row-product-id" value="{{$cartItem['product_id']}}"  />
+                                          <input name="cart[{{$productId}}][cp]" type="hidden" class="cart-row-cp" value="{{$cartItem['cp']}}"  />
+                                          <input name="cart[{{$productId}}][sp]" type="hidden" class="cart-row-sp" value="{{$cartItem['sp']}}"  />
+                                          <input name="cart[{{$productId}}][name]" type="hidden" class="cart-row-name" value="{{$cartItem['name']}}"  />
+                                          <input name="cart[{{$productId}}][code]" type="hidden" class="cart-row-name" value="{{$cartItem['code']}}"  />
+                                       </td>
+                                       <td><i class="fa fa-rupee"></i> <span class="subtotal">{{$cartItem['sp'] * $cartItem['quantity']}}</span></td>
+                                       <td>
+                                          <button onclick="return removeCartItem({{$productId}})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+                                       </td>
+                                    </tr>
+                                 @endforeach
+                              @endif
                               </tbody>
+                              
                               <tfoot>
                                  <tr>
                                     <th colspan="6" class="text-right">Total</th>
@@ -53,9 +79,13 @@
 
                         <div class="row">
                            <div class="col-sm-4 col-sm-offset-8">
-                              <div class="form-group text-right">
+                              <div class="form-group text-right {{ $errors->has('outlet_id') ? 'has-error' : '' }}">
                                  {{ Form::label('outlet_id', 'Select Destination Outlet') }}
                                  {{ Form::select('outlet_id', $outlets, '', ['class' => 'form-control input-sm']) }}
+
+                                 @if($errors->has('outlet_id'))
+                                 <p class="help-block">{{ $errors->first('outlet_id') }}</p>
+                                 @endif
                               </div>
                            </div>
                         </div>
@@ -77,21 +107,23 @@
 @section('script')
 <script type="text/javascript" src="{{ asset('jquery/jquery.autocomplete.js') }}"></script>
 <script type="text/template" id="cart-row">
-<tr id="cart-row-{stockId}">
+<tr id="cart-row-{productId}">
    <td></td>
    <td>{productName}</td>
    <td>{productCode}</td>
    <td><i class="fa fa-rupee"></i> {cp}</td>
    <td><i class="fa fa-rupee"></i> {sp}</td>
    <td>
-      <input name="cart[{stockId}][quantity]" onblur="calculate()" onchange="calculate()" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
-      <input name="cart[{stockId}][product_id]" type="hidden" class="cart-row-product-id" value="{productId}"  />
-      <input name="cart[{stockId}][cp]" type="hidden" class="cart-row-cp" value="{cp}"  />
-      <input name="cart[{stockId}][sp]" type="hidden" class="cart-row-sp" value="{sp}"  />
+      <input name="cart[{productId}][quantity]" onblur="calculate()" onchange="calculate()" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
+      <input name="cart[{productId}][product_id]" type="hidden" class="cart-row-product-id" value="{productId}"  />
+      <input name="cart[{productId}][cp]" type="hidden" class="cart-row-cp" value="{cp}"  />
+      <input name="cart[{productId}][sp]" type="hidden" class="cart-row-sp" value="{sp}"  />
+      <input name="cart[{productId}][name]" type="hidden" class="cart-row-name" value="{productName}"  />
+      <input name="cart[{productId}][code]" type="hidden" class="cart-row-name" value="{productCode}"  />
    </td>
    <td><i class="fa fa-rupee"></i> <span class="subtotal">{subTotal}</span></td>
    <td>
-      <button onclick="return removeCartItem({stockId})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
+      <button onclick="return removeCartItem({productId})" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></button>
    </td>
 </tr>
 </script>
@@ -106,6 +138,9 @@ jQuery(function(){
       minChars: 2,
       onSelect: function(suggestion){
          var data = $.parseJSON(suggestion.data);
+         if(data == null)
+            var data = $.parseJSON(suggestion.nodiscount);
+
          addToCart(data);
       },
       autoSelectFirst: true,
@@ -113,6 +148,9 @@ jQuery(function(){
          $('.autocomplete-spinner').hide();
          if(suggestions.length == 1) {
             var data = $.parseJSON(suggestions[0].data);
+            if(data == null)
+               var data = $.parseJSON(suggestions[0].nodiscount);
+
             if (data.product_code == query) {
                addToCart(data);
             }
@@ -130,6 +168,8 @@ jQuery(function(){
    };
    a = $('#query-stocks').autocomplete(options);
 
+   setSerialNo();
+   calculate();
 });
 
 function addToCart (data) {
@@ -147,8 +187,8 @@ function addToCart (data) {
    }
    else if(data.in_stock > 0) {
       var newRow = $("#cart-row").html();
-      newRow = newRow.replace(/\{stockId\}/gi, data.id);
-      newRow = newRow.replace(/\{productId\}/gi, data.product_id);
+      // newRow = newRow.replace(/\{stockId\}/gi, data.id);
+      newRow = newRow.replace(/\{productId\}/gi, data.id);
       newRow = newRow.replace(/\{productName\}/gi, data.name);
       newRow = newRow.replace(/\{productCode\}/gi, data.product_code);
       newRow = newRow.replace(/\{sp\}/gi, data.sp);

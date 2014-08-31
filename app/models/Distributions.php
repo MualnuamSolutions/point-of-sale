@@ -4,6 +4,7 @@ class Distributions extends Eloquent
 	protected $table = "distributions";
 
    public static $rules = [
+      'outlet_id' => 'required'
    ];
 
    public function outlet()
