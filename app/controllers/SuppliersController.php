@@ -82,7 +82,7 @@ public function __construct()
          return Redirect::route('suppliers.index')
             ->with('error', 'Please provide Supplier id');
 
-      $supplier = suppliers::find($id);
+      $supplier = Suppliers::find($id);
 
       if(empty($supplier))
          return Redirect::route('Suppliers.index')
