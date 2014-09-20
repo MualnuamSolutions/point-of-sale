@@ -44,6 +44,9 @@
                         <td>
                            @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0)   
                            <a href="{{ route('stockreturns.return', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a>
+                           @endif
+
+                           @if($logged_user->hasAccess('stocks.edit'))
                            <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Item discount/Edit</a>
                            @endif   
                         </td>
