@@ -36,12 +36,13 @@
                               </thead>
 
                               <tbody>
-                              @if(empty(Input::old('cart')))
+                              <?php $cart = Input::old('cart'); ?>
+                              @if(empty($cart))
                                  <tr class="cart-empty">
                                     <td colspan="8" class="text-center"><span class="text-danger">Add Items</span></td>
                                  </tr>
                               @else
-                                 @foreach(Input::old('cart') as $productId => $cartItem)
+                                 @foreach($cart as $productId => $cartItem)
                                     <tr id="cart-row-{{$productId}}">
                                        <td></td>
                                        <td>{{$cartItem['name']}}</td>
