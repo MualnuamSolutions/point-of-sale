@@ -130,6 +130,7 @@ class Products extends Eloquent
                         ',\"discount_type\":\"fixed\"}'
                      ) as nodiscount")
             )
+            ->orderBy('name', 'asc')
             ->get();
 
         $result = [

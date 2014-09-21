@@ -1,27 +1,78 @@
 @if(isset($position) && $position == 'top')
 <div class="hidden-xs" id="topbar_menu">
    <ul class="nav navbar-nav navbar-right">
+
+      @if($logged_user->hasAccess('sales.create'))
       <li class="{{ Mualnuam\Menu::isCurrent('sales.create') }}"><a href="{{ route('sales.create') }}">New Sale</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('sales.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('sales.index') }}"><a href="{{ route('sales.index') }}">Sales</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('stocks.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('stocks.index') }}"><a href="{{ route('stocks.index') }}">Stocks</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('stockreturns.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('stockreturns.index') }}"><a href="{{ route('stockreturns.index') }}">Stock Return</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('products.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('products.index') }}"><a href="{{ route('products.index') }}">Products</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('discounts.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('discounts.index') }}"><a href="{{ route('discounts.index') }}">Discounts</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('suppliers.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('suppliers.index') }}"><a href="{{ route('suppliers.index') }}">Suppliers</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('salesoutlets.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('salesoutlets.index') }}"><a href="{{ route('salesoutlets.index') }}">Outlets</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('outletdeposits.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('outletdeposits.index') }}"><a href="{{ route('outletdeposits.index') }}">Outlet Deposit</a></li>
+      @endif
+
+      @if($logged_user->hasAccess('distributions.index'))
       <li class="{{ Mualnuam\Menu::isCurrent('distributions.index') }}"><a href="{{ route('distributions.index') }}">Distribution</a></li>
+      @endif
+
+
       <li class="dropdown {{ Mualnuam\Menu::isCurrent(['customers.index', 'units.index', 'types.index', 'users.index']) }}">
          <a class="dropdown-toggle" data-toggle="dropdown" href="#">System <span class="caret"></span></a>
          <ul class="dropdown-menu">
+
+            @if($logged_user->hasAccess('customers.index'))
             <li class="{{ Mualnuam\Menu::isCurrent('customers.index') }}"><a href="{{ route('customers.index') }}"><i class="fa fa-arrow-right"></i> Customers</a></li>
+            @endif
+
+            @if($logged_user->hasAccess('units.index'))
             <li class="{{ Mualnuam\Menu::isCurrent('units.index') }}"><a href="{{ route('units.index') }}"><i class="fa fa-arrow-right"></i> Product Unit</a></li>
+            @endif
+
+            @if($logged_user->hasAccess('types.index'))
             <li class="{{ Mualnuam\Menu::isCurrent('types.index') }}"><a href="{{ route('types.index') }}"><i class="fa fa-arrow-right"></i> Product Types</a></li>
+            @endif
+
+            @if($logged_user->hasAccess('colors.index'))
             <li class="{{ Mualnuam\Menu::isCurrent('colors.index') }}"><a href="{{ route('colors.index') }}"><i class="fa fa-arrow-right"></i> Colors</a></li>
+            @endif
+
+            @if($logged_user->hasAccess('users.index'))
             <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-arrow-right"></i> Users</a></li>
-            <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('vats.index') }}"><i class="fa fa-arrow-right"></i> Vat</a></li>
+            @endif
+
+            @if($logged_user->hasAccess('users.revokePermission'))
             <li class="{{ Mualnuam\Menu::isCurrent('users.revokePermission') }}"><a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a></li>
+            @endif
+
             <li class="divider"></li>
+
             <li><a href="{{ route('users.logout') }}"><i class="fi-power"></i> Logout</a></li>
          </ul>
       </li>
