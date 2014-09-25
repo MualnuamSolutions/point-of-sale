@@ -105,10 +105,19 @@ class SalesController extends \BaseController
                     $salesItem->discount_total = $itemDiscount;
                     $salesItem->save();
 
-                    // Update product stock
-                    $product = Products::find($productId);
-                    $product->quantity = $product->quantity - $salesItem->quantity;
-                    $product->save();
+                    if($this->user->outlet_id != 0) {
+                        $outletstock = OutletsStock::where('product_id','=',$productId)
+                            ->where('outlet_id','=',$this->user->outlet_id)
+                            ->first();
+                        $outletstock->quantity = $outletstock->quantity - $salesItem->quantity;
+                        $outletstock->save();
+                    }
+                    else {
+                        // Update product stock
+                        $product = Products::find($productId);
+                        $product->quantity = $product->quantity - $salesItem->quantity;
+                        $product->save();
+                    }
                 }
             }
 

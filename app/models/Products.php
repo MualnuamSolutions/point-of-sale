@@ -100,38 +100,77 @@ class Products extends Eloquent
     {
         $productTable = (new Products)->getTable();
         $discountTable = (new Discounts)->getTable();
+        $outletStockTable = (new OutletsStocks)->getTable();
+        $outletId = Sentry::getUser()->outlet_id;
 
-        $products = Products::leftJoin($discountTable, $discountTable . '.product_id', '=', $productTable . '.id')
-            ->where(function($select) use ($query) {
-                $select->where('name', 'LIKE', '%' . $query . '%');
-                $select->orWhere('product_code', 'LIKE', '%' . $query . '%');
-            })
-            ->where('quantity', '>=', 1)
-            ->select(
-                DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', quantity, ')') as value"),
-                DB::raw("CONCAT(
-                        '{\"id\":\"', {$productTable}.id, '\"',
-                        ',\"product_code\":\"', product_code, '\"',
-                        ',\"name\":\"', name, '\"',
-                        ',\"sp\":\"', sp, '\"',
-                        ',\"cp\":\"', cp, '\"',
-                        ',\"in_stock\":\"', quantity, '\"',
-                        ',\"discount\":\"', amount, '\"',
-                        ',\"discount_type\":\"', discount_type, '\"}'
-                     ) as data"),
-                DB::raw("CONCAT(
-                        '{\"id\":\"', {$productTable}.id, '\"',
-                        ',\"product_code\":\"', product_code, '\"',
-                        ',\"name\":\"', name, '\"',
-                        ',\"sp\":\"', sp, '\"',
-                        ',\"cp\":\"', cp, '\"',
-                        ',\"in_stock\":\"', quantity, '\"',
-                        ',\"discount\":0',
-                        ',\"discount_type\":\"fixed\"}'
-                     ) as nodiscount")
-            )
-            ->orderBy('name', 'asc')
+        if($outletId != 0) {
+            $products = Products::leftJoin($discountTable, $discountTable . '.product_id', '=', $productTable . '.id')
+                ->leftJoin($outletStockTable, $outletStockTable . '.product_id', '=', $productTable . '.id')
+                ->where(function($select) use ($query) {
+                    $select->where('name', 'LIKE', '%' . $query . '%');
+                    $select->orWhere('product_code', 'LIKE', '%' . $query . '%');
+                })
+                ->where($outletStockTable . '.quantity', '>=', 1)
+                ->where($outletStockTable . '.outlet_id', '=', $outletId)
+                ->select(
+                    DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', {$outletStockTable}.quantity, ')') as value"),
+                    DB::raw("CONCAT(
+                            '{\"id\":\"', {$productTable}.id, '\"',
+                            ',\"product_code\":\"', product_code, '\"',
+                            ',\"name\":\"', name, '\"',
+                            ',\"sp\":\"', sp, '\"',
+                            ',\"cp\":\"', cp, '\"',
+                            ',\"in_stock\":\"', {$outletStockTable}.quantity, '\"',
+                            ',\"discount\":\"', amount, '\"',
+                            ',\"discount_type\":\"', discount_type, '\"}'
+                         ) as data"),
+                    DB::raw("CONCAT(
+                            '{\"id\":\"', {$productTable}.id, '\"',
+                            ',\"product_code\":\"', product_code, '\"',
+                            ',\"name\":\"', name, '\"',
+                            ',\"sp\":\"', sp, '\"',
+                            ',\"cp\":\"', cp, '\"',
+                            ',\"in_stock\":\"', {$outletStockTable}.quantity, '\"',
+                            ',\"discount\":0',
+                            ',\"discount_type\":\"fixed\"}'
+                         ) as nodiscount")
+                )
+                ->orderBy('name', 'asc')
             ->get();
+        }
+        else {
+            $products = Products::leftJoin($discountTable, $discountTable . '.product_id', '=', $productTable . '.id')
+                ->where(function($select) use ($query) {
+                    $select->where('name', 'LIKE', '%' . $query . '%');
+                    $select->orWhere('product_code', 'LIKE', '%' . $query . '%');
+                })
+                ->where('quantity', '>=', 1)
+                ->select(
+                    DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', quantity, ')') as value"),
+                    DB::raw("CONCAT(
+                            '{\"id\":\"', {$productTable}.id, '\"',
+                            ',\"product_code\":\"', product_code, '\"',
+                            ',\"name\":\"', name, '\"',
+                            ',\"sp\":\"', sp, '\"',
+                            ',\"cp\":\"', cp, '\"',
+                            ',\"in_stock\":\"', quantity, '\"',
+                            ',\"discount\":\"', amount, '\"',
+                            ',\"discount_type\":\"', discount_type, '\"}'
+                         ) as data"),
+                    DB::raw("CONCAT(
+                            '{\"id\":\"', {$productTable}.id, '\"',
+                            ',\"product_code\":\"', product_code, '\"',
+                            ',\"name\":\"', name, '\"',
+                            ',\"sp\":\"', sp, '\"',
+                            ',\"cp\":\"', cp, '\"',
+                            ',\"in_stock\":\"', quantity, '\"',
+                            ',\"discount\":0',
+                            ',\"discount_type\":\"fixed\"}'
+                         ) as nodiscount")
+                )
+                ->orderBy('name', 'asc')
+                ->get();
+        }
 
         $result = [
             'query' => $query,

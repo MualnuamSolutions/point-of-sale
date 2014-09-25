@@ -56,10 +56,14 @@ class Permission
                 'stockreturns.update' => 1,
                 'stockreturns.destroy' => 1,
                 'units.index' => 1,
+                'users.index' => 1,
+                'users.create' => 1,
+                'users.store' => 1,
                 'home' => 1,
             ],
 
             'Store Manager' => [
+                'products.search' => 1,
                 'sales.create' => 1,
                 'sales.index' => 1,
                 'sales.edit' => 1,
@@ -74,6 +78,7 @@ class Permission
             ],
 
             'Sales Person' => [
+                'products.search' => 1,
                 'sales.create' => 1,
                 'sales.index' => 1,
                 'sales.edit' => 1,
