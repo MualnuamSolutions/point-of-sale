@@ -45,13 +45,19 @@
                            </span>
                         </td>
                         <td class="actions">
+                           @if($logged_user->hasAccess('sales.show'))
                            <a target="_blank" href="{{ route('sales.show', $sale->id) }}" class="btn btn-sm btn-success"><i class="fi-print"></i> Print</a>
+                           @endif
 
+                           @if($logged_user->hasAccess('sales.edit'))
                            <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           @endif
 
+                           @if($logged_user->hasAccess('sales.destroy'))
                            {{ Form::open(['url' => route('sales.destroy', $sale->id), 'method' => 'delete']) }}
                               {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
                            {{ Form::close() }}
+                           @endif
                         </td>
                      </tr>
                      @endforeach

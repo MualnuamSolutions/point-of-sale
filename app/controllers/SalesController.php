@@ -106,7 +106,7 @@ class SalesController extends \BaseController
                     $salesItem->save();
 
                     if($this->user->outlet_id != 0) {
-                        $outletstock = OutletsStock::where('product_id','=',$productId)
+                        $outletstock = OutletsStocks::where('product_id','=',$productId)
                             ->where('outlet_id','=',$this->user->outlet_id)
                             ->first();
                         $outletstock->quantity = $outletstock->quantity - $salesItem->quantity;

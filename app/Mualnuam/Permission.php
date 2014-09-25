@@ -65,6 +65,7 @@ class Permission
             'Store Manager' => [
                 'products.search' => 1,
                 'sales.create' => 1,
+                'sales.store' => 1,
                 'sales.index' => 1,
                 'sales.edit' => 1,
                 'sales.remove' => 1,
@@ -80,8 +81,11 @@ class Permission
             'Sales Person' => [
                 'products.search' => 1,
                 'sales.create' => 1,
+                'sales.store' => 1,
                 'sales.index' => 1,
                 'sales.edit' => 1,
+                'sales.update' => 1,
+                'sales.show' => 1,
                 'stockreturns.index' => 1,
                 'stockreturns.edit' => 1,
                 'stockreturns.return' => 1,
