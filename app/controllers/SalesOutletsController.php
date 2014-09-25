@@ -12,7 +12,7 @@ class SalesOutletsController extends \BaseController {
 	 */
 	public function index()
 	{
-		$salesoutlets = Salesoutlets::paginate(20);
+		$salesoutlets = SalesOutlets::paginate(20);
       $index = $salesoutlets->getPerPage() * ($salesoutlets->getCurrentPage()-1) + 1;
       return View::make('salesoutlets.index', compact('salesoutlets', 'index'));
 	}
@@ -80,7 +80,7 @@ class SalesOutletsController extends \BaseController {
          return Redirect::route('salesoutlets.index')
             ->with('error', 'Please provide Sales Outlet id');
 
-      $salesoutlet = salesoutlets::find($id);
+      $salesoutlet = SalesOutlets::find($id);
 
       if(empty($salesoutlet))
          return Redirect::route('salesoutlets.index')
@@ -130,7 +130,7 @@ class SalesOutletsController extends \BaseController {
          return Redirect::route('salesoutlets.index')
             ->with('error', 'Please provide Sales Outlet id');
 
-      $salesoutlet = Salesoutlets::find($id);
+      $salesoutlet = SalesOutlets::find($id);
 
       if(empty($salesoutlet))
          return Redirect::route('salesoutlets.index')
