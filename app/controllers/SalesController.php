@@ -158,7 +158,10 @@ class SalesController extends \BaseController
         return View::make('sales.edit', compact('sale'));
     }
 
-
+    public function returnitem($id)
+    {
+        echo($id);exit();
+    }
     /**
      * Update the specified resource in storage.
      *

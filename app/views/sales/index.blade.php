@@ -15,14 +15,14 @@
                   <thead>
                      <tr>
                         <th>#</th>
-                        <th class="col-md-3">Reference No</th>
+                        <th class="col-md-2">Reference No</th>
                         <th class="col-md-1">Total</th>
                         <th class="col-md-1">Discount</th>
                         <th class="col-md-1">Paid</th>
                         <th class="col-md-1">Balance</th>
                         <th class="col-md-1">Items</th>
                         <th class="col-md-1">Status</th>
-                        <th class="col-md-4"></th>
+                        <th class="col-md-5"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -51,6 +51,10 @@
 
                            @if($logged_user->hasAccess('sales.edit'))
                            <a href="{{ route('sales.edit', $sale->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           @endif
+
+                           @if($logged_user->hasAccess('sales.returnitem'))
+                           <a href="{{ route('sales.returnitem', $sale->id) }}" class="btn btn-sm btn-warning"><i class="fi-minus"></i> Return Item</a>
                            @endif
 
                            @if($logged_user->hasAccess('sales.destroy'))

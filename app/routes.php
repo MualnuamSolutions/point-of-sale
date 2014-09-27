@@ -36,6 +36,7 @@ Route::resource('salesoutlets', 'SalesOutletsController');
 
 Route::resource('stocks', 'StocksController');
 
+Route::get('sales/{id}/returnitem', ['uses' => 'SalesController@returnitem', 'as' => 'sales.returnitem']);
 Route::resource('sales', 'SalesController');
 
 Route::resource('colors', 'ColorsController');
