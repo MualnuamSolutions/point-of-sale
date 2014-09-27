@@ -160,7 +160,26 @@ class SalesController extends \BaseController
 
     public function returnitem($id)
     {
-        echo($id);exit();
+        $sales = SalesItems::where('sales_id','=',$id)->get();
+        if($sales)
+        {    
+            foreach ($sales as $sale) 
+            {
+                $outletstock = OutletsStocks::where('product_id','=',$sale->product_id)
+                    ->where('outlet_id','=',$this->user->outlet_id)
+                    ->first();
+                if($outletstock)
+                {
+                    $outletstock->quantity = $outletstock->quantity + $sale->quantity;
+                    $outletstock->save();
+                    SalesItems::destroy($sale->id);
+
+                }
+            }
+        Sales::destroy($id);
+        return Redirect::route('sales.index')
+                ->with('success', 'Item successfully return');
+        }
     }
     /**
      * Update the specified resource in storage.
