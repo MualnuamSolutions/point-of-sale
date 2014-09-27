@@ -83,6 +83,7 @@ class Permission
                 'sales.create' => 1,
                 'sales.store' => 1,
                 'sales.index' => 1,
+                'sales.returnitem' => 1,
                 'sales.edit' => 1,
                 'sales.update' => 1,
                 'sales.show' => 1,
