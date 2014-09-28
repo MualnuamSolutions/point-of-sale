@@ -9,6 +9,6 @@ class SalesOutlets extends Eloquent
 
    public static function dropdownList()
    {
-      return array('' => 'Select Outlet') + self::orderBy('name', 'asc')->get()->lists('name', 'id');
+      return array('all' => 'All Outlets') + self::orderBy('name', 'asc')->get()->lists('name', 'id');
    }
 }

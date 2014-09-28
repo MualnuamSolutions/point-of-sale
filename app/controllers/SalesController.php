@@ -22,7 +22,19 @@ class SalesController extends \BaseController
         $sales = Sales::with('items', 'customer')
             ->where(function ($query) use ($input) {
                 if (array_key_exists('outlet', $input) && $input['outlet'] != '') {
-                    $query->where('outlet_id', '=', $input['outlet']);
+                    if(is_numeric($input['outlet']))
+                    {
+                        $query->where('outlet_id', '=', $input['outlet']);
+                    }
+                    else
+                    {
+                        $query->where('outlet_id', '>=', 0);
+                    }
+                    
+                }
+                else
+                {
+                    $query->where('outlet_id', '=', $this->user->outlet_id);
                 }
 
                 if (array_key_exists('status', $input) && $input['status'] != '')

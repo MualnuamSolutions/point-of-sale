@@ -6,7 +6,7 @@
          <div class="panel panel-default">
             <div class="panel-heading">
                @include('sales._menu')
-               <h3 class="panel-title"><i class="fi-page-multiple"></i> Sales</h3>
+               <h3 class="panel-title"><i class="fi-page-multiple"></i> Sales </h3>
             </div>
             <div class="panel-body sales-list">
                @include('sales._filter')
@@ -26,7 +26,14 @@
                      </tr>
                   </thead>
                   <tbody>
+                     <?php
+                     $totamount=0;
+                     $totdistcount=0;
+                     $totpaid=0;
+                     $totbalance=0;
+                     ?>
                      @foreach($sales as $key => $sale)
+                     
                      <tr>
                         <td>{{ $sales->getFrom() + $key }}</td>
                         <td>{{ $sale->reference_no }}</td>
@@ -64,7 +71,24 @@
                            @endif
                         </td>
                      </tr>
+                     <?php
+                     $totamount = $totamount + $sale->total;
+                     $totdistcount = $totdistcount + $sale->discount;
+                     $totpaid = $totpaid + $sale->paid;
+                     $totbalance = $totbalance + ($sale->total - $sale->paid);
+                     ?>
                      @endforeach
+                     <tr>
+                        <td></td>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong><i class="fa fa-rupee"></i> {{$totamount}}</strong></td>
+                        <td><strong><i class="fa fa-rupee"></i> {{$totdistcount}}</strong></td>
+                        <td><strong><i class="fa fa-rupee"></i> {{$totpaid}}</strong></td>
+                        <td><strong><i class="fa fa-rupee"></i> {{$totbalance}}</strong></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                     </tr>
                   </tbody>
                </table>
 
