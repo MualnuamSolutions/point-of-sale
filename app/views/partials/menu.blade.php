@@ -7,7 +7,7 @@
       @endif
 
       @if($logged_user->hasAccess('sales.index'))
-      <li class="{{ Mualnuam\Menu::isCurrent('sales.index') }}"><a href="{{ route('sales.index') }}">Sales</a></li>
+      <li class="{{ Mualnuam\Menu::isCurrent('sales.index') }}"><a href="{{ route('sales.index') }}">Sales Report</a></li>
       @endif
 
       @if($logged_user->hasAccess('stocks.index'))
@@ -83,23 +83,56 @@
 @if(isset($position) && $position == 'sidebar')
 <div class="visible-xs col-xs-6 sidebar-offcanvas" id="sidebar">
    <div class="list-group">
+    @if($logged_user->hasAccess('sales.create'))
       <a href="{{ route('sales.create') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> New Sale</a>
-      <a href="{{ route('sales.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Sales</a>
+    @endif
+    @if($logged_user->hasAccess('stocks.index'))  
+      <a href="{{ route('sales.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Sales Report</a>
+    @endif
+    @if($logged_user->hasAccess('stocks.index'))  
       <a href="{{ route('stocks.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Stocks</a>
+    @endif
+    @if($logged_user->hasAccess('products.index'))  
       <a href="{{ route('products.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Products</a>
+    @endif
+    @if($logged_user->hasAccess('discounts.index'))  
       <a href="{{ route('discounts.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Discounts</a>
+    @endif
+    @if($logged_user->hasAccess('suppliers.index'))  
       <a href="{{ route('suppliers.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Suppliers</a>
+    @endif
+    @if($logged_user->hasAccess('salesoutlets.index'))  
       <a href="{{ route('salesoutlets.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlets</a>
+    @endif
+    @if($logged_user->hasAccess('outletdeposits.index'))  
       <a href="{{ route('outletdeposits.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Outlet Deposit</a>
+    @endif
+    @if($logged_user->hasAccess('distributions.index'))  
       <a href="{{ route('distributions.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Distribution</a>
+    @endif
+    @if($logged_user->hasAccess('customers.index'))  
       <a href="{{ route('customers.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Customers</a>
+    @endif
+    @if($logged_user->hasAccess('units.index'))  
       <a href="{{ route('units.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Product Units</a>
+    @endif
+    @if($logged_user->hasAccess('types.index'))  
       <a href="{{ route('types.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Product Types</a>
+    @endif
+    @if($logged_user->hasAccess('colors.index'))  
       <a href="{{ route('colors.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Colors</a>
+    @endif
+    @if($logged_user->hasAccess('users.index'))  
       <a href="{{ route('users.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Users</a>
+    @endif
+    @if($logged_user->hasAccess('vats.index'))  
       <a href="{{ route('vats.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Vat</a>
+    @endif
+    @if($logged_user->hasAccess('users.revokePermission'))  
       <a href="{{ route('users.revokePermission') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
+    @endif
       <a href="{{ route('users.logout') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Logout</a>
+  
    </div>
 </div>
 @endif
