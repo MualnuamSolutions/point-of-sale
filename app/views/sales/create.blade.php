@@ -170,7 +170,7 @@ jQuery(function(){
             if(data == null)
                var data = $.parseJSON(suggestions[0].nodiscount);
 
-            if (data.product_code == query) {
+            if (data.product_code.trim() == query.trim()) {
                addToCart(data);
             }
          }

@@ -199,7 +199,7 @@ class ProductsController extends \BaseController
 
     public function search()
     {
-        $query = Input::get('query');
+        $query = trim(Input::get('query'));
 
         $result = Products::autocompleteSearch($query);
 
