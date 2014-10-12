@@ -9,6 +9,14 @@
 
       <div class="form-group">
          {{ Form::select('status', ['' => 'All', 'completed' => 'Completed', 'credit' => 'Credit'], Input::get('status', null), ['class' => 'form-control input-sm']) }}
+      </div> 
+
+      <div class="form-group">
+         {{ Form::text('from', '', array('class' => 'form-control','placeholder' => 'Select Date From','data-datepicker' => 'datepicker')) }}
+      </div>
+
+      <div class="form-group">
+         {{ Form::text('to', '', array('class' => 'form-control','placeholder' => 'Select Date To','data-datepicker' => 'datepicker')) }}
       </div>
 
       <div class="form-group">
