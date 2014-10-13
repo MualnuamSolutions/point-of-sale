@@ -77,7 +77,7 @@ class Products extends Eloquent
             if (array_key_exists('name_code', $input) && strlen($input['name_code'])) {
                 $query->where(function ($query) use ($input) {
                     $query->where('name', 'LIKE', "%" . $input['name_code'] . "%");
-                    $query->orWhere('product_code', 'LIKE', "%" . $input['name_code'] . "%");
+                    $query->orWhere('product_code', 'LIKE', "%" . trim($input['name_code']) . "%");
                 });
             }
 
@@ -88,7 +88,7 @@ class Products extends Eloquent
                 $query->whereTypeId($input['unit']);
 
             if (array_key_exists('barcode', $input) && strlen($input['barcode']))
-                $query->where('product_code', 'LIKE', "%" . $input['barcode'] . "%");
+                $query->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
 
         })
             ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp) as nameprice'))
