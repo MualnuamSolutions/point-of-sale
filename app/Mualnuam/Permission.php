@@ -78,6 +78,7 @@ class Permission
                 'distributions.update' => 1,
                 'distributions.destroy' => 1,
                 'stocks.create' => 1,
+                'stocks.store' => 1,
                 'stocks.index' => 1,
                 'products.index' => 1,
                 'products.create' => 1,
