@@ -32,15 +32,28 @@
                         <td>{{ $index+$key }}</td>
                        
                         <td>
+                           @if($stock->product)
                            <a href="{{ route('products.show', $stock->product->id) }}">{{ stripslashes($stock->product->name) }}</a><br />
                            <small>{{ $stock->product->product_code}}</small>
+                           @else
+                           <small>Product deleted</small>
+                           @endif
                         </td>
                         @if($logged_user->outlet_id == 0)
                            <td><a href="{{ route('suppliers.show', $stock->supplier->id) }}">{{ $stock->supplier->name}}</a></td>
                         @endif
-                        <td><i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}</td>
+                        <td>
+                           @if($stock->product)
+                           <i class="fa fa-rupee"></i> {{ $stock->product->cp }} / <i class="fa fa-rupee"></i> {{ $stock->product->sp}}
+                           @endif
+                        </td>
+
                         <td>{{ $stock->quantity }}</td>
-                        <td>{{ $stock->product->discount }} % </td>
+                        <td>
+                           @if($stock->product)
+                           {{ $stock->product->discount }} %
+                           @endif
+                        </td>
                         <td>
                            @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0)   
                            <a href="{{ route('stockreturns.return', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a>
