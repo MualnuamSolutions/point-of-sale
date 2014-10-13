@@ -49,6 +49,8 @@ class Permission
                 'outletdeposits.edit' => 1,
                 'outletdeposits.update' => 1,
                 'outletdeposits.destroy' => 1,
+                'outletdeposits.approve' => 1,
+                'outletdeposits.reject' => 1,
                 'stockreturns.index' => 1,
                 'stockreturns.create' => 1,
                 'stockreturns.store' => 1,
