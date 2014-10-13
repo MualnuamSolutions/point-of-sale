@@ -89,6 +89,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         'permissions' => [],
     ];
 
+	public static $updateRules = [
+		'email' => 'required|unique:users',
+		'name' => 'required',
+		'phone' => 'numeric',
+		'outlet_id' => 'required',
+		'permissions' => [],
+	];
+
     public static $roles = [1 => 'Manager', 2 => 'Store Manager', 3 => 'Sales Person'];
 
     public function groups()
