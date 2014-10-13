@@ -48,6 +48,7 @@ class UsersController extends \BaseController {
 
         if ($validator->passes()) {
             $group = Sentry::findGroupById(Input::get('role'));
+			$outlet_id = (Input::get('outlet_id') == 'all' || Input::get('outlet_id') == 0) ? 0 : Input::get('outlet_id');
 
             // Create the user
             $user = Sentry::createUser(array(
@@ -56,7 +57,7 @@ class UsersController extends \BaseController {
                 'name' => Input::get('name'),
                 'phone' => Input::get('phone'),
                 'address' => Input::get('address'),
-                'outlet_id' => Input::get('outlet_id'),
+                'outlet_id' => $outlet_id,
 
                 'activated' => Input::get('activated'),
                 'permissions' => []
@@ -96,7 +97,12 @@ class UsersController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$groups = Sentry::getGroups();
+		$outlets = SalesOutlets::dropdownList();
+		$roles = ['' => 'Select Role'] + User::$roles;
+		$user = User::with('groups')->find($id);
+
+		return View::make('users.edit', compact('groups', 'outlets', 'roles', 'user'));
 	}
 
 
@@ -108,7 +114,40 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$rules = User::$updateRules;
+		if(Input::get('password'))
+			$rules['password'] = 'alpha_num|between:4,8';
+
+		$validator = Validator::make(Input::all(), $rules);
+
+		if ($validator->passes()) {
+			$group = Sentry::findGroupById(Input::get('role'));
+			$outlet_id = (Input::get('outlet_id') == 'all' || Input::get('outlet_id') == 0) ? 0 : Input::get('outlet_id');
+
+			// Create the user
+			$user = Sentry::createUser(array(
+				'email' => Input::get('email'),
+				'password' => Input::get('password'),
+				'name' => Input::get('name'),
+				'phone' => Input::get('phone'),
+				'address' => Input::get('address'),
+				'outlet_id' => $outlet_id,
+
+				'activated' => Input::get('activated'),
+				'permissions' => []
+			));
+
+			// Assign the group to the user
+			$user->addGroup($group);
+
+			return Redirect::route('users.create')
+				->with('success', 'User created successfully');
+
+		} else {
+			return Redirect::route('users.create')
+				->withErrors($validator)
+				->withInput(Input::all());
+		}
 	}
 
 

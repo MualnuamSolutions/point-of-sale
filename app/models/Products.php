@@ -60,9 +60,9 @@ class Products extends Eloquent
         $discountedProducts = Discounts::select('product_id')->get()->lists('product_id');
         if($exludeDiscounted && $discountedProducts)
             $products = Products::whereNotIn('id', Discounts::select('product_id')->get()->lists('product_id'))
-                ->orderBy('name', 'asc')->get();
+                ->orderBy('name', 'asc')->select('id', DB::raw('CONCAT(name, " - Rs ",  sp) as name'))->get();
         else
-            $products = Products::orderBy('name', 'asc')->get();
+            $products = Products::orderBy('name', 'asc')->select('id', DB::raw('CONCAT(name, " - Rs ",  sp) as name'))->get();
 
         return array('' => 'Select Product') + $products->lists('name', 'id');
     }

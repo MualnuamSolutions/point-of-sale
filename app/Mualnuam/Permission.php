@@ -57,6 +57,8 @@ class Permission
                 'stockreturns.destroy' => 1,
                 'units.index' => 1,
                 'users.index' => 1,
+                'users.edit' => 1,
+                'users.update' => 1,
                 'users.create' => 1,
                 'users.store' => 1,
                 'home' => 1,
