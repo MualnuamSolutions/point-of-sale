@@ -139,12 +139,11 @@ class ProductsController extends \BaseController
                 $product = Products::find($id);
                 $product->name = addslashes(Input::get('name'));
                 $product->color_id = Input::get('color');
-                $product->product_code = 0;
+                $product->cp = Input::get('cp');
+                $product->sp = Input::get('sp');
                 $product->type_id = Input::get('type_id');
                 $product->unit_id = Input::get('unit_id');
                 $product->save();
-                $product->setProductCode($product);
-
                 return Redirect::route('products.index')
                     ->with('success', 'Product updated successfully');
             } else {

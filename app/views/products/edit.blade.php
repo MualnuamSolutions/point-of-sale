@@ -25,13 +25,13 @@
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
                            {{ Form::label('cp', 'Cost Price') }}
-                           {{ Form::label('cp', stripslashes("Rs. ".$product->cp), ['class' => 'form-control']) }}
+                           {{ Form::text('cp', $product->cp, ['class' => 'form-control']) }}
                         </div>
                      </div>
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                            {{ Form::label('sp', 'Selling Price') }}
-                           {{ Form::text('sp', stripslashes("Rs. ".$product->sp), ['class' => 'form-control']) }}
+                           {{ Form::text('sp', $product->sp, ['class' => 'form-control']) }}
                         </div>
                      </div>
                   </div>      

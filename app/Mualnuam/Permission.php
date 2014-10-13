@@ -19,6 +19,8 @@ class Permission
                 'stocks.destroy' => 1,
                 'products.index' => 1,
                 'products.search' => 1,
+                'products.edit' => 1,
+                'products.update' => 1,
                 'discounts.index' => 1,
                 'discounts.create' => 1,
                 'discounts.store' => 1,
