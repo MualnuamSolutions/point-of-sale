@@ -15,17 +15,19 @@ class ProductsController extends \BaseController
      */
     public function index()
     {
+        $limit = Input::get('limit', 24);
         $input = Input::all();
-        $products = Products::filter(Input::all(), 24);
+        $products = Products::filter(Input::all(), $limit);
         $types = Types::dropdownList();
         $units = Units::dropdownList();
 
         if (Request::ajax()) {
             return Response::json($products->lists('nameprice', 'id'))->setCallback(Input::get('callback'));
         }
-
-        $index = $products->getPerPage() * ($products->getCurrentPage() - 1) + 1;
-        return View::make('products.index', compact('products', 'index', 'input', 'types', 'units'));
+        else {
+            $index = $products->getPerPage() * ($products->getCurrentPage() - 1) + 1;
+            return View::make('products.index', compact('products', 'index', 'input', 'types', 'units'));
+        }
     }
 
 

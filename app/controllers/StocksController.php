@@ -117,11 +117,7 @@ class StocksController extends \BaseController
         if ($validator->passes()) {
             $stock = Stocks::find($id);
             $stock->supplier_id = Input::get('supplier_id');
-            $stock->cp = Input::get('cp');
-            $stock->sp = Input::get('sp');
-            $current_sales = $stock->quantity - $stock->in_stock;
             $stock->quantity = Input::get('quantity');
-            $stock->in_stock = Input::get('quantity') - $current_sales;
             $stock->save();
             Products::updateStock($stock->product_id);
 

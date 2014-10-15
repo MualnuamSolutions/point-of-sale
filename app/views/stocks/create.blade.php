@@ -107,7 +107,7 @@ function fetchUnit (productId) {
 function fetchProducts (typeId) {
 
    $.ajax({
-      url: '{{ route('products.index') }}',
+      url: '{{ route('products.index', ['limit'=>0]) }}',
       type: 'get',
       dataType: 'jsonp',
       data: {type: typeId},
