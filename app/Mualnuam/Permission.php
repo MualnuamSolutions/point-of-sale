@@ -90,6 +90,7 @@ class Permission
                 'products.create' => 1,
                 'products.store' => 1,
                 'products.edit' => 1,
+                'products.update' => 1,
                 'products.destroy' => 1,
                 'stockreturns.edit' => 1,
                 'discounts.index' => 1,
