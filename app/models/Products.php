@@ -70,7 +70,7 @@ class Products extends Eloquent
 
     public static function filter($input, $limit = 24)
     {
-        $products = Products::where(function ($query) use ($input) {
+        return Products::where(function ($query) use ($input) {
 
                 if (array_key_exists('name', $input) && strlen($input['name']))
                     $query->where('name', 'LIKE', "%" . $input['name'] . "%");
@@ -92,7 +92,7 @@ class Products extends Eloquent
                     $query->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
 
             })
-            ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp) as nameprice'))
+            ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp, ":",id) as nameprice'))
             ->orderBy('name', 'asc');
 
         if($limit == 0)
