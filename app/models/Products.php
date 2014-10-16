@@ -70,7 +70,7 @@ class Products extends Eloquent
 
     public static function filter($input, $limit = 24)
     {
-        return Products::where(function ($query) use ($input) {
+        $products = Products::where(function ($query) use ($input) {
 
                 if (array_key_exists('name', $input) && strlen($input['name']))
                     $query->where('name', 'LIKE', "%" . $input['name'] . "%");
