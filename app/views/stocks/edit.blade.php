@@ -12,16 +12,6 @@
                {{ Form::open(['url' => route('stocks.update',$stock->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
                   <div class="row">
                      <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : '' }}">
-                           {{ Form::label('supplier_id', 'Supplier') }}
-                           {{ Form::select('supplier_id', $suppliers, $stock->supplier_id, ['class' => 'form-control']) }}
-                           @if($errors->has('supplier_id'))
-                           <p class="help-block">{{ $errors->first('supplier_id') }}</p>
-                           @endif
-                        </div>
-                     </div>
-
-                     <div class="col-md-4">
                         <div class="form-group {{ $errors->has('type_id') ? 'has-error' : '' }}">
                            {{ Form::label('type_id', 'Product type') }}
                            <p class="form-control-static">
@@ -30,7 +20,7 @@
                         </div>
                      </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-8">
                         <div class="form-group {{ $errors->has('product_id') ? 'has-error' : '' }}">
                            {{ Form::label('product_id', 'Product') }}
                            <p class="form-control-static">
@@ -41,31 +31,6 @@
                   </div>
 
                   <div class="row">
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('cp') ? 'has-error' : '' }}">
-                           {{ Form::label('cp', 'Cost Price') }}
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('cp', $stock->cp, ['class' => 'form-control']) }}
-                           </div>
-                           @if($errors->has('cp'))
-                           <p class="help-block">{{ $errors->first('cp') }}</p>
-                           @endif
-                        </div>
-                     </div>
-
-                     <div class="col-md-4">
-                        <div class="form-group {{ $errors->has('sp') ? 'has-error' : '' }}">
-                           {{ Form::label('sp', 'Selling Price') }}
-                           <div class="input-group">
-                              <span class="input-group-addon"><i class="fa fa-rupee"></i></span>
-                              {{ Form::text('sp', $stock->sp, ['class' => 'form-control']) }}
-                           </div>
-                           @if($errors->has('sp'))
-                           <p class="help-block">{{ $errors->first('sp') }}</p>
-                           @endif
-                        </div>
-                     </div>
 
                      <div class="col-md-4">
                         <div class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
@@ -76,6 +41,16 @@
                            @endif
                         </div>
                      </div>
+                     <div class="col-md-8">
+                        <div class="form-group {{ $errors->has('supplier_id') ? 'has-error' : '' }}">
+                           {{ Form::label('supplier_id', 'Supplier') }}
+                           {{ Form::select('supplier_id', $suppliers, $stock->supplier_id, ['class' => 'form-control']) }}
+                           @if($errors->has('supplier_id'))
+                           <p class="help-block">{{ $errors->first('supplier_id') }}</p>
+                           @endif
+                        </div>
+                     </div>
+
                   </div>
                   <div class="for-group text-right">
                      {{ Form::submit('Submit', ['class' => 'btn btn-primary']) }}

@@ -10,8 +10,9 @@ class Stocks extends Eloquent
    ];
    public static $updaterules = [
          'supplier_id' => 'required',
-         'cp' => 'required',
-         'sp' => 'required'
+         'quantity' => 'required',
+         // 'cp' => 'required',
+         // 'sp' => 'required'
    ];
 
    

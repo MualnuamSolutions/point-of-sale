@@ -107,7 +107,7 @@ function fetchUnit (productId) {
 function fetchProducts (typeId) {
 
    $.ajax({
-      url: '{{ route('products.index') }}',
+      url: '{{ route('products.index', ['limit'=>0]) }}',
       type: 'get',
       dataType: 'jsonp',
       data: {type: typeId},
@@ -124,7 +124,9 @@ function fetchProducts (typeId) {
          if(productId == 0)
             productId = key;
 
-         options += '<option value="' + key + '">' + name + '</option>';
+         nameArray = name.split(":");
+
+         options += '<option value="' + nameArray[1] + '">' + nameArray[0] + '</option>';
       });
 
       fetchUnit (productId);
@@ -135,6 +137,6 @@ function fetchProducts (typeId) {
       $("#product_id").html(html);
 
    });
-}s
+}
 </script>
 @stop

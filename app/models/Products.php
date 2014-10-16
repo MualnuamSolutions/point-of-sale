@@ -30,8 +30,9 @@ class Products extends Eloquent
     public static function updateStock($productId)
     {
         $product = Products::find($productId);
-        $in_stockQuantity = Stocks::whereProductId($productId)->sum('in_stock');
-        $product->quantity = $in_stockQuantity;
+        $stockQuantity = Stocks::whereProductId($productId)->sum('quantity');
+        $soldQuantity = SalesItems::where('product_id', '=', $productId)->sum('quantity');
+        $product->quantity = $stockQuantity - $soldQuantity;
         $product->save();
     }
 
@@ -69,31 +70,35 @@ class Products extends Eloquent
 
     public static function filter($input, $limit = 24)
     {
-        return Products::where(function ($query) use ($input) {
+        $products = Products::where(function ($query) use ($input) {
 
-            if (array_key_exists('name', $input) && strlen($input['name']))
-                $query->where('name', 'LIKE', "%" . $input['name'] . "%");
+                if (array_key_exists('name', $input) && strlen($input['name']))
+                    $query->where('name', 'LIKE', "%" . $input['name'] . "%");
 
-            if (array_key_exists('name_code', $input) && strlen($input['name_code'])) {
-                $query->where(function ($query) use ($input) {
-                    $query->where('name', 'LIKE', "%" . $input['name_code'] . "%");
-                    $query->orWhere('product_code', 'LIKE', "%" . trim($input['name_code']) . "%");
-                });
-            }
+                if (array_key_exists('name_code', $input) && strlen($input['name_code'])) {
+                    $query->where(function ($query) use ($input) {
+                        $query->where('name', 'LIKE', "%" . $input['name_code'] . "%");
+                        $query->orWhere('product_code', 'LIKE', "%" . trim($input['name_code']) . "%");
+                    });
+                }
 
-            if (array_key_exists('type', $input) && strlen($input['type']))
-                $query->whereTypeId($input['type']);
+                if (array_key_exists('type', $input) && strlen($input['type']))
+                    $query->whereTypeId($input['type']);
 
-            if (array_key_exists('unit', $input) && strlen($input['unit']))
-                $query->whereTypeId($input['unit']);
+                if (array_key_exists('unit', $input) && strlen($input['unit']))
+                    $query->whereTypeId($input['unit']);
 
-            if (array_key_exists('barcode', $input) && strlen($input['barcode']))
-                $query->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
+                if (array_key_exists('barcode', $input) && strlen($input['barcode']))
+                    $query->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
 
-        })
-            ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp) as nameprice'))
-            ->orderBy('name', 'asc')
-            ->paginate($limit);
+            })
+            ->select('products.*', DB::raw('CONCAT(name, " - Rs. ", cp , " / Rs. " , sp, ":",id) as nameprice'))
+            ->orderBy('name', 'asc');
+
+        if($limit == 0)
+            return $products->get();
+        else
+            return $products->paginate($limit);
     }
 
     public static function autocompleteSearch($query = null)
