@@ -177,16 +177,32 @@ class SalesController extends \BaseController
         {    
             foreach ($sales as $sale) 
             {
-                $outletstock = OutletsStocks::where('product_id','=',$sale->product_id)
-                    ->where('outlet_id','=',$this->user->outlet_id)
-                    ->first();
-                if($outletstock)
+                
+                if($this->user->outlet_id != 0)
                 {
-                    $outletstock->quantity = $outletstock->quantity + $sale->quantity;
-                    $outletstock->save();
-                    SalesItems::destroy($sale->id);
-
+                    
+                    $outletstock = OutletsStocks::where('product_id','=',$sale->product_id)
+                        ->where('outlet_id','=',$this->user->outlet_id)
+                        ->first();
+                    if($outletstock)
+                    {
+                        $outletstock->quantity = $outletstock->quantity + $sale->quantity;
+                        $outletstock->save();
+                        SalesItems::destroy($sale->id);
+                    }
                 }
+                else
+                {
+                    $product = Products::find($sale->product_id);
+                    if($product)
+                    {
+                       // var_dump($product);exit();
+                        $product->quantity = $product->quantity + $sale->quantity;
+                        $product->save();
+                        SalesItems::destroy($sale->id);
+                    }
+                }
+                
             }
         Sales::destroy($id);
         return Redirect::route('sales.index')

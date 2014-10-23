@@ -20,9 +20,10 @@
                         @if($logged_user->outlet_id == 0)
                            <th class="col-md-2">Supplier</th>
                         @endif
-                        <th class="col-md-2">CP/SP</th>
+                        <th class="col-md-1">CP/SP</th>
                         <th class="col-md-1">Quantity</th>
                         <th class="col-md-1">Discount</th>
+                        <th class="col-md-1">Date</th>
                         <th class="col-md-4"></th>
                      </tr>
                   </thead>
@@ -55,6 +56,9 @@
                            @endif
                         </td>
                         <td>
+                           {{ $stock->created_at }}
+                        </td>
+                        <td>
                            @if($stock->product)
                               @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0)
                               <a href="{{ route('stockreturns.return', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a>
@@ -65,6 +69,7 @@
                               @endif
                            @endif
                         </td>
+
                      
                      </tr>
                      @endforeach

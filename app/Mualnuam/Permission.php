@@ -86,6 +86,8 @@ class Permission
                 'stocks.create' => 1,
                 'stocks.store' => 1,
                 'stocks.index' => 1,
+                'stocks.edit' => 1,
+                'stocks.update' => 1,
                 'products.index' => 1,
                 'products.create' => 1,
                 'products.store' => 1,
