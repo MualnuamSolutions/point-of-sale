@@ -78,6 +78,7 @@ class Permission
                 'sales.index' => 1,
                 'sales.edit' => 1,
                 'sales.remove' => 1,
+                'sales.update' => 1,
                 'sales.returnitem' => 1,
                 'distributions.index' => 1,
                 'distributions.create' => 1,

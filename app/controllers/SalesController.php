@@ -21,20 +21,50 @@ class SalesController extends \BaseController
 
         $sales = Sales::with('items', 'customer')
             ->where(function ($query) use ($input) {
+                $fr = date('Y-m-d', strtotime(Input::get('from')));
+                $to = date('Y-m-d', strtotime(Input::get('to')));
                 if (array_key_exists('outlet', $input) && $input['outlet'] != '') {
                     if(is_numeric($input['outlet']))
                     {
-                        $query->where('outlet_id', '=', $input['outlet']);
+                        if($fr == '1970-01-01')
+                        {
+                            $query->where('outlet_id', '=', $input['outlet']);
+                        }
+                        else
+                        {
+                            $query->where('outlet_id', '=', $input['outlet'])
+                              ->where('created_at','>=',$fr)
+                              ->where('created_at','<=',$to);
+                        }
+                        
                     }
                     else
                     {
-                        $query->where('outlet_id', '>=', 0);
+                        if($fr == '1970-01-01')
+                        {
+                            $query->where('outlet_id', '>=', 0);
+                        }
+                        else
+                        {
+                            $query->where('outlet_id', '>=', 0)
+                              ->where('created_at','>=',$fr)
+                              ->where('created_at','<=',$to);
+                        }
                     }
                     
                 }
                 else
                 {
-                    $query->where('outlet_id', '=', $this->user->outlet_id);
+                    if($fr == '1970-01-01')
+                        {
+                            $query->where('outlet_id', '=', $this->user->outlet_id);
+                        }
+                        else
+                        {
+                            $query->where('outlet_id', '=', $this->user->outlet_id)
+                              ->where('created_at','>=',$fr)
+                              ->where('created_at','<=',$to);
+                        }
                 }
 
                 if (array_key_exists('status', $input) && $input['status'] != '')
