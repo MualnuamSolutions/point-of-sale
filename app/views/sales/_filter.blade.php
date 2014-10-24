@@ -12,11 +12,11 @@
       </div> 
 
       <div class="form-group">
-         {{ Form::text('from', '', array('class' => 'form-control','placeholder' => 'Select Date From','data-datepicker' => 'datepicker')) }}
+         {{ Form::text('from', '', array('class' => 'datepicker-from form-control','placeholder' => 'Select Date From')) }}
       </div>
 
       <div class="form-group">
-         {{ Form::text('to', '', array('class' => 'form-control','placeholder' => 'Select Date To','data-datepicker' => 'datepicker')) }}
+         {{ Form::text('to', '', array('class' => 'datepicker-to form-control','placeholder' => 'Select Date To')) }}
       </div>
 
       <div class="form-group">

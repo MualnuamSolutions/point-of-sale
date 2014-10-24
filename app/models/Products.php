@@ -46,6 +46,11 @@ class Products extends Eloquent
         return $this->hasOne('Units', 'id', 'unit_id');
     }
 
+    public function discount()
+    {
+        return $this->belongsTo('Discounts', 'product_id');
+    }
+
     public function stocks()
     {
         return $this->hasMany('Stocks', 'product_id');
@@ -89,6 +94,12 @@ class Products extends Eloquent
 
                 if (array_key_exists('type', $input) && strlen($input['type']))
                     $query->whereTypeId($input['type']);
+
+                if (array_key_exists('entry_from', $input) && strlen($input['entry_from']))
+                    $query->where(DB::raw('DATE(created_at)'), '>=', date('Y-m-d', strtotime($input['entry_from'])));
+
+                if (array_key_exists('entry_to', $input) && strlen($input['entry_to']))
+                    $query->where(DB::raw('DATE(created_at)'), '<=', date('Y-m-d', strtotime($input['entry_to'])));
 
                 if (array_key_exists('unit', $input) && strlen($input['unit']))
                     $query->whereTypeId($input['unit']);
@@ -156,7 +167,7 @@ class Products extends Eloquent
                 })
                 ->where('quantity', '>=', 1)
                 ->select(
-                    DB::raw("CONCAT(name, ' Rs ', sp, ' - In stock (', quantity, ')') as value"),
+                    DB::raw("CONCAT(name, ' Rs ', cp, ' / Rs ', sp, ' - In stock (', quantity, ')') as value"),
                     DB::raw("CONCAT(
                             '{\"id\":\"', {$productTable}.id, '\"',
                             ',\"product_code\":\"', product_code, '\"',

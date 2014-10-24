@@ -112,7 +112,13 @@ class DistributionsController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+		$distribution = Distributions::find($id);
+		$input = Input::all();
+      	$products = Products::filter($input, 25);
+      	$types = Types::dropdownList();
+      	$outlets = SalesOutlets::dropdownList();
+
+      	return View::make('distributions.edit', compact('products', 'types', 'input', 'outlets'));
 	}
 
 

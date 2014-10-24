@@ -3,7 +3,7 @@
    <a href="{{ route('discounts.index') }}" class="btn btn-xs btn-success"><i class="fa fa-arrow-left"></i> Back To List</a>
    @endif
 
-   @if( in_array($current_route, ['discounts.index', 'discounts.edit']) )
+   @if( ($logged_user && $logged_user->hasAccess('discounts.create')) && in_array($current_route, ['discounts.index', 'discounts.edit']) )
    <a href="{{ route('discounts.create') }}" class="btn btn-xs btn-success"><i class="fi-page-add"></i> New</a>
    @endif
 

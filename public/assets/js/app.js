@@ -1,3 +1,8 @@
+var entry_from;
+var entry_from_picker;
+var entry_to;
+var entry_to_picker;
+
 $(document).ready(function () {
     $('.tooltip, .tooltip-top').tooltip({'placement': 'top'});
     $('.tooltip-bottom').tooltip({'placement': 'bottom'});
@@ -42,7 +47,24 @@ $(document).ready(function () {
     $('.filter select').on('change', function(){
        $(this).closest('form').submit();
     });
+
+   entry_from = $('.datepicker-from').pickadate();
+   entry_to = $('.datepicker-to').pickadate(); 
+   entry_from_picker = entry_from.pickadate('picker');
+   entry_to_picker = entry_to.pickadate('picker');
+
+   $('.datepicker-from').on('blur', function(){
+      setMin();
+   });
+
+   if($('.datepicker-from').val().length)
+      setMin();
 });
+
+function setMin()
+{
+   entry_to_picker.set('min', entry_from_picker.get());
+}
 
 function stripslashes(str) {
     //       discuss at: http://phpjs.org/functions/stripslashes/

@@ -12,6 +12,8 @@
             </div>
 
             <div class="panel-body">
+               @include('stocks._filter')
+
                <table class="table table-condensed">
                   <thead>
                      <tr>
@@ -23,8 +25,8 @@
                         <th class="col-md-1">CP/SP</th>
                         <th class="col-md-1">Quantity</th>
                         <th class="col-md-1">Discount</th>
-                        <th class="col-md-1">Date</th>
-                        <th class="col-md-4"></th>
+                        <th class="col-md-2">Date</th>
+                        <th class="col-md-3"></th>
                      </tr>
                   </thead>
                   <tbody>
@@ -52,11 +54,11 @@
                         <td>{{ $stock->quantity }}</td>
                         <td>
                            @if($stock->product)
-                           {{ $stock->product->discount }} %
+                           <td>{{ Discounts::display($stock->product->id) }}</td>
                            @endif
                         </td>
                         <td>
-                           {{ $stock->created_at }}
+                           {{ date('d/m/Y h:iA', strtotime($stock->created_at)) }}
                         </td>
                         <td>
                            @if($stock->product)
@@ -75,8 +77,12 @@
                      @endforeach
                   </tbody>
                </table>
-
-               {{ $stocks->links() }}
+               <?php
+               $input = Input::all();
+               if(isset($input['page']))
+                  unset($input['page']);
+               ?>
+               {{ $stocks->appends($input)->links() }}
             </div>
          </div>
       </div>

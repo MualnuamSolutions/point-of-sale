@@ -44,4 +44,14 @@ class Discounts extends Eloquent
             ->paginate($limit);
     }
 
+    public static function display($productId)
+    {
+        $discount = Discounts::whereStatus('active')->whereProductId($productId)->first();
+
+        if($discount) {
+             return $discount->discount_type == 'percentage' ? $discount->amount . '%' : $discount->amount;
+        }   
+        else return null;     
+    }
+
 }

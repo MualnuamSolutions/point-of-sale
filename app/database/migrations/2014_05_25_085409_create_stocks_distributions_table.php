@@ -18,7 +18,7 @@ class CreateStocksDistributionsTable extends Migration {
          $table->integer('stock_id');
          $table->integer('product_id');
          $table->integer('outlet_id');
-         $table->integer('quantity');
+         $table->float('quantity');
          $table->integer('in_stock')->default(0);
          $table->timestamps();
       });

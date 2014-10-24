@@ -14,14 +14,67 @@ class StocksController extends \BaseController
      */
     public function index()
     {
+        $input = Input::all();
+        $types = Types::dropdownList();
+        $suppliers = Suppliers::dropdownList();
+        $supplierTable = (new Suppliers)->getTable();
+        $productTable = (new Products)->getTable();
+
         $stocks = null;
-        if ($this->loggedUser()->outlet_id)
-            $stocks = OutletsStocks::where('outlet_id', '=', $this->loggedUser()->outlet_id)->paginate(20);
-        else
-            $stocks = Stocks::paginate(20);
+        if ($this->loggedUser()->outlet_id) {
+            $outletStockTable = (new OutletsStocks)->getTable();
+            
+            $stocks = OutletsStocks::join($productTable, $productTable . '.id', '=', $outletStockTable . '.product_id')
+                        ->where(function($q) use ($input, $productTable, $outletStockTable){
+                            if (array_key_exists('name', $input) && strlen($input['name']))
+                                $q->where($productTable . '.name', 'LIKE', "%" . $input['name'] . "%");
+
+                            if (array_key_exists('type', $input) && strlen($input['type']))
+                                $q->where('type_id', '=',  $input['type']);
+
+                            if (array_key_exists('entry_from', $input) && strlen($input['entry_from']))
+                                $q->where(DB::raw('DATE('.$outletStockTable.'.created_at)'), '>=', date('Y-m-d', strtotime($input['entry_from'])));
+
+                            if (array_key_exists('entry_to', $input) && strlen($input['entry_to']))
+                                $q->where(DB::raw('DATE('.$outletStockTable.'.created_at)'), '<=', date('Y-m-d', strtotime($input['entry_to'])));
+                
+                            if (array_key_exists('barcode', $input) && strlen($input['barcode']))
+                                $q->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
+
+                        })
+                        ->select($outletStockTable.'.*')
+                        ->where('outlet_id', '=', $this->loggedUser()->outlet_id)->paginate(20);
+        }
+        else {
+            $stockTable = (new Stocks)->getTable();
+            $stocks = Stocks::join($productTable, $productTable . '.id', '=', $stockTable . '.product_id')
+                        ->join($supplierTable, $supplierTable . '.id', '=', $stockTable . '.supplier_id')
+                        ->where(function($q) use ($input, $productTable, $stockTable){
+                            if (array_key_exists('name', $input) && strlen($input['name']))
+                                $q->where($productTable . '.name', 'LIKE', "%" . $input['name'] . "%");
+
+                            if (array_key_exists('type', $input) && strlen($input['type']))
+                                $q->where('type_id', '=',  $input['type']);
+
+                            if (array_key_exists('supplier', $input) && strlen($input['supplier']))
+                                $q->where('supplier_id', '=',  $input['supplier']);
+
+                            if (array_key_exists('entry_from', $input) && strlen($input['entry_from']))
+                                $q->where(DB::raw('DATE('.$stockTable.'.created_at)'), '>=', date('Y-m-d', strtotime($input['entry_from'])));
+
+                            if (array_key_exists('entry_to', $input) && strlen($input['entry_to']))
+                                $q->where(DB::raw('DATE('.$stockTable.'.created_at)'), '<=', date('Y-m-d', strtotime($input['entry_to'])));
+                
+                            if (array_key_exists('barcode', $input) && strlen($input['barcode']))
+                                $q->where('product_code', 'LIKE', "%" . trim($input['barcode']) . "%");
+
+                        })
+                        ->select($stockTable.'.*')
+                        ->paginate(20);
+        }
 
         $index = $stocks->getPerPage() * ($stocks->getCurrentPage() - 1) + 1;
-        return View::make('stocks.index', compact('stocks', 'index'));
+        return View::make('stocks.index', compact('stocks', 'index', 'suppliers', 'types', 'input'));
     }
 
 

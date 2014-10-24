@@ -33,7 +33,7 @@
                         <td>{{ $distribution->in_stock }}</td>
                         <td>{{ date('d M Y h:iA', strtotime($distribution->created_at)) }}</td>
                         <td class="actions">
-                           <a href="{{ route('distributions.edit', $distribution->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a>
+                           <!-- <a href="{{ route('distributions.edit', $distribution->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Edit</a> -->
                            {{ Form::open(['url' => route('distributions.destroy', $distribution->id), 'method' => 'delete']) }}
                               {{ Form::button('<i class="fi-trash"></i> Delete', ['class' => 'btn btn-sm btn-danger', 'type' => 'submit']) }}
                            {{ Form::close() }}
