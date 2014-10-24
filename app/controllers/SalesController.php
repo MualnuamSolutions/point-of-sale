@@ -223,9 +223,11 @@ class SalesController extends \BaseController
             $customerId = Input::get('customer_id', null);
             // Create customer if required
             $customer = new Customers;
+            
             if ($customerId)
-                $customer = Customers::find($id);
-
+            {
+                $customer = Customers::find($customerId);
+            }
             if (Input::get('name')) {
                 $customer->name = Input::get('name');
                 $customer->address = Input::get('address');
