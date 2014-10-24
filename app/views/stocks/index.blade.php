@@ -60,7 +60,7 @@
                         </td>
                         <td>
                            @if($stock->product)
-                              @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0)
+                              @if($logged_user->hasAccess('stockreturns.edit') && $logged_user->outlet_id != 0 && $stock->quantity > 0)
                               <a href="{{ route('stockreturns.return', $stock->id) }}" class="btn btn-sm btn-primary"><i class="fi-pencil"></i> Return Stock Item</a>
                               @endif
 

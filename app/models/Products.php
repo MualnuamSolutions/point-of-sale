@@ -51,6 +51,11 @@ class Products extends Eloquent
         return $this->hasMany('Stocks', 'product_id');
     }
 
+    public function discounts()
+    {
+        return $this->hasOne('Discounts','id','product_id');
+    }
+
     public function color()
     {
         return $this->hasOne('Colors', 'id', 'color_id');

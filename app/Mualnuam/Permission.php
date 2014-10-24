@@ -60,6 +60,8 @@ class Permission
                 'stockreturns.edit' => 1,
                 'stockreturns.update' => 1,
                 'stockreturns.destroy' => 1,
+                'stockreturns.approve' => 1,
+                'stockreturns.reject' => 1,
                 'units.index' => 1,
                 'users.index' => 1,
                 'users.edit' => 1,

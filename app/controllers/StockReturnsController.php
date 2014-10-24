@@ -38,11 +38,12 @@ public function __construct()
 	public function approve($id)
 	{
 		$outletsStocksReturns = OutletsStocksReturns::find($id);
+		//echo $outletsStocksReturns->product_id;exit();
 		 if($outletsStocksReturns)
 		 {
-		 	$stock = Stocks::where('product_id','=', $outletsStocksReturns->product_id)->first();
-		 	$stock->quantity = $stock->quantity + $outletsStocksReturns->quantity;
-		 	$stock->save();
+		 	$product = Products::where('id','=', $outletsStocksReturns->product_id)->first();
+		 	$product->quantity = $product->quantity + $outletsStocksReturns->quantity;
+		 	$product->save();
 
 		 	$outletsStocks = OutletsStocks::where('product_id','=',$outletsStocksReturns->product_id)->where('outlet_id','=',$outletsStocksReturns->outlet_id)->first();
 		 	$outletsStocks->quantity = $outletsStocks->quantity - $outletsStocksReturns->quantity;
@@ -103,7 +104,9 @@ public function __construct()
 	public function store()
 	{
 		$validator = Validator::make(Input::all(), OutletsStocksReturns::$returnrules);
-
+		$outletsStocks = OutletsStocks::where('product_id','=',Input::get('product_id'))->where('outlet_id','=',Input::get('outlet_id'))->first();
+	    if(Input::get('quantity') <= $outletsStocks->quantity)
+	    { 
 	      if($validator->passes()) {
 	         $stockreturn = new OutletsStocksReturns;
 	         $stockreturn->product_id = Input::get('product_id');
@@ -121,6 +124,12 @@ public function __construct()
 	            ->withErrors($validator)
 	            ->withInput(Input::all());
 	      }
+	}
+	else
+	{
+		return Redirect::route('stocks.index')
+            ->with('error', 'RETURN ERROR : Return Quantity is more than Stock Quantity');
+	}
 	}
 
 
