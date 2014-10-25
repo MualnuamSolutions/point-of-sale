@@ -152,10 +152,26 @@ class DistributionsController extends \BaseController {
             return Redirect::route('distributions.index')
                 ->with('error', 'Distribution not found');
 
-        Distributions::destroy($id);
+        $outletStock = OutletsStocks::whereProductId($distribution->product_id)->first();
 
-        return Redirect::route('distributions.index')
-            ->with('success', 'Distribution deleted successfully');
+        if( $distribution->quantity <= $outletStock->quantity) {
+        	$product = Products::find($distribution->product_id);
+        	$product->quantity += $distribution->quantity;
+        	$product->save();
+
+        	$outletStock->quantity -= $distribution->quantity;
+        	$outletStock->save();
+
+        	Distributions::destroy($id);
+
+	        return Redirect::route('distributions.index')
+	            ->with('success', 'Distribution deleted successfully');
+        }
+        else {
+	        return Redirect::route('distributions.index')
+	            ->with('error', 'Distribution cannot be deleted as the items from this distribution are already sold.');
+        }
+
 	}
 
 
