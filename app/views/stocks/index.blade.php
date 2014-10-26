@@ -33,7 +33,6 @@
                      @foreach($stocks as $key => $stock)
                      <tr>
                         <td>{{ $index+$key }}</td>
-                       
                         <td>
                            @if($stock->product)
                            <a href="{{ route('products.show', $stock->product->id) }}">{{ stripslashes($stock->product->name) }}</a><br />
@@ -54,7 +53,7 @@
                         <td>{{ $stock->quantity }}</td>
                         <td>
                            @if($stock->product)
-                           <td>{{ Discounts::display($stock->product->id) }}</td>
+                           {{ Discounts::display($stock->product->id) }}
                            @endif
                         </td>
                         <td>
