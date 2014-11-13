@@ -27,8 +27,8 @@
                      @foreach($distributions as $key => $distribution)
                      <tr>
                         <td>{{ $distributions->getFrom() + $key }}</td>
-                        <td>{{ $distribution->outlet->name }}</td>
-                        <td>{{ $distribution->product->name }}</td>
+                        <td>{{ $distribution->outlet ? $distribution->outlet->name : 'Product deleted' }}</td>
+                        <td>{{ $distribution->product ? $distribution->product->name : 'Product deleted' }}</td>
                         <td>{{ $distribution->quantity }}</td>
                         <td>{{ $distribution->in_stock }}</td>
                         <td>{{ date('d M Y h:iA', strtotime($distribution->created_at)) }}</td>
