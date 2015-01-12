@@ -134,7 +134,7 @@
    <td><i class="fa fa-rupee"></i> {rate}</td>
    <td>{discount}</td>
    <td>
-      <input name="cart[{id}][quantity]" onblur="calculate()" onchange="calculate()" step="0.1" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
+      <input name="cart[{id}][quantity]" onblur="calculate()" onchange="calculate()" step="0.01" type="number" min="1" max="{inStock}" class="cart-row-quantity form-control input-sm" value="{quantity}"  />
       <input name="cart[{id}][cp]" type="hidden" class="cart-row-cp" value="{cp}"  />
       <input name="cart[{id}][sp]" type="hidden" class="cart-row-sp" value="{rate}"  />
       <input name="cart[{id}][discount_type]" type="hidden" class="cart-row-discount-type" value="{discountType}"  />
