@@ -17,6 +17,8 @@ Route::get('users/logout', ['uses' => 'UsersController@logout', 'as' => 'users.l
 Route::get('users/login', ['uses' => 'UsersController@login', 'as' => 'users.login']);
 Route::post('users/login/', ['uses' => 'UsersController@doLogin', 'as' => 'users.doLogin']);
 Route::get('users/revoke-permission', ['uses' => 'UsersController@revokePermission', 'as' => 'users.revokePermission']);
+Route::get('users/change-password', ['uses' => 'UsersController@changePassword', 'as' => 'users.changePassword']);
+Route::post('users/update-password', ['uses' => 'UsersController@updatePassword', 'as' => 'users.updatePassword']);
 
 Route::resource('users', 'UsersController');
 

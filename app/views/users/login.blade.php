@@ -20,6 +20,9 @@
                   <div class="row">
                      <h4><i class="glyphicon glyphicon-log-in"></i> LOG IN</h4>
                      <hr>
+
+                     <p class="text-danger text-center hidden login-error">Incorrect username or password.</p>
+
                      {{ Form::open(["url" => route("users.login"), 'method' => 'post', 'class' => 'form-vertical']) }}
                         <div class="form-group">
                            <div class="input-group">
@@ -64,6 +67,7 @@
             beforeSend: function(){
                $('form i.glyphicon-log-in').addClass('hidden');
                $('form i.fa-gear').removeClass('hidden');
+               $('.login-error').addClass('hidden');
             }
          })
          .fail(function(xhr, textStatus, thrownError){
@@ -79,6 +83,7 @@
                $('form i.fa-check').removeClass('hidden');
                window.location.reload();
             } else {
+               $('.login-error').removeClass('hidden');
                $('form i.fa-gear').addClass('hidden');
                $('form i.fa-check').addClass('hidden');
                $('form i.glyphicon-log-in').removeClass('hidden');

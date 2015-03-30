@@ -10,7 +10,7 @@
             </div>
 
             <div class="panel-body">
-                {{ Form::model($user, ['url' => route('users.update'), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+                {{ Form::model($user, ['url' => route('users.update', $user->id), 'method' => 'put', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
 
                 <div class="row">
                     <div class="col-md-6">
@@ -28,6 +28,8 @@
                         <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                             {{ Form::label('password', 'Password') }}
                             {{ Form::password('password', ['class' => 'form-control']) }}
+
+                            <p class="help-block">Leave blank to retain current password</p>
 
                             @if($errors->has('password'))
                                 <p class="help-block">{{ $errors->first('password') }}</p>

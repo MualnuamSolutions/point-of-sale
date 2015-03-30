@@ -68,6 +68,8 @@ class Permission
                 'users.update' => 1,
                 'users.create' => 1,
                 'users.store' => 1,
+                'users.changePassword' => 1,
+                'users.updatePassword' => 1,
                 'home' => 1,
             ],
 
@@ -99,6 +101,8 @@ class Permission
                 'products.destroy' => 1,
                 'stockreturns.edit' => 1,
                 'discounts.index' => 1,
+                'users.changePassword' => 1,
+                'users.updatePassword' => 1,
                 'home' => 1,
 
             ],
@@ -118,6 +122,8 @@ class Permission
                 'stockreturns.store' => 1,
                 'stocks.index' => 1,
                 'discounts.index' => 1,
+                'users.changePassword' => 1,
+                'users.updatePassword' => 1,
                 'home' => 1,
             ]
         ];

@@ -114,7 +114,13 @@ class UsersController extends \BaseController {
 	 */
 	public function update($id)
 	{
+    // Find the user
+    $user = Sentry::findUserById($id);
+
 		$rules = User::$updateRules;
+
+    $rules['email'] = 'required|unique:users,id,'. $id;
+
 		if(Input::get('password'))
 			$rules['password'] = 'alpha_num|between:4,8';
 
@@ -124,27 +130,32 @@ class UsersController extends \BaseController {
 			$group = Sentry::findGroupById(Input::get('role'));
 			$outlet_id = (Input::get('outlet_id') == 'all' || Input::get('outlet_id') == 0) ? 0 : Input::get('outlet_id');
 
-			// Create the user
-			$user = Sentry::createUser(array(
-				'email' => Input::get('email'),
-				'password' => Input::get('password'),
-				'name' => Input::get('name'),
-				'phone' => Input::get('phone'),
-				'address' => Input::get('address'),
-				'outlet_id' => $outlet_id,
+      $user->email = Input::get('email');
 
-				'activated' => Input::get('activated'),
-				'permissions' => []
-			));
+      if(Input::get('password'))
+        $user->password = Input::get('password');
+
+      $user->name = Input::get('name');
+      $user->phone = Input::get('phone');
+      $user->address = Input::get('address');
+      $user->outlet_id = $outlet_id;
+      $user->activated = Input::get('activated');
+
+      $user->save();
+
+      // Remove existing group
+      $userGroups = $user->getGroups();
+      foreach($userGroups as $usergroup)
+        $user->removeGroup($usergroup);
 
 			// Assign the group to the user
 			$user->addGroup($group);
 
-			return Redirect::route('users.create')
-				->with('success', 'User created successfully');
+			return Redirect::route('users.edit', $id)
+				->with('success', 'User updated successfully');
 
 		} else {
-			return Redirect::route('users.create')
+			return Redirect::route('users.edit', $id)
 				->withErrors($validator)
 				->withInput(Input::all());
 		}
@@ -274,9 +285,48 @@ class UsersController extends \BaseController {
 		return Redirect::route('users.login');
 	}
 
-   public function revokePermission()
-   {
-      $permissions = \Mualnuam\Permission::revoke();
-      return View::make('users.revoke', compact('permissions'));
-   }
+  public function revokePermission()
+  {
+    $permissions = \Mualnuam\Permission::revoke();
+    return View::make('users.revoke', compact('permissions'));
+  }
+
+  /**
+  * Show the form for changing password
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function changePassword()
+  {
+    $user = Sentry::getUser();
+    return View::make('users.change-password', compact('user'));
+  }
+
+
+  /**
+  * Change password
+  *
+  * @param  int  $id
+  * @return Response
+  */
+  public function updatePassword()
+  {
+    $rules = ['password' => 'required|alpha_num|between:4,8|confirmed'];
+    $validator = Validator::make(Input::all(), $rules);
+
+    if ($validator->passes()) {
+      $user = Sentry::getUser();        
+      $user->password = Input::get('password');
+      $user->save();
+
+      return Redirect::route('users.changePassword')
+      	->with('success', 'Password changed successfully');
+
+    } else {
+      return Redirect::route('users.changePassword')
+          ->withErrors($validator)
+          ->withInput(Input::all());
+    }
+  }
 }

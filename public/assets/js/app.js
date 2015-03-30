@@ -49,7 +49,7 @@ $(document).ready(function () {
     });
 
    entry_from = $('.datepicker-from').pickadate();
-   entry_to = $('.datepicker-to').pickadate(); 
+   entry_to = $('.datepicker-to').pickadate();
    entry_from_picker = entry_from.pickadate('picker');
    entry_to_picker = entry_to.pickadate('picker');
 
@@ -57,7 +57,7 @@ $(document).ready(function () {
       setMin();
    });
 
-   if($('.datepicker-from').val().length)
+   if($('.datepicker-from').size() && $('.datepicker-from').val().length)
       setMin();
 });
 

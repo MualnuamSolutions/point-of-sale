@@ -67,6 +67,10 @@
             <li class="{{ Mualnuam\Menu::isCurrent('users.index') }}"><a href="{{ route('users.index') }}"><i class="fa fa-arrow-right"></i> Users</a></li>
             @endif
 
+            @if($logged_user->hasAccess('users.changePassword'))
+            <li class="{{ Mualnuam\Menu::isCurrent('users.changePassword') }}"><a href="{{ route('users.changePassword') }}"><i class="fa fa-arrow-right"></i> Change Password</a></li>
+            @endif
+
             @if($logged_user->hasAccess('users.revokePermission'))
             <li class="{{ Mualnuam\Menu::isCurrent('users.revokePermission') }}"><a href="{{ route('users.revokePermission') }}"><i class="fa fa-arrow-right"></i> Revoke Permission</a></li>
             @endif
@@ -127,6 +131,9 @@
     @endif
     @if($logged_user->hasAccess('vats.index'))  
       <a href="{{ route('vats.index') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Vat</a>
+    @endif
+    @if($logged_user->hasAccess('users.changePassword'))  
+      <a href="{{ route('users.changePassword') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Change Password</a>
     @endif
     @if($logged_user->hasAccess('users.revokePermission'))  
       <a href="{{ route('users.revokePermission') }}" class="list-group-item"><i class="fa fa-arrow-right"></i> Revoke Permission</a>
