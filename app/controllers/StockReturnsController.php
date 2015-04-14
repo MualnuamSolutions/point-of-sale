@@ -32,7 +32,7 @@ public function __construct()
 	public function returnStock($id)
 	{
 		$outletsstocks = OutletsStocks::find($id);
-		return View::make('stocks.createreturn', compact('outletsstocks'));
+		return View::make('stocks.createreturn', compact('outletsstocks', 'id'));
 	}
 
 	public function approve($id)
@@ -105,6 +105,7 @@ public function __construct()
 	{
 		$validator = Validator::make(Input::all(), OutletsStocksReturns::$returnrules);
 		$outletsStocks = OutletsStocks::where('product_id','=',Input::get('product_id'))->where('outlet_id','=',Input::get('outlet_id'))->first();
+		$stockId = Input::get('stock_id');
 	    if(Input::get('quantity') <= $outletsStocks->quantity)
 	    { 
 	      if($validator->passes()) {
@@ -120,7 +121,7 @@ public function __construct()
 	            ->with('success', 'Stock Return created successfully');
 	      }
 	      else {
-	         return Redirect::route('stocks.createreturn')
+	         return Redirect::route('stockreturns.return', $stockId)
 	            ->withErrors($validator)
 	            ->withInput(Input::all());
 	      }

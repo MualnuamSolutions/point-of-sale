@@ -10,6 +10,7 @@
             </div>
             <div class="panel-body">
                {{ Form::open(['url' => route('stockreturns.store'), 'method' => 'post', 'class' => 'form-vertical', 'autocomplete' => 'off']) }}
+                  {{ Form::hidden('stock_id', $id) }}
                   <div class="row">
                     <div class="col-md-4">
                         <div id="quantity" class="form-group {{ $errors->has('quantity') ? 'has-error' : '' }}">
